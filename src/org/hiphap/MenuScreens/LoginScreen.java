@@ -1,6 +1,9 @@
 package org.hiphap.MenuScreens;
 
 public class LoginScreen extends MenuScreen {
+  public LoginScreen() {
+    addMenuOption("1", "Login");
+  }
   Transition handleInput(String input) {
     switch (input) {
       case "1":
@@ -8,10 +11,6 @@ public class LoginScreen extends MenuScreen {
       default:
         return null;
     }
-  }
-
-  void init() {
-    addMenuOption("1", "Login");
   }
 
   public void showContent() {

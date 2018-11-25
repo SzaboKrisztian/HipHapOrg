@@ -1,4 +1,7 @@
 package org.hiphap;
 
-public class Employee {
+public class Employee extends Person {
+  public Employee(String name) {
+    super(name);
+  }
 }

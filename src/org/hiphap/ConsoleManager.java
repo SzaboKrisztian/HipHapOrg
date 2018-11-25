@@ -3,8 +3,8 @@ package org.hiphap;
 import java.util.Scanner;
 
 public class ConsoleManager {
-  static ConsoleManager instance;
-  static final Scanner scn = new Scanner(System.in);
+  private static ConsoleManager instance;
+  private static final Scanner scn = new Scanner(System.in);
 
   private ConsoleManager() {}
 

@@ -4,6 +4,19 @@ import org.hiphap.Event;
 
 public class EventView extends MenuScreen {
   private Event currentEvent;
+
+  public EventView(Event event) {
+    this.currentEvent = event;
+    addMenuOption("1", "Edit event details");
+    addMenuOption("2", "Manage organizers");
+    addMenuOption("3", "Manage participants");
+    addMenuOption("4", "Manage resources");
+    addMenuOption("5", "Manage staff");
+    addMenuOption("6", "Manage composition");
+    addMenuOption("7", "Print event report");
+    addMenuOption("8", "Delete event");
+  }
+
   Transition handleInput(String input) {
     Transition result;
     switch (input) {
@@ -19,21 +32,6 @@ public class EventView extends MenuScreen {
         result = new Transition(Transition.Type.INVALID, "Not implemented yet");
     }
     return result;
-  }
-
-  public EventView(Event event) {
-    this.currentEvent = event;
-  }
-
-  void init() {
-    addMenuOption("1", "Edit event details");
-    addMenuOption("2", "Manage organizers");
-    addMenuOption("3", "Manage participants");
-    addMenuOption("4", "Manage resources");
-    addMenuOption("5", "Manage staff");
-    addMenuOption("6", "Manage composition");
-    addMenuOption("7", "Print event report");
-    addMenuOption("8", "Delete event");
   }
 
   public void showContent() {

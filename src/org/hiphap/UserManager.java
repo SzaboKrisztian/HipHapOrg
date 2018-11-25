@@ -4,9 +4,7 @@ public class UserManager {
   private static UserManager instance;
   private User currentUser;
 
-  private UserManager() {
-    currentUser = new User();
-  }
+  private UserManager() {}
 
   public static UserManager getInstance() {
     if (instance == null) {
