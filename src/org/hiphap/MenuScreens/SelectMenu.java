@@ -15,8 +15,9 @@ public class SelectMenu extends MenuScreen {
       case "2":
         return new Transition(Transition.Type.SWITCH, new SelectPersonScreen());
       case "3":
+        return new Transition(Transition.Type.SWITCH, new SelectOrganizationScreen());
       case "4":
-        return new Transition(Transition.Type.INVALID, "Not implemented yet");
+        return new Transition(Transition.Type.SWITCH, new SelectEmployeeScreen());
       default:
         return null;
     }
