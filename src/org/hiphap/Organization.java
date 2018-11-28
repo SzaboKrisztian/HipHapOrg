@@ -1,6 +1,6 @@
 package org.hiphap;
 
-public class Organization {
+public class Organization implements Entity {
   private String name;
 
   public Organization(String name) {
