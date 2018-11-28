@@ -1,7 +1,8 @@
 package org.hiphap;
 
-public class Person {
+public class Person implements Entity {
   private String name;
+  
 
   public Person(String name) {
     this.name = name;
