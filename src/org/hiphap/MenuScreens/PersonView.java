@@ -4,6 +4,7 @@ import org.hiphap.Person;
 
 public class PersonView extends MenuScreen {
   private Person currentPerson;
+
   Transition handleInput(String input) {
     Transition result;
     switch (input) {

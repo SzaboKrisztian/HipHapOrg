@@ -1,5 +1,7 @@
 package org.hiphap;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 public class Event {
@@ -26,63 +28,76 @@ public class Event {
   public String getName() {
     return this.name;
   }
-  
+
   public void setStart(LocalDateTime start) {
-    this.LocalDateTime = LocalDateTime;
+    this.start = start;
   }
-  
-  public LocalDateTime getStart(){
+
+  public LocalDateTime getStart() {
     return this.start;
   }
-  
+
   public void setFinish(LocalDateTime finish) {
     this.finish = finish;
   }
-  
+
   public LocalDateTime getFinish() {
     return this.finish;
   }
-  
+
   public void setLocation(String location) {
     this.location = location;
   }
+
   public String getLocation() {
     return this.location;
   }
+
   public void setEventType(EventType eventType) {
-   this.eventType = eventType;
+    this.eventType = eventType;
   }
-  public EventType getEventType(){
+
+  public EventType getEventType() {
     return this.eventType;
   }
+
   public void setOrganizedFor(List<Entity> organizedFor) {
     this.organizedFor = organizedFor;
   }
-  public List<Entity> getOrganizedFor(){
+
+  public List<Entity> getOrganizedFor() {
     return this.organizedFor;
   }
+
   public void setAttendees(List<Entity> attendees) {
     this.attendees = attendees;
   }
-  public List<Entity> getAttendees(){
+
+  public List<Entity> getAttendees() {
     return this.attendees;
   }
-   public void setEventResources(List<EventResources> eventResources) {
+
+  public void setEventResources(List<EventResources> eventResources) {
     this.attendees = attendees;
   }
-  public List<EventResources> getEventResources(){
+
+  public List<EventResources> getEventResources() {
     return this.eventResources;
   }
-    public void setStaff(List<Employee> staff) {
+
+  public void setStaff(List<Employee> staff) {
     this.staff = staff;
   }
-  public List<Employee> getStaff(){
+
+  public List<Employee> getStaff() {
     return this.staff;
   }
-   public void setUser(User organizer) {
-   this.organizer = organizer;
+
+  public void setUser(User organizer) {
+    this.organizer = organizer;
   }
-  public User getOrganizer(){
+
+  public User getOrganizer() {
     return this.organizer;
   }
-  }
+}
