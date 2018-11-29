@@ -26,8 +26,30 @@ public abstract class Screen {
     clearScreen();
     System.out.println(message);
     System.out.print("Input y for yes, anything else for no: ");
-    String reply = ConsoleManager.getInstance().getScanner().nextLine();
-    return reply.length() > 0 && reply.toLowerCase().startsWith("y");
+    String input = ConsoleManager.getInstance().getScanner().nextLine();
+    return input.length() > 0 && input.toLowerCase().startsWith("y");
+  }
+
+  public static Integer readInteger(String message) {
+    clearScreen();
+    System.out.println(message);
+    String input = ConsoleManager.getInstance().getScanner().nextLine();
+    try {
+      return Integer.parseInt(input);
+    } catch (NumberFormatException e) {
+      return null;
+    }
+  }
+
+  public static Double readDouble(String message) {
+    clearScreen();
+    System.out.println(message);
+    String input = ConsoleManager.getInstance().getScanner().nextLine();
+    try {
+      return Double.parseDouble(input);
+    } catch (NumberFormatException e) {
+      return null;
+    }
   }
 
   private static void clearScreen() {

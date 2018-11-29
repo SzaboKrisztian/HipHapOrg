@@ -23,11 +23,22 @@ public class PersonManager {
     ArrayList<Person> result = new ArrayList<>();
 
     for (Person person: persons) {
-      if (person.getName().toLowerCase().contains(name)) {
+      if (person.getFirstName().toLowerCase().contains(name)) {
         result.add(person);
       }
     }
 
+    return result;
+  }
+
+  public void addPerson(Person person) {
+    persons.add(person);
+    savePersonData();
+  }
+
+  public boolean deletePerson(Person person) {
+    boolean result = persons.remove(person);
+    savePersonData();
     return result;
   }
 

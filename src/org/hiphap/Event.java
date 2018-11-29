@@ -2,6 +2,9 @@ package org.hiphap;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.List;
 
 
@@ -16,6 +19,12 @@ public class Event implements Serializable {
   private List<EventResources> eventResources;
   private List<Employee> staff;
   private User organizer;
+  public static final DateTimeFormatter DT_FORMAT = new DateTimeFormatterBuilder()
+      .appendPattern("yyyy-MM-dd[ HH][:mm][:ss]")
+      .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+      .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+      .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+      .toFormatter();
 
 
   public Event(String name) {
@@ -38,12 +47,20 @@ public class Event implements Serializable {
     return this.start;
   }
 
+  public String getStartAsString() {
+    return this.start.format(DT_FORMAT);
+  }
+
   public void setFinish(LocalDateTime finish) {
     this.finish = finish;
   }
 
   public LocalDateTime getFinish() {
     return this.finish;
+  }
+
+  public String getFinishAsString() {
+    return this.finish.format(DT_FORMAT);
   }
 
   public void setLocation(String location) {
@@ -79,7 +96,7 @@ public class Event implements Serializable {
   }
 
   public void setEventResources(List<EventResources> eventResources) {
-    this.attendees = attendees;
+    this.eventResources = eventResources;
   }
 
   public List<EventResources> getEventResources() {
@@ -94,7 +111,7 @@ public class Event implements Serializable {
     return this.staff;
   }
 
-  public void setUser(User organizer) {
+  public void setOrganizer(User organizer) {
     this.organizer = organizer;
   }
 

@@ -2,6 +2,9 @@ package org.hiphap;
 
 public class Organization implements Entity {
   private String name;
+  private String address;
+  private String email;
+  private String phone;
 
   public Organization(String name) {
     this.name = name;
@@ -13,5 +16,29 @@ public class Organization implements Entity {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
   }
 }

@@ -12,7 +12,7 @@ public class EmployeeListView extends MenuScreen {
     this.employeeList = employeeList;
     int limit = Math.min(employeeList.size(), MAX_ITEMS);
     for (int i = 0; i < limit; i++) {
-      String name = employeeList.get(i).getName();
+      String name = employeeList.get(i).getFirstName();
       if (name.length() > 50) {
         name = name.substring(0, 50);
       }

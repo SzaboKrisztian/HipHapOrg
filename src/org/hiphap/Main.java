@@ -3,6 +3,8 @@ package org.hiphap;
 import org.hiphap.Screens.LoginScreen;
 import org.hiphap.Screens.Screen;
 import org.hiphap.Screens.Transition;
+
+import java.io.File;
 import java.util.Stack;
 
 import static org.hiphap.Screens.Screen.readBoolean;
@@ -48,11 +50,16 @@ public class Main {
   }
 
   private static void initData() {
+    File directory = new File("data");
+    if (directory.mkdir()) {
+      Logger.getInstance().write("Data folder not found. Starting from scratch.");
+    }
     Logger.getInstance();
     UserManager.getInstance();
     EventManager.getInstance();
     PersonManager.getInstance();
     OrganizationManager.getInstance();
+    EmployeeManager.getInstance().loadEmployeeData();
   }
 
   private static void promptToSaveChanges() {
@@ -68,5 +75,7 @@ public class Main {
     EventManager.getInstance().saveEventData();
     UserManager.getInstance().saveUserData();
     PersonManager.getInstance().savePersonData();
+    OrganizationManager.getInstance().saveOrganizationData();
+    EmployeeManager.getInstance().saveEmployeeData();
   }
 }

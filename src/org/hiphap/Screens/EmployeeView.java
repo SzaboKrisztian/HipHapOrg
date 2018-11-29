@@ -24,6 +24,6 @@ public class EmployeeView extends MenuScreen {
 
   public void showContent() {
     printPadding();
-    System.out.println("Employee name: " + currentEmployee.getName());
+    System.out.println("Employee name: " + currentEmployee.getFirstName());
   }
 }

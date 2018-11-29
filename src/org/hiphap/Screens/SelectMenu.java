@@ -2,6 +2,7 @@ package org.hiphap.Screens;
 
 public class SelectMenu extends MenuScreen {
   public SelectMenu() {
+    this.setMenuNode(true);
     addMenuOption("1", "Select an event");
     addMenuOption("2", "Select a person");
     addMenuOption("3", "Select an organization");

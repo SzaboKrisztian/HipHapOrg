@@ -12,7 +12,7 @@ public class PersonListView extends MenuScreen {
     this.personList = personList;
     int limit = Math.min(personList.size(), MAX_ITEMS);
     for (int i = 0; i < limit; i++) {
-      String name = personList.get(i).getName();
+      String name = personList.get(i).toString();
       if (name.length() > 50) {
         name = name.substring(0, 50);
       }

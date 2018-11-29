@@ -25,6 +25,6 @@ public class PersonView extends MenuScreen {
 
   public void showContent() {
     printPadding();
-    System.out.println("Person name: " + currentPerson.getName());
+    System.out.println("Person name: " + currentPerson);
   }
 }

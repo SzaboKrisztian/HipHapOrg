@@ -12,8 +12,11 @@ public class CreateMenu extends MenuScreen {
   Transition handleInput(String input) {
     switch (input) {
       case "1":
+        return new Transition(Transition.Type.SWITCH, new CreateEventScreen());
       case "2":
+        return new Transition(Transition.Type.SWITCH, new CreatePersonScreen());
       case "3":
+        return new Transition(Transition.Type.SWITCH, new CreateOrganizationScreen());
       case "4":
         return new Transition(Transition.Type.INVALID, "Not implemented yet");
       default:

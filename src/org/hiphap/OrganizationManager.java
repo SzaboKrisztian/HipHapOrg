@@ -1,17 +1,15 @@
 package org.hiphap;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class OrganizationManager {
   private static OrganizationManager instance;
   private ArrayList<Organization> organizations = new ArrayList<>();
+  private final String ORGANIZATIONS_DATA_FILE = "data".concat(File.separator).concat("organizations.dat");
 
   private OrganizationManager() {
-    organizations.add(new Organization("SimCorp"));
-    organizations.add(new Organization("Skynet"));
-    organizations.add(new Organization("Nakatomi Corp"));
-    organizations.add(new Organization("Microshaft"));
-    organizations.add(new Organization("C.A.B.A.L."));
+    loadOrganizationData();
   }
 
   public static OrganizationManager getInstance() {
@@ -30,6 +28,36 @@ public class OrganizationManager {
       }
     }
 
+    return result;
+  }
+
+  public boolean loadOrganizationData() {
+    Object data = FileManager.loadBinaryDataFromFile(ORGANIZATIONS_DATA_FILE);
+    if (data != null) {
+      try {
+        organizations = (ArrayList<Organization>) data;
+        Logger.getInstance().write("Organization data loaded successfully.");
+        return true;
+      } catch (ClassCastException e) {
+        Logger.getInstance().write("Error loading organization data: " + e.toString());
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public void saveOrganizationData() {
+    FileManager.saveBinaryDataToFile(ORGANIZATIONS_DATA_FILE, organizations);
+  }
+
+  public void addOrganization(Organization organization) {
+    organizations.add(organization);
+    saveOrganizationData();
+  }
+
+  public boolean deleteOrganization(Organization organization) {
+    boolean result = organizations.remove(organization);
+    saveOrganizationData();
     return result;
   }
 }

@@ -51,8 +51,8 @@ public class EventEditDetails extends MenuScreen {
     printPadding();
     System.out.printf("Event name: %s%n", currentEvent.getName());
     System.out.printf("Event type: %s%n", currentEvent.getEventType() == null ? "N/A" : currentEvent.getEventType());
-    System.out.printf("Starts: %s%n", currentEvent.getStart() == null ? "N/A" : currentEvent.getStart().toString());
-    System.out.printf("Ends: %s%n", currentEvent.getFinish() == null ? "N/A" : currentEvent.getFinish().toString());
+    System.out.printf("Starts: %s%n", currentEvent.getStart() == null ? "N/A" : currentEvent.getStartAsString());
+    System.out.printf("Ends: %s%n", currentEvent.getFinish() == null ? "N/A" : currentEvent.getFinishAsString());
     System.out.printf("Location: %s%n", currentEvent.getLocation() == null ? "N/A" : currentEvent.getLocation());
     System.out.printf("----------%n");
   }
