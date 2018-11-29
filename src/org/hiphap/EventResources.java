@@ -1,9 +1,11 @@
 package org.hiphap;
 
-public class EventResources {
+import java.io.Serializable;
+
+public class EventResources implements Serializable {
   private String name;
   private Entity provider;
-  private double cost;
+  private Double cost;
 
   public EventResources(String name) {
     this.name = name;
@@ -25,7 +27,7 @@ public class EventResources {
     this.provider = provider;
   }
 
-  public double getCost() {
+  public Double getCost() {
     return cost;
   }
 

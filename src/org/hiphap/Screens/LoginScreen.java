@@ -8,21 +8,37 @@ public class LoginScreen extends MenuScreen {
   public LoginScreen(String message) {
     this.setMenuNode(true);
     this.message = message;
-    addMenuOption("1", "Login");
+    if (UserManager.getInstance().isAuthenticated()) {
+      addMenuOption("1", "Proceed as " + UserManager.getInstance().getCurrentUser().getUsername());
+      addMenuOption("2", "Switch user");
+    } else {
+      addMenuOption("1", "Login");
+    }
   }
   Transition handleInput(String input) {
-    switch (input) {
-      case "1":
-        String username, password;
-        username = readString("Enter your username: ");
-        password = readString("Enter your password: ");
-        if (UserManager.getInstance().authenticate(username, password)) {
-          return new Transition(Transition.Type.SWITCH, new MainMenuScreen(), "Authentication successful.");
-        } else {
-          return new Transition(Transition.Type.INVALID, "Username and/or password incorrect.");
-        }
-      default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again: ");
+    if (UserManager.getInstance().isAuthenticated()) {
+      switch (input) {
+        case "1":
+          return new Transition(Transition.Type.SWITCH, new MainMenuScreen());
+        case "2":
+          return new Transition(Transition.Type.LOGOUT);
+        default:
+          return new Transition(Transition.Type.INVALID, "Invalid input; try again: ");
+      }
+    } else {
+      switch (input) {
+        case "1":
+          String username, password;
+          username = readString("Enter your username: ");
+          password = readString("Enter your password: ");
+          if (UserManager.getInstance().authenticate(username, password)) {
+            return new Transition(Transition.Type.SWITCH, new MainMenuScreen(), "Authentication successful.");
+          } else {
+            return new Transition(Transition.Type.INVALID, "Username and/or password incorrect.");
+          }
+        default:
+          return new Transition(Transition.Type.INVALID, "Invalid input; try again: ");
+      }
     }
   }
 
@@ -33,7 +49,7 @@ public class LoginScreen extends MenuScreen {
     }
     System.out.println("Welcome to the HipHapOrg Event Planner");
     System.out.println("----------------------------------------");
-    System.out.println("In all menus [B] is back, [X] is exit, and [L] is logout");
+    System.out.println("In all menus [B] is back, [S] is save all data, [L] is logout, and [X] is exit");
     System.out.println("Choose an option to continue\n");
   }
 }

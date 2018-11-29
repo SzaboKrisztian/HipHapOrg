@@ -1,17 +1,15 @@
 package org.hiphap;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class PersonManager {
   private static PersonManager instance;
   private ArrayList<Person> persons = new ArrayList<>();
+  private final String PERSONS_DATA_FILE = "data".concat(File.separator).concat("persons.dat");
 
   private PersonManager() {
-    persons.add(new Person("Raiden Hamilton"));
-    persons.add(new Person("Alexandra Stewblink"));
-    persons.add(new Person("Remigius Fat P"));
-    persons.add(new Person("Theotimos Xander"));
-    persons.add(new Person("Walhberct McDougall"));
+    loadPersonData();
   }
 
   public static PersonManager getInstance() {
@@ -31,5 +29,24 @@ public class PersonManager {
     }
 
     return result;
+  }
+
+  public boolean loadPersonData() {
+    Object data = FileManager.loadBinaryDataFromFile(PERSONS_DATA_FILE);
+    if (data != null) {
+      try {
+        persons = (ArrayList<Person>) data;
+        Logger.getInstance().write("Person data loaded successfully.");
+        return true;
+      } catch (ClassCastException e) {
+        Logger.getInstance().write("Error loading person data: " + e.toString());
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public void savePersonData() {
+    FileManager.saveBinaryDataToFile(PERSONS_DATA_FILE, persons);
   }
 }

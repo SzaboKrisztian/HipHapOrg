@@ -25,6 +25,9 @@ public abstract class MenuScreen extends Screen {
         case "x":
           action = new Transition(Transition.Type.EXIT);
           break;
+        case "s":
+          action = new Transition(Transition.Type.SAVE_DATA, "Save successful.");
+          break;
         case "b":
           action = new Transition(Transition.Type.BACK);
           break;

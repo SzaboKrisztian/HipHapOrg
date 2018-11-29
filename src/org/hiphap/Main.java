@@ -5,8 +5,11 @@ import org.hiphap.Screens.Screen;
 import org.hiphap.Screens.Transition;
 import java.util.Stack;
 
+import static org.hiphap.Screens.Screen.readBoolean;
+
 public class Main {
   public static void main(String[] args) {
+    initData();
     Stack<Screen> screens = new Stack<>();
     screens.push(new LoginScreen(null));
     String lastMessage = null;
@@ -20,6 +23,7 @@ public class Main {
           }
           break;
         case LOGOUT:
+          promptToSaveChanges();
           UserManager.getInstance().logout();
           screens.clear();
           screens.push(new LoginScreen("Logout successful."));
@@ -30,11 +34,39 @@ public class Main {
           } while (!(screens.peek().isMenuNode()));
           break;
         case EXIT:
+          promptToSaveChanges();
           System.exit(0);
+        case SAVE_DATA:
+          if (UserManager.getInstance().isAuthenticated()) {
+            saveAllData();
+          }
         case SUCCESS:
         case INVALID:
           break;
       }
     }
+  }
+
+  private static void initData() {
+    Logger.getInstance();
+    UserManager.getInstance();
+    EventManager.getInstance();
+    PersonManager.getInstance();
+    OrganizationManager.getInstance();
+  }
+
+  private static void promptToSaveChanges() {
+    if (UserManager.getInstance().isAuthenticated()) {
+      boolean result = readBoolean("Do you wish to save changes before leaving?");
+      if (result) {
+        saveAllData();
+      }
+    }
+  }
+
+  private static void saveAllData() {
+    EventManager.getInstance().saveEventData();
+    UserManager.getInstance().saveUserData();
+    PersonManager.getInstance().savePersonData();
   }
 }

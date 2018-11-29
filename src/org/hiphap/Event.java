@@ -1,10 +1,11 @@
 package org.hiphap;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 
-public class Event {
+public class Event implements Serializable {
   private String name;
   private LocalDateTime start;
   private LocalDateTime finish;
@@ -100,4 +101,6 @@ public class Event {
   public User getOrganizer() {
     return this.organizer;
   }
+
+
 }

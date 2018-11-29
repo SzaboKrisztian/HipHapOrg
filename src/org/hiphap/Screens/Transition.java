@@ -62,6 +62,7 @@ public class Transition {
   public enum Type {
     SWITCH,
     BACK,
+    SAVE_DATA,
     LOGOUT,
     EXIT,
     SUCCESS,

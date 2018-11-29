@@ -1,36 +1,15 @@
 package org.hiphap;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class EventManager {
   private static EventManager instance;
   private ArrayList<Event> events = new ArrayList<>();
+  private final String EVENTS_DATA_FILE = "data".concat(File.separator).concat("events.dat");
 
   private EventManager() {
-    events.add(new Event("Whatever"));
-    events.add(new Event("Whatevs"));
-    events.add(new Event("Something"));
-    events.add(new Event("Someone"));
-    events.add(new Event("Hello"));
-    events.add(new Event("Is it me"));
-    events.add(new Event("you're looking for"));
-    events.add(new Event("and I wonder"));
-    events.add(new Event("where you are"));
-    events.add(new Event("and I wonder"));
-    events.add(new Event("what you do"));
-    events.add(new Event("Lionel Ritchie's party"));
-    events.add(new Event("So will the real Shady"));
-    events.add(new Event("please stand up"));
-    events.add(new Event("and put one of those fingers"));
-    events.add(new Event("on each end up"));
-    events.add(new Event("to be proud to be outta your mind"));
-    events.add(new Event("and outta control"));
-    events.add(new Event("and one more time, loud as you can"));
-    events.add(new Event("how's it go?"));
-    events.add(new Event("his palms are sweaty"));
-    events.add(new Event("knees weak, arms are heavy"));
-    events.add(new Event("the vomit on his sweater, already"));
-    events.add(new Event("mom's spaghetti"));
+    loadEventData();
   }
 
   public static EventManager getInstance() {
@@ -38,6 +17,25 @@ public class EventManager {
       instance = new EventManager();
     }
     return instance;
+  }
+
+  public boolean loadEventData() {
+    Object data = FileManager.loadBinaryDataFromFile(EVENTS_DATA_FILE);
+    if (data != null) {
+      try {
+        events = (ArrayList<Event>) data;
+        Logger.getInstance().write("Event data loaded successfully.");
+        return true;
+      } catch (ClassCastException e) {
+        Logger.getInstance().write("Error loading event data: " + e.toString());
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public void saveEventData() {
+    FileManager.saveBinaryDataToFile(EVENTS_DATA_FILE, events);
   }
 
   public ArrayList<Event> searchByName(String name) {
@@ -52,7 +50,14 @@ public class EventManager {
     return result;
   }
 
+  public void addEvent(Event event) {
+    events.add(event);
+    saveEventData();
+  }
+
   public boolean deleteEvent(Event event) {
-    return events.remove(event);
+    boolean result = events.remove(event);
+    saveEventData();
+    return result;
   }
 }
