@@ -1,4 +1,4 @@
-package org.hiphap.MenuScreens;
+package org.hiphap.Screens;
 
 public class SelectMenu extends MenuScreen {
   public SelectMenu() {

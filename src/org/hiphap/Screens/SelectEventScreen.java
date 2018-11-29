@@ -1,4 +1,4 @@
-package org.hiphap.MenuScreens;
+package org.hiphap.Screens;
 
 import org.hiphap.Event;
 import org.hiphap.EventManager;

@@ -1,4 +1,4 @@
-package org.hiphap.MenuScreens;
+package org.hiphap.Screens;
 
 import org.hiphap.Person;
 import org.hiphap.PersonManager;

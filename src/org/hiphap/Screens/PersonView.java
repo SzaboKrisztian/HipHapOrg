@@ -1,9 +1,10 @@
-package org.hiphap.MenuScreens;
+package org.hiphap.Screens;
 
-import org.hiphap.Organization;
+import org.hiphap.Person;
 
-public class OrganizationView extends MenuScreen {
-  private Organization currentOrganization;
+public class PersonView extends MenuScreen {
+  private Person currentPerson;
+
   Transition handleInput(String input) {
     Transition result;
     switch (input) {
@@ -15,14 +16,15 @@ public class OrganizationView extends MenuScreen {
     return result;
   }
 
-  public OrganizationView(Organization organization) {
-    this.currentOrganization = organization;
+  public PersonView(Person person) {
+    this.currentPerson = person;
+    this.setMenuNode(true);
     addMenuOption("1", "Edit person details");
     addMenuOption("2", "Delete person");
   }
 
   public void showContent() {
-    printPadding(1);
-    System.out.println("Organization name: " + currentOrganization.getName());
+    printPadding();
+    System.out.println("Person name: " + currentPerson.getName());
   }
 }

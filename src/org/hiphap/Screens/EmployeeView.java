@@ -1,4 +1,4 @@
-package org.hiphap.MenuScreens;
+package org.hiphap.Screens;
 
 import org.hiphap.Employee;
 
@@ -17,12 +17,13 @@ public class EmployeeView extends MenuScreen {
 
   public EmployeeView(Employee employee) {
     this.currentEmployee = employee;
+    this.setMenuNode(true);
     addMenuOption("1", "Edit employee details");
     addMenuOption("2", "Delete employee");
   }
 
   public void showContent() {
-    printPadding(1);
+    printPadding();
     System.out.println("Employee name: " + currentEmployee.getName());
   }
 }

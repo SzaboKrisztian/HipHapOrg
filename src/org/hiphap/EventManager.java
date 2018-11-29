@@ -51,4 +51,8 @@ public class EventManager {
 
     return result;
   }
+
+  public boolean deleteEvent(Event event) {
+    return events.remove(event);
+  }
 }

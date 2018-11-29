@@ -1,4 +1,4 @@
-package org.hiphap.MenuScreens;
+package org.hiphap.Screens;
 
 public class Transition {
   private Type type;
@@ -64,6 +64,7 @@ public class Transition {
     BACK,
     LOGOUT,
     EXIT,
+    SUCCESS,
     INVALID
   }
 }

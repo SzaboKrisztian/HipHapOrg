@@ -11,7 +11,7 @@ public class EventType {
     this.name = name;
   }
 
-  public String getName() {
+  public String toString() {
     return this.name;
   }
 }

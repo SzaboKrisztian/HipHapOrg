@@ -1,4 +1,4 @@
-package org.hiphap.MenuScreens;
+package org.hiphap.Screens;
 
 import org.hiphap.ConsoleManager;
 
@@ -13,11 +13,11 @@ public abstract class MenuScreen extends Screen {
   public Transition show(String message) {
     Transition action;
     this.showContent();
-    if (message != null) {
-      System.out.println(message);
-    }
     for (Map.Entry<String, String> entry : options.entrySet()) {
       System.out.println("[" + entry.getKey() + "] " + entry.getValue());
+    }
+    if (message != null) {
+      System.out.println(message);
     }
     String input = scan.nextLine();
     if (!options.keySet().contains(input.toLowerCase())) {
@@ -41,17 +41,11 @@ public abstract class MenuScreen extends Screen {
     return action;
   }
 
-  void printPadding(int minusNumLines) {
-    int numOptions = options.size();
-    int screenSize = 24;
-    int numBlankLines = screenSize - numOptions - minusNumLines;
-    for (int i = 0; i < numBlankLines; i++) {
+  void printPadding() {
+    int linesToPrint = 50;
+    for (int i = 0; i < linesToPrint; i++) {
       System.out.printf("%n");
     }
-  }
-
-  void printPadding() {
-    printPadding(0);
   }
 
   void addMenuOption(String key, String name) {

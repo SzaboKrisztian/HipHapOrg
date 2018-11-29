@@ -1,18 +1,17 @@
-package org.hiphap.MenuScreens;
+package org.hiphap.Screens;
 
-import org.hiphap.Employee;
-
+import org.hiphap.Organization;
 import java.util.List;
 
-public class EmployeeListView extends MenuScreen {
-  private List<Employee> employeeList;
+public class OrganizationListView extends MenuScreen {
+  private List<Organization> organizationList;
   private final int MAX_ITEMS = 20;
 
-  public EmployeeListView(List<Employee> employeeList) {
-    this.employeeList = employeeList;
-    int limit = Math.min(employeeList.size(), MAX_ITEMS);
+  public OrganizationListView(List<Organization> organizationList) {
+    this.organizationList = organizationList;
+    int limit = Math.min(organizationList.size(), MAX_ITEMS);
     for (int i = 0; i < limit; i++) {
-      String name = employeeList.get(i).getName();
+      String name = organizationList.get(i).getName();
       if (name.length() > 50) {
         name = name.substring(0, 50);
       }
@@ -23,8 +22,8 @@ public class EmployeeListView extends MenuScreen {
 
   @Override
   void showContent() {
-    if (employeeList.size() > MAX_ITEMS) {
-      printPadding(-1);
+    if (organizationList.size() > MAX_ITEMS) {
+      printPadding();
       System.out.println("Showing first " + MAX_ITEMS + " results; refine your query for more precise results.");
     } else {
       printPadding();
@@ -36,8 +35,8 @@ public class EmployeeListView extends MenuScreen {
     int index;
     try {
       index = Integer.parseInt(input) - 1;
-      if (index >= 0 && index < employeeList.size()) {
-        return new Transition(Transition.Type.SWITCH, new EmployeeView(employeeList.get(index)));
+      if (index >= 0 && index < organizationList.size()) {
+        return new Transition(Transition.Type.SWITCH, new OrganizationView(organizationList.get(index)));
       } else {
         return new Transition(Transition.Type.INVALID, "Invalid choice. Try again: ");
       }

@@ -1,7 +1,8 @@
-package org.hiphap.MenuScreens;
+package org.hiphap.Screens;
 
 public class CreateMenu extends MenuScreen {
   public CreateMenu() {
+    this.setMenuNode(true);
     addMenuOption("1", "Create new event");
     addMenuOption("2", "Create new person");
     addMenuOption("3", "Create new organization");
