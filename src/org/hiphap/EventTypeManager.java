@@ -50,6 +50,7 @@ public class EventTypeManager {
   public boolean deleteEventType(EventType eventType) {
     boolean result = eventTypes.remove(eventType);
     saveEventTypeData();
+    EventManager.getInstance().clearEventsOfType(eventType);
     return result;
   }
 }

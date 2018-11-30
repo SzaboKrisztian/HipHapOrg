@@ -1,6 +1,8 @@
 package org.hiphap;
 
-public class EventType {
+import java.io.Serializable;
+
+public class EventType implements Serializable {
   private String name;
 
   public EventType(String name) {

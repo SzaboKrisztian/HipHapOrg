@@ -60,4 +60,12 @@ public class EventManager {
     saveEventData();
     return result;
   }
+
+  public void clearEventsOfType(EventType type) {
+    for (Event event: events) {
+      if (event.getEventType() == type) {
+        event.setEventType(null);
+      }
+    }
+  }
 }

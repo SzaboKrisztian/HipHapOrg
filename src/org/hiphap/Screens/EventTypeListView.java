@@ -37,7 +37,7 @@ public class EventTypeListView extends MenuScreen {
         try {
           int delOption = Integer.parseInt(delInput);
           if (delOption >= 1 && delOption <= eventTypes.size()) {
-            EventTypeManager.getInstance().deleteEventType(eventTypes.get(delOption));
+            EventTypeManager.getInstance().deleteEventType(eventTypes.get(delOption - 1));
             return new Transition(Transition.Type.SUCCESS, "Successfully deleted entry.");
           } else {
             return new Transition(Transition.Type.INVALID, "Invalid option; try again.");

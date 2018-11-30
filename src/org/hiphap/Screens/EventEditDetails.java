@@ -1,6 +1,7 @@
 package org.hiphap.Screens;
 
 import org.hiphap.Event;
+import org.hiphap.EventType;
 
 public class EventEditDetails extends MenuScreen {
   private Event currentEvent;
@@ -26,7 +27,13 @@ public class EventEditDetails extends MenuScreen {
           return new Transition(Transition.Type.SUCCESS, "Operation cancelled.");
         }
       case "2":
-        return new Transition(Transition.Type.SWITCH, new EventTypeListView());
+        Transition result = new EventTypeListView().show(null);
+        if (result.getPayload() != null) {
+          if (result.getPayload() instanceof EventType) {
+            currentEvent.setEventType((EventType) result.getPayload());
+          }
+        }
+        return new Transition(Transition.Type.SUCCESS);
       case "3":
       case "4":
         return new Transition(Transition.Type.INVALID, "Not implemented yet");
