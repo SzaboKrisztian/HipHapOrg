@@ -4,7 +4,7 @@ public class Transition {
   private Type type;
   private Screen screen;
   private String message;
-  //private Object payload;
+  private Object payload;
 
   public Transition() {}
 
@@ -51,13 +51,13 @@ public class Transition {
     this.message = message;
   }
 
-  /*public void setPayload(Object payload) {
+  public void setPayload(Object payload) {
     this.payload = payload;
   }
 
   public Object getPayload() {
     return this.payload;
-  }*/
+  }
 
   public enum Type {
     SWITCH,
