@@ -28,6 +28,8 @@ public class EventEditDetails extends MenuScreen {
         }
         break;
       case "2":
+        result = new Transition(Transition.Type.SWITCH, new EventTypeListView());
+        break;
       case "3":
       case "4":
         result = new Transition(Transition.Type.INVALID, "Not implemented yet");
