@@ -9,11 +9,7 @@ public class EmployeeManager {
   private final String EMPLOYEES_DATA_FILE = "data".concat(File.separator).concat("employees.dat");
 
   private EmployeeManager() {
-    employees.add(new Employee("Bob Bobson"));
-    employees.add(new Employee("John Johnson"));
-    employees.add(new Employee("Eric Ericson"));
-    employees.add(new Employee("Stevey Wonder"));
-    employees.add(new Employee("Peter Griffin"));
+    
   }
 
   public static EmployeeManager getInstance() {
@@ -52,5 +48,10 @@ public class EmployeeManager {
 
   public void saveEmployeeData() {
     FileManager.saveBinaryDataToFile(EMPLOYEES_DATA_FILE, employees);
+  }
+
+  public void addEmployee(Employee employee) {
+    employees.add(employee);
+    saveEmployeeData();
   }
 }

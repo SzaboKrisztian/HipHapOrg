@@ -18,7 +18,7 @@ public class CreateMenu extends MenuScreen {
       case "3":
         return new Transition(Transition.Type.SWITCH, new CreateOrganizationScreen());
       case "4":
-        return new Transition(Transition.Type.INVALID, "Not implemented yet");
+        return new Transition(Transition.Type.SWITCH, new CreateEmployeeScreen());
       default:
         return null;
     }
