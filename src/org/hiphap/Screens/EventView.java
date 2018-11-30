@@ -20,34 +20,29 @@ public class EventView extends MenuScreen {
   }
 
   Transition handleInput(String input) {
-    Transition result;
     switch (input) {
       case "1":
-        result = new Transition(Transition.Type.SWITCH, new EventEditDetails(currentEvent));
-        break;
+        return new Transition(Transition.Type.SWITCH, new EventEditDetails(currentEvent));
       case "2":
       case "3":
       case "4":
       case "5":
       case "6":
       case "7":
-        result = new Transition(Transition.Type.INVALID, "Not implemented yet");
-        break;
+        return new Transition(Transition.Type.INVALID, "Not implemented yet");
       case "8":
         if (readBoolean("WARNING! Operation cannot be undone. Are you sure you wish to delete the event?")) {
           if (EventManager.getInstance().deleteEvent(currentEvent)) {
-            result = new Transition(Transition.Type.BACK, "Event successfully deleted.");
+            return new Transition(Transition.Type.BACK, "Event successfully deleted.");
           } else {
-            result = new Transition(Transition.Type.INVALID, "Error deleting event.");
+            return new Transition(Transition.Type.INVALID, "Error deleting event.");
           }
         } else {
-          result = new Transition(Transition.Type.INVALID, "Operation aborted.");
+          return new Transition(Transition.Type.INVALID, "Operation aborted.");
         }
-        break;
       default:
-        result = new Transition(Transition.Type.INVALID, "Not implemented yet");
+        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
     }
-    return result;
   }
 
   public void showContent() {

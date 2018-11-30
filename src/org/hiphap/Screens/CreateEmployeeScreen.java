@@ -15,8 +15,10 @@ public class CreateEmployeeScreen extends MenuScreen {
       case "1":
         return createFromScratch();
       case "2":
+        return new Transition(Transition.Type.INVALID, "Not implemented yet");
       default:
-        return new Transition(Transition.Type.INVALID, "Not impleneted yet");
+        return new Transition(Transition.Type.INVALID, "Invalid input. Try again: ");
+
     }
   }
 

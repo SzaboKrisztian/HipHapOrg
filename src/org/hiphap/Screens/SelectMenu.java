@@ -20,7 +20,7 @@ public class SelectMenu extends MenuScreen {
       case "4":
         return new Transition(Transition.Type.SWITCH, new SelectEmployeeScreen());
       default:
-        return null;
+        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
     }
   }
 

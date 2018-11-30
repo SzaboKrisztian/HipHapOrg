@@ -20,26 +20,22 @@ public abstract class MenuScreen extends Screen {
       System.out.println(message);
     }
     String input = scan.nextLine();
-    if (!options.keySet().contains(input.toLowerCase())) {
-      switch (input.toLowerCase()) {
-        case "x":
-          action = new Transition(Transition.Type.EXIT);
-          break;
-        case "s":
-          action = new Transition(Transition.Type.SAVE_DATA, "Save successful.");
-          break;
-        case "b":
-          action = new Transition(Transition.Type.BACK);
-          break;
-        case "l":
-          action = new Transition(Transition.Type.LOGOUT);
-          break;
-        default:
-          action = new Transition(Transition.Type.INVALID, "Invalid input; try again");
-          break;
-      }
-    } else {
+    switch (input.toLowerCase()) {
+      case "x":
+        action = new Transition(Transition.Type.EXIT);
+        break;
+      case "s":
+        action = new Transition(Transition.Type.SAVE_DATA, "Save successful.");
+        break;
+      case "b":
+        action = new Transition(Transition.Type.BACK);
+        break;
+      case "l":
+        action = new Transition(Transition.Type.LOGOUT);
+        break;
+      default:
         action = handleInput(input);
+        break;
     }
     return action;
   }

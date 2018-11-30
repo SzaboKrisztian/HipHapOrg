@@ -5,14 +5,13 @@ import org.hiphap.Organization;
 public class OrganizationView extends MenuScreen {
   private Organization currentOrganization;
   Transition handleInput(String input) {
-    Transition result;
     switch (input) {
       case "1":
       case "2":
+        return new Transition(Transition.Type.INVALID, "Not implemented yet");
       default:
-        result = new Transition(Transition.Type.INVALID, "Not implemented yet");
+        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
     }
-    return result;
   }
 
   public OrganizationView(Organization organization) {

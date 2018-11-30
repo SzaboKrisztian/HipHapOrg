@@ -36,7 +36,7 @@ public class SelectEventScreen extends MenuScreen {
       case "3":
         return new Transition(Transition.Type.INVALID, "Not implemented yet");
       default:
-        return null;
+        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
     }
   }
 }

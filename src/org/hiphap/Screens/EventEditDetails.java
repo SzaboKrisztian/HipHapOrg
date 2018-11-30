@@ -16,35 +16,30 @@ public class EventEditDetails extends MenuScreen {
   }
 
   Transition handleInput(String input) {
-    Transition result;
     switch (input) {
       case "1":
         String name = readString("Old name: " + currentEvent.getName() + "\nInput new name, blank to cancel: ");
         if (!name.equals("")) {
           currentEvent.setName(name);
-          result = new Transition(Transition.Type.SUCCESS, "Event name successfully changed.");
+          return new Transition(Transition.Type.SUCCESS, "Event name successfully changed.");
         } else {
-          result = new Transition(Transition.Type.SUCCESS, "Operation cancelled.");
+          return new Transition(Transition.Type.SUCCESS, "Operation cancelled.");
         }
-        break;
       case "2":
       case "3":
       case "4":
-        result = new Transition(Transition.Type.INVALID, "Not implemented yet");
-        break;
+        return new Transition(Transition.Type.INVALID, "Not implemented yet");
       case "5":
         String location = readString("Old location: " + currentEvent.getLocation() + "\nInput new location, blank to cancel: ");
         if (!location.equals("")) {
           currentEvent.setLocation(location);
-          result = new Transition(Transition.Type.SUCCESS, "Event location successfully changed.");
+          return new Transition(Transition.Type.SUCCESS, "Event location successfully changed.");
         } else {
-          result = new Transition(Transition.Type.SUCCESS, "Operation cancelled.");
+          return new Transition(Transition.Type.SUCCESS, "Operation cancelled.");
         }
-        break;
       default:
-        result = new Transition(Transition.Type.INVALID, "Not implemented yet");
+        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
     }
-    return result;
   }
 
   public void showContent() {
