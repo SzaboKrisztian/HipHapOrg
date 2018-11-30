@@ -60,6 +60,7 @@ public class Main {
     PersonManager.getInstance();
     OrganizationManager.getInstance();
     EmployeeManager.getInstance().loadEmployeeData();
+    EventTypeManager.getInstance();
   }
 
   private static void promptToSaveChanges() {

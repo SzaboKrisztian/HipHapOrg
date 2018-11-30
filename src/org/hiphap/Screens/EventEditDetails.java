@@ -26,6 +26,7 @@ public class EventEditDetails extends MenuScreen {
           return new Transition(Transition.Type.SUCCESS, "Operation cancelled.");
         }
       case "2":
+        return new Transition(Transition.Type.SWITCH, new EventTypeListView());
       case "3":
       case "4":
         return new Transition(Transition.Type.INVALID, "Not implemented yet");
