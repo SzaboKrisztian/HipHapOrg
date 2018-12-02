@@ -31,7 +31,7 @@ public class EventView extends MenuScreen {
       case "7":
         return new Transition(Transition.Type.INVALID, "Not implemented yet");
       case "8":
-        if (readBoolean("WARNING! Operation cannot be undone. Are you sure you wish to delete the event?")) {
+        if (clsAndReadBoolean("WARNING! Operation cannot be undone. Are you sure you wish to delete the event?")) {
           if (EventManager.getInstance().deleteEvent(currentEvent)) {
             return new Transition(Transition.Type.BACK, "Event successfully deleted.");
           } else {
@@ -51,7 +51,7 @@ public class EventView extends MenuScreen {
     System.out.printf("Event type: %s%n", currentEvent.getEventType() == null ? "N/A" : currentEvent.getEventType());
     System.out.printf("Starts: %s%n", currentEvent.getStart() == null ? "N/A" : currentEvent.getStartAsString());
     System.out.printf("Ends: %s%n", currentEvent.getFinish() == null ? "N/A" : currentEvent.getFinishAsString());
-    System.out.printf("Location: %s%n", currentEvent.getLocation() == null ? "N/A" : currentEvent.getLocation());
+    System.out.printf("Location: %s%n", (currentEvent.getLocation() == null || currentEvent.getLocation().equals("")) ? "N/A" : currentEvent.getLocation());
     System.out.printf("Organized for: %s%n", currentEvent.getOrganizedFor() == null ? "N/A" : currentEvent.getOrganizedFor());
     System.out.printf("No. of attendees: %s%n", currentEvent.getAttendees() == null ? "N/A" : currentEvent.getAttendees().size());
     System.out.printf("No. of HHO staff hired: %s%n", currentEvent.getStaff() == null ? "N/A" : currentEvent.getStaff().size());

@@ -1,6 +1,7 @@
 package org.hiphap;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class EventManager {
@@ -64,8 +65,36 @@ public class EventManager {
   public void clearEventsOfType(EventType type) {
     for (Event event: events) {
       if (event.getEventType() == type) {
+        Logger.getInstance().write("Found one. hopefully cleared.");
         event.setEventType(null);
       }
     }
+  }
+
+  public ArrayList<Event> searchByLocation(String location) {
+    ArrayList<Event> result = new ArrayList<>();
+
+    for (Event event: events) {
+      if (event.getLocation().toLowerCase().contains(location)) {
+        result.add(event);
+      }
+    }
+
+    return result;
+  }
+
+  public ArrayList<Event> searchByDate(LocalDateTime time) {
+    ArrayList<Event> result = new ArrayList<>();
+
+    for (Event event: events) {
+      if ((event.getStart().toLocalDate().isBefore(time.toLocalDate()) ||
+          event.getStart().toLocalDate().isEqual(time.toLocalDate())) &&
+          event.getFinish().toLocalDate().isAfter(time.toLocalDate()) ||
+          event.getFinish().toLocalDate().isEqual(time.toLocalDate())) {
+        result.add(event);
+      }
+    }
+
+    return result;
   }
 }

@@ -15,12 +15,12 @@ public class CreateEventScreen extends Screen {
       if (eventName != null && eventName.equals("")) {
         System.out.println("This field must be completed");
       }
-      eventName = readString("Enter the event's name: ");
+      eventName = clsAndReadString("Enter the event's name: ");
     } while (eventName.equals(""));
     newEvent = new Event(eventName);
-    newEvent.setLocation(readString("Enter the event's location: "));
-    String startText = readString("Enter the event's start as yyyy-mm-dd [hh:mm:ss]: ");
-    String finishText = readString("Enter the event's end as yyyy-mm-dd [hh:mm:ss]: ");
+    newEvent.setLocation(clsAndReadString("Enter the event's location: "));
+    String startText = clsAndReadString("Enter the event's start as yyyy-mm-dd [hh:mm:ss]: ");
+    String finishText = clsAndReadString("Enter the event's end as yyyy-mm-dd [hh:mm:ss]: ");
     LocalDateTime start, finish;
 
     try {

@@ -7,7 +7,7 @@ import org.hiphap.Screens.Transition;
 import java.io.File;
 import java.util.Stack;
 
-import static org.hiphap.Screens.Screen.readBoolean;
+import static org.hiphap.Screens.Screen.clsAndReadBoolean;
 
 public class Main {
   public static void main(String[] args) {
@@ -65,7 +65,7 @@ public class Main {
 
   private static void promptToSaveChanges() {
     if (UserManager.getInstance().isAuthenticated()) {
-      boolean result = readBoolean("Do you wish to save changes before leaving?");
+      boolean result = clsAndReadBoolean("Do you wish to save changes before leaving?");
       if (result) {
         saveAllData();
       }

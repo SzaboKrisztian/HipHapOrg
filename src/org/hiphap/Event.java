@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,10 +15,10 @@ public class Event implements Serializable {
   private LocalDateTime finish;
   private String location;
   private EventType eventType;
-  private List<Entity> organizedFor;
-  private List<Entity> attendees;
-  private List<EventResources> eventResources;
-  private List<Employee> staff;
+  private ArrayList<Entity> organizedFor;
+  private ArrayList<Entity> attendees;
+  private ArrayList<EventResource> eventResources;
+  private ArrayList<Employee> staff;
   private User organizer;
   public static final DateTimeFormatter DT_FORMAT = new DateTimeFormatterBuilder()
       .appendPattern("yyyy-MM-dd[ HH][:mm][:ss]")
@@ -48,7 +49,7 @@ public class Event implements Serializable {
   }
 
   public String getStartAsString() {
-    return this.start.format(DT_FORMAT);
+    return this.start == null ? "N/A" : this.start.format(DT_FORMAT);
   }
 
   public void setFinish(LocalDateTime finish) {
@@ -60,7 +61,7 @@ public class Event implements Serializable {
   }
 
   public String getFinishAsString() {
-    return this.finish.format(DT_FORMAT);
+    return this.finish == null ? "N/A" : this.finish.format(DT_FORMAT);
   }
 
   public void setLocation(String location) {
@@ -78,36 +79,52 @@ public class Event implements Serializable {
   public EventType getEventType() {
     return this.eventType;
   }
-
-  public void setOrganizedFor(List<Entity> organizedFor) {
-    this.organizedFor = organizedFor;
+  
+  public void addToOrganizedFor(Entity entity) {
+    this.organizedFor.add(entity);
+  }
+  
+  public void deleteFromOrganizedFor(Entity entity) {
+    this.organizedFor.remove(entity);
   }
 
-  public List<Entity> getOrganizedFor() {
+  public ArrayList<Entity> getOrganizedFor() {
     return this.organizedFor;
   }
 
-  public void setAttendees(List<Entity> attendees) {
-    this.attendees = attendees;
+  public void addAttendee(Entity entity) {
+    this.attendees.add(entity);
   }
 
-  public List<Entity> getAttendees() {
+  public void deleteFromAttendee(Entity entity) {
+    this.attendees.remove(entity);
+  }
+
+  public ArrayList<Entity> getAttendees() {
     return this.attendees;
   }
 
-  public void setEventResources(List<EventResources> eventResources) {
-    this.eventResources = eventResources;
+  public void addEventResource(EventResource eventResource) {
+    this.eventResources.add(eventResource);
   }
 
-  public List<EventResources> getEventResources() {
+  public void deleteEventResource(EventResource eventResource) {
+    this.eventResources.remove(eventResource);
+  }
+
+  public ArrayList<EventResource> getEventResources() {
     return this.eventResources;
   }
 
-  public void setStaff(List<Employee> staff) {
-    this.staff = staff;
+  public void addStaff(Employee employee) {
+    this.staff.add(employee);
   }
 
-  public List<Employee> getStaff() {
+  public void deleteStaff(Employee employee) {
+    this.staff.remove(employee);
+  }
+
+  public ArrayList<Employee> getStaff() {
     return this.staff;
   }
 

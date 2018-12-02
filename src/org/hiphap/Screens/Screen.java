@@ -15,15 +15,23 @@ public abstract class Screen {
 
   public abstract Transition show(String message);
 
-  public static String readString(String message) {
+  public static String clsAndReadString(String message) {
     clearScreen();
+    return readString(message);
+  }
+
+  public static String readString(String message) {
     System.out.print(message);
 
     return ConsoleManager.getInstance().getScanner().nextLine();
   }
 
-  public static boolean readBoolean(String message) {
+  public static boolean clsAndReadBoolean(String message) {
     clearScreen();
+    return readBoolean(message);
+  }
+
+  public static boolean readBoolean(String message) {
     System.out.println(message);
     System.out.print("Input y for yes, anything else for no: ");
     String input = ConsoleManager.getInstance().getScanner().nextLine();
@@ -52,7 +60,7 @@ public abstract class Screen {
     }
   }
 
-  private static void clearScreen() {
+  public static void clearScreen() {
     int linesToPrint = 50;
 
     for (int i = 0; i < linesToPrint; i++) {

@@ -29,8 +29,8 @@ public class LoginScreen extends MenuScreen {
       switch (input) {
         case "1":
           String username, password;
-          username = readString("Enter your username: ");
-          password = readString("Enter your password: ");
+          username = clsAndReadString("Enter your username: ");
+          password = clsAndReadString("Enter your password: ");
           if (UserManager.getInstance().authenticate(username, password)) {
             return new Transition(Transition.Type.SWITCH, new MainMenuScreen(), "Authentication successful.");
           } else {

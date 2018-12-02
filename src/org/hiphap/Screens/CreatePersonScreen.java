@@ -11,13 +11,13 @@ public class CreatePersonScreen extends Screen {
       if (firstName != null && firstName.equals("")) {
         System.out.println("This field must be completed");
       }
-      firstName = readString("Enter the person's first name: ");
+      firstName = clsAndReadString("Enter the person's first name: ");
     } while (firstName.equals(""));
     newPerson = new Person(firstName);
-    newPerson.setLastName(readString("Enter the person's last name: "));
-    newPerson.setMiddleName(readString("Enter the person's middle name: "));
-    newPerson.setEmail(readString("Enter the person's email: "));
-    newPerson.setPhone(readString("Enter the person's phone number: "));
+    newPerson.setLastName(clsAndReadString("Enter the person's last name: "));
+    newPerson.setMiddleName(clsAndReadString("Enter the person's middle name: "));
+    newPerson.setEmail(clsAndReadString("Enter the person's email: "));
+    newPerson.setPhone(clsAndReadString("Enter the person's phone number: "));
     PersonManager.getInstance().addPerson(newPerson);
     return new Transition(Transition.Type.BACK, "Person successfully created.");
   }
