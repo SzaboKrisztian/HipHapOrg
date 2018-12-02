@@ -22,7 +22,7 @@ public class SelectEmployeeScreen extends MenuScreen {
     String query;
     switch (input) {
       case "1":
-        query = readString("Enter a search query: ");
+        query = clsAndReadString("Enter a search query: ");
         ArrayList<Employee> result = EmployeeManager.getInstance().searchByName(query);
         if (result.isEmpty()) {
           return new Transition(Transition.Type.INVALID, "No employee name matched your query.");

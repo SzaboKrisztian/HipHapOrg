@@ -2,12 +2,12 @@ package org.hiphap;
 
 import java.io.Serializable;
 
-public class EventResources implements Serializable {
+public class EventResource implements Serializable {
   private String name;
   private Entity provider;
   private Double cost;
 
-  public EventResources(String name) {
+  public EventResource(String name) {
     this.name = name;
   }
 

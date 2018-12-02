@@ -22,7 +22,7 @@ public class SelectPersonScreen extends MenuScreen {
     String query;
     switch (input) {
       case "1":
-        query = readString("Enter a search query: ");
+        query = clsAndReadString("Enter a search query: ");
         ArrayList<Person> result = PersonManager.getInstance().searchByName(query);
         if (result.isEmpty()) {
           return new Transition(Transition.Type.INVALID, "No person name matched your query.");

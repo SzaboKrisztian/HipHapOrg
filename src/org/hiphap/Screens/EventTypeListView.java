@@ -1,19 +1,22 @@
 package org.hiphap.Screens;
 
+import org.hiphap.Event;
 import org.hiphap.EventType;
 import org.hiphap.EventTypeManager;
 
 import java.util.ArrayList;
 
 public class EventTypeListView extends MenuScreen {
+  private Event currentEvent;
   private ArrayList<EventType> eventTypes;
 
-  public EventTypeListView() {
+  public EventTypeListView(Event currentEvent) {
+    this.currentEvent = currentEvent;
     eventTypes = EventTypeManager.getInstance().getEventTypes();
     for (int i = 0; i < eventTypes.size(); i++) {
       addMenuOption(String.valueOf(i + 1), eventTypes.get(i).getName());
     }
-    System.out.println("Inside event type list view");
+    System.out.println("[N] = new entry, [D] = delete entry, [R] = rename entry");
   }
 
   @Override
@@ -23,22 +26,26 @@ public class EventTypeListView extends MenuScreen {
 
   @Override
   Transition handleInput(String input) {
-    Transition result = new Transition(Transition.Type.BACK);
     switch (input) {
       case "n":
-        String name = readString("Enter a name for the new event type: ");
+        String name = clsAndReadString("Enter a name for the new event type: ");
         EventType newEventType = new EventType(name);
         EventTypeManager.getInstance().addEventType(newEventType);
-        result.setPayload(newEventType);
-        return result;
+        this.currentEvent.setEventType(newEventType);
+        return new Transition(Transition.Type.BACK, "Successfully added new event type.");
       case "d":
+        clearScreen();
         displayEntries();
         String delInput = readString("Which entry would you like to delete?");
         try {
           int delOption = Integer.parseInt(delInput);
           if (delOption >= 1 && delOption <= eventTypes.size()) {
+            EventType selectedEventType = eventTypes.get(delOption - 1);
             EventTypeManager.getInstance().deleteEventType(eventTypes.get(delOption - 1));
-            return new Transition(Transition.Type.SUCCESS, "Successfully deleted entry.");
+            if (currentEvent.getEventType() == selectedEventType) {
+              currentEvent.setEventType(null);
+            }
+            return new Transition(Transition.Type.BACK, "Successfully deleted entry.");
           } else {
             return new Transition(Transition.Type.INVALID, "Invalid option; try again.");
           }
@@ -52,13 +59,13 @@ public class EventTypeListView extends MenuScreen {
           int renOption = Integer.parseInt(renInput);
           if (renOption >= 1 && renOption <= eventTypes.size()) {
             EventType selected = eventTypes.get(renOption);
-            String newName = readString("Old name: " + selected.getName() + "\nInput new name: ");
+            String newName = clsAndReadString("Old name: " + selected.getName() + "\nInput new name: ");
             if (!newName.equals("")) {
               selected.setName(newName);
             } else {
               return new Transition(Transition.Type.INVALID, "Operation aborted.");
             }
-            return new Transition(Transition.Type.SUCCESS, "Successfully renamed entry.");
+            return new Transition(Transition.Type.BACK, "Successfully renamed entry.");
           } else {
             return new Transition(Transition.Type.INVALID, "Invalid option; try again.");
           }
@@ -70,8 +77,9 @@ public class EventTypeListView extends MenuScreen {
         try {
           option = Integer.parseInt(input);
           if (option >= 1 && option <= eventTypes.size()) {
-            result.setPayload(eventTypes.get(option - 1));
-            return result;
+            EventType selectedEventType = eventTypes.get(option - 1);
+            currentEvent.setEventType(selectedEventType);
+            return new Transition(Transition.Type.BACK, "Event type successfully set.");
           } else {
             return new Transition(Transition.Type.INVALID, "Invalid option; try again: ");
           }

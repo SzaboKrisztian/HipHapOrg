@@ -29,13 +29,13 @@ public class CreateEmployeeScreen extends MenuScreen {
       if (firstName != null && firstName.equals("")) {
         System.out.println("This field must be completed");
       }
-      firstName = readString("Enter the employee's first name: ");
+      firstName = clsAndReadString("Enter the employee's first name: ");
     } while (firstName.equals(""));
     newEmployee = new Employee(firstName);
-    newEmployee.setLastName(readString("Enter the employee's last name: "));
-    newEmployee.setMiddleName(readString("Enter the employee's middle name: "));
-    newEmployee.setEmail(readString("Enter the employee's email: "));
-    newEmployee.setPhone(readString("Enter the employee's phone number: "));
+    newEmployee.setLastName(clsAndReadString("Enter the employee's last name: "));
+    newEmployee.setMiddleName(clsAndReadString("Enter the employee's middle name: "));
+    newEmployee.setEmail(clsAndReadString("Enter the employee's email: "));
+    newEmployee.setPhone(clsAndReadString("Enter the employee's phone number: "));
     EmployeeManager.getInstance().addEmployee(newEmployee);
     return new Transition(Transition.Type.BACK, "Employee successfully created.");
   }

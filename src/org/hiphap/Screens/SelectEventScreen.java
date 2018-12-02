@@ -2,6 +2,9 @@ package org.hiphap.Screens;
 
 import org.hiphap.Event;
 import org.hiphap.EventManager;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class SelectEventScreen extends MenuScreen {
@@ -19,24 +22,36 @@ public class SelectEventScreen extends MenuScreen {
   @Override
   Transition handleInput(String input) {
     String query;
+    ArrayList<Event> result;
     switch (input) {
       case "1":
-        query = readString("Enter a search query: ");
-        ArrayList<Event> result = EventManager.getInstance().searchByName(query);
-        if (result.isEmpty()) {
-          return new Transition(Transition.Type.INVALID, "No event name matched your query.");
-        } else {
-          if (result.size() == 1) {
-            return new Transition(Transition.Type.SWITCH, new EventView(result.get(0)));
-          } else {
-            return new Transition(Transition.Type.SWITCH, new EventListView(result));
-          }
-        }
+        query = clsAndReadString("Enter an event name to search for: ");
+        result = EventManager.getInstance().searchByName(query);
+        break;
       case "2":
+        String timeText = clsAndReadString("Enter the event's end as yyyy-mm-dd [hh:mm:ss]: ");
+        LocalDateTime time;
+        try {
+          time = LocalDateTime.parse(timeText, Event.DT_FORMAT);
+          result = EventManager.getInstance().searchByDate(time);
+        } catch (DateTimeParseException e){
+          return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        }
       case "3":
-        return new Transition(Transition.Type.INVALID, "Not implemented yet");
+        query = clsAndReadString("Enter an event location to search for: ");
+        result = EventManager.getInstance().searchByLocation(query);
+        break;
       default:
         return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+    }
+    if (result.isEmpty()) {
+      return new Transition(Transition.Type.INVALID, "No event name matched your query.");
+    } else {
+      if (result.size() == 1) {
+        return new Transition(Transition.Type.SWITCH, new EventView(result.get(0)));
+      } else {
+        return new Transition(Transition.Type.SWITCH, new EventListView(result));
+      }
     }
   }
 }
