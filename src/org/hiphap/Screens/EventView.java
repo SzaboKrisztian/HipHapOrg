@@ -26,7 +26,9 @@ public class EventView extends MenuScreen {
         return new Transition(Transition.Type.SWITCH, new EventEditDetails(currentEvent));
       case "2":
       case "3":
+        return new Transition(Transition.Type.INVALID, "Not implemented yet");
       case "4":
+        return new Transition(Transition.Type.SWITCH, new ManageEventResources(currentEvent));
       case "5":
       case "6":
       case "7":
@@ -57,7 +59,7 @@ public class EventView extends MenuScreen {
     System.out.printf("Organized for: %s%n", currentEvent.getOrganizedFor() == null ? "N/A" : currentEvent.getOrganizedFor());
     System.out.printf("No. of attendees: %s%n", currentEvent.getAttendees() == null ? "N/A" : currentEvent.getAttendees().size());
     System.out.printf("No. of HHO staff hired: %s%n", currentEvent.getStaff() == null ? "N/A" : currentEvent.getStaff().size());
-    System.out.printf("Total resources cost: %s%n", currentEvent.getEventResources() == null ? "N/A" : currentEvent.getEventResources());
+    System.out.printf("Total resources cost: %s kr.%n", currentEvent.getEventResources() == null ? "N/A" : currentEvent.getResourcesCost());
     System.out.printf("----------%n");
   }
 }

@@ -20,7 +20,6 @@ public class EventListView extends MenuScreen {
     }
   }
 
-
   @Override
   void showContent() {
     if (eventList.size() > MAX_ITEMS) {

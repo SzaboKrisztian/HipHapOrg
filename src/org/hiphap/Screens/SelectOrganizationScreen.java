@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class SelectOrganizationScreen extends MenuScreen {
   public SelectOrganizationScreen() {
     addMenuOption("1", "Find by name");
-    addMenuOption("4", "Find by address");
+    addMenuOption("2", "Find by address");
     addMenuOption("3", "Find by phone number");
     addMenuOption("4", "Find by email");
   }

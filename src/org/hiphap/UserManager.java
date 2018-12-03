@@ -12,7 +12,7 @@ public class UserManager {
 
   private UserManager() {
     if (!loadUserData()) {
-      users.add(new User("groot", "123", null, true));
+      users.add(new User("groot", "123", true));
     }
   }
 

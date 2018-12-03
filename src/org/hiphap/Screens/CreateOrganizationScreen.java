@@ -11,7 +11,7 @@ public class CreateOrganizationScreen extends Screen {
       if (firstName != null && firstName.equals("")) {
         System.out.println("This field must be completed");
       }
-      firstName = clsAndReadString("Enter the organization's first name: ");
+      firstName = clsAndReadString("Enter the organization's name: ");
     } while (firstName.equals(""));
     newOrganization = new Organization(firstName);
     newOrganization.setAddress(clsAndReadString("Enter the organization's address: "));

@@ -54,7 +54,7 @@ public class ManageUsers extends MenuScreen {
         }
       } while (!password.equals(repeatPassword));
       boolean isAdmin = clsAndReadBoolean("Give user administrator privileges? ");
-      UserManager.getInstance().addUser(new User(username, password, null, isAdmin));
+      UserManager.getInstance().addUser(new User(username, password, isAdmin));
       return new Transition(Transition.Type.SUCCESS, "User successfully added.");
     } else {
       return new Transition(Transition.Type.INVALID, "Username already exists.");

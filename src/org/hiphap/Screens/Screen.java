@@ -38,8 +38,12 @@ public abstract class Screen {
     return input.length() > 0 && input.toLowerCase().startsWith("y");
   }
 
-  public static Integer readInteger(String message) {
+  public static Integer clsAndReadInteger(String message) {
     clearScreen();
+    return readInteger(message);
+  }
+
+  public static Integer readInteger(String message) {
     System.out.println(message);
     String input = ConsoleManager.getInstance().getScanner().nextLine();
     try {
@@ -49,8 +53,12 @@ public abstract class Screen {
     }
   }
 
-  public static Double readDouble(String message) {
+  public static Double clsAndReadDouble(String message) {
     clearScreen();
+    return readDouble(message);
+  }
+
+  public static Double readDouble(String message) {
     System.out.println(message);
     String input = ConsoleManager.getInstance().getScanner().nextLine();
     try {

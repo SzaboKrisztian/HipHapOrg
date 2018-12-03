@@ -30,6 +30,10 @@ public class Event implements Serializable {
 
   public Event(String name) {
     this.setName(name);
+    organizedFor = new ArrayList<>();
+    attendees = new ArrayList<>();
+    eventResources = new ArrayList<>();
+    staff = new ArrayList<>();
   }
 
   public void setName(String name) {
@@ -108,12 +112,32 @@ public class Event implements Serializable {
     this.eventResources.add(eventResource);
   }
 
-  public void deleteEventResource(EventResource eventResource) {
-    this.eventResources.remove(eventResource);
+  public boolean deleteEventResource(EventResource eventResource) {
+    return this.eventResources.remove(eventResource);
   }
 
   public ArrayList<EventResource> getEventResources() {
     return this.eventResources;
+  }
+
+  public ArrayList<EventResource> getEventResources(String name) {
+    ArrayList<EventResource> result = new ArrayList<>();
+    if (eventResources != null) {
+      for (EventResource resource : eventResources) {
+        if (resource.getName().toLowerCase().contains(name)) {
+          result.add(resource);
+        }
+      }
+    }
+    return result;
+  }
+
+  public Double getResourcesCost() {
+    Double result = 0.0;
+    for (EventResource resource: eventResources) {
+      result += resource.getCost();
+    }
+    return result;
   }
 
   public void addStaff(Employee employee) {

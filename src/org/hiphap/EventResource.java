@@ -4,11 +4,15 @@ import java.io.Serializable;
 
 public class EventResource implements Serializable {
   private String name;
-  private Entity provider;
   private Double cost;
 
   public EventResource(String name) {
     this.name = name;
+  }
+
+  public EventResource(String name, Double cost) {
+    this(name);
+    this.cost = cost;
   }
 
   public String getName() {
@@ -17,14 +21,6 @@ public class EventResource implements Serializable {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public Entity getProvider() {
-    return provider;
-  }
-
-  public void setProvider(Entity provider) {
-    this.provider = provider;
   }
 
   public Double getCost() {
