@@ -16,7 +16,8 @@ public class EventView extends MenuScreen {
     addMenuOption("5", "Manage staff");
     addMenuOption("6", "Manage composition");
     addMenuOption("7", "Print event report");
-    addMenuOption("8", "Delete event");
+    addMenuOption("8", "Notify subscribed parties");
+    addMenuOption("9", "Delete event");
   }
 
   Transition handleInput(String input) {
@@ -29,8 +30,9 @@ public class EventView extends MenuScreen {
       case "5":
       case "6":
       case "7":
-        return new Transition(Transition.Type.INVALID, "Not implemented yet");
       case "8":
+        return new Transition(Transition.Type.INVALID, "Not implemented yet");
+      case "9":
         if (clsAndReadBoolean("WARNING! Operation cannot be undone. Are you sure you wish to delete the event?")) {
           if (EventManager.getInstance().deleteEvent(currentEvent)) {
             return new Transition(Transition.Type.BACK, "Event successfully deleted.");

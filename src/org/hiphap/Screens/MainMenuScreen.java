@@ -20,7 +20,7 @@ public class MainMenuScreen extends MenuScreen {
         return new Transition(Transition.Type.SWITCH, new SelectMenu());
       case "3":
         if (UserManager.getInstance().getCurrentUser().isAdmin()) {
-          return new Transition(Transition.Type.INVALID, "Not implemented yet;");
+          return new Transition(Transition.Type.SWITCH, new ManageUsers());
         }
       default:
         return new Transition(Transition.Type.INVALID, "Invalid input; try again.");

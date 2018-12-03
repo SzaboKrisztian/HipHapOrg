@@ -27,6 +27,16 @@ public class User implements Serializable {
     return password.equals(this.password);
   }
 
+  public boolean changePassword(String oldPassword, String newPassword, String repeatPassword) {
+    if (authenticate(oldPassword)) {
+      if (newPassword.equals(repeatPassword)) {
+        this.password = newPassword;
+        return true;
+      }
+    }
+    return false;
+  }
+
   public boolean isAdmin() {
     return this.admin;
   }

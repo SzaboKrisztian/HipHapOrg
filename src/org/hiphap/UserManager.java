@@ -23,6 +23,10 @@ public class UserManager {
     return instance;
   }
 
+  public void addUser(User user) {
+    users.add(user);
+  }
+
   public User getCurrentUser() {
     return this.currentUser;
   }
@@ -34,6 +38,24 @@ public class UserManager {
           currentUser = user;
           return true;
         }
+      }
+    }
+    return false;
+  }
+
+  public boolean isUsernameTaken(String username) {
+    for (User user: users) {
+      if (username.equals(user.getUsername())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean deleteUser(String username) {
+    for (User user: users) {
+      if (user.getUsername().equals(username)) {
+        return users.remove(user);
       }
     }
     return false;
