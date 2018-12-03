@@ -31,6 +31,42 @@ public class OrganizationManager {
     return result;
   }
 
+  public ArrayList<Organization> searchByAddress(String address) {
+    ArrayList<Organization> result = new ArrayList<>();
+
+    for (Organization organization: organizations) {
+      if (organization.getAddress().toLowerCase().contains(address)) {
+        result.add(organization);
+      }
+    }
+
+    return result;
+  }
+
+  public ArrayList<Organization> searchByEmail(String email) {
+    ArrayList<Organization> result = new ArrayList<>();
+
+    for (Organization organization: organizations) {
+      if (organization.getEmail().toLowerCase().contains(email)) {
+        result.add(organization);
+      }
+    }
+
+    return result;
+  }
+
+  public ArrayList<Organization> searchByPhone(String phoneNo) {
+    ArrayList<Organization> result = new ArrayList<>();
+
+    for (Organization organization: organizations) {
+      if (organization.getPhone().toLowerCase().contains(phoneNo)) {
+        result.add(organization);
+      }
+    }
+
+    return result;
+  }
+
   public boolean loadOrganizationData() {
     Object data = FileManager.loadBinaryDataFromFile(ORGANIZATIONS_DATA_FILE);
     if (data != null) {

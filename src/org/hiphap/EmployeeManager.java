@@ -23,7 +23,32 @@ public class EmployeeManager {
     ArrayList<Employee> result = new ArrayList<>();
 
     for (Employee employee: employees) {
-      if (employee.getFirstName().toLowerCase().contains(name)) {
+      if (employee.getFirstName().toLowerCase().contains(name)
+          || employee.getLastName().toLowerCase().contains(name)) {
+        result.add(employee);
+      }
+    }
+
+    return result;
+  }
+
+  public ArrayList<Employee> searchByPhone(String phoneNo) {
+    ArrayList<Employee> result = new ArrayList<>();
+
+    for (Employee employee: employees) {
+      if (employee.getPhone().toLowerCase().contains(phoneNo)) {
+        result.add(employee);
+      }
+    }
+
+    return result;
+  }
+
+  public ArrayList<Employee> searchByEmail(String email) {
+    ArrayList<Employee> result = new ArrayList<>();
+
+    for (Employee employee: employees) {
+      if (employee.getEmail().toLowerCase().contains(email)) {
         result.add(employee);
       }
     }

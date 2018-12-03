@@ -23,7 +23,32 @@ public class PersonManager {
     ArrayList<Person> result = new ArrayList<>();
 
     for (Person person: persons) {
-      if (person.getFirstName().toLowerCase().contains(name)) {
+      if (person.getFirstName().toLowerCase().contains(name)
+          || person.getLastName().toLowerCase().contains(name)) {
+        result.add(person);
+      }
+    }
+
+    return result;
+  }
+
+  public ArrayList<Person> searchByPhone(String phoneNo) {
+    ArrayList<Person> result = new ArrayList<>();
+
+    for (Person person: persons) {
+      if (person.getPhone().toLowerCase().contains(phoneNo)) {
+        result.add(person);
+      }
+    }
+
+    return result;
+  }
+
+  public ArrayList<Person> searchByEmail(String email) {
+    ArrayList<Person> result = new ArrayList<>();
+
+    for (Person person: persons) {
+      if (person.getEmail().toLowerCase().contains(email)) {
         result.add(person);
       }
     }

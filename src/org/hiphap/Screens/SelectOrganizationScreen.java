@@ -8,8 +8,9 @@ import java.util.ArrayList;
 public class SelectOrganizationScreen extends MenuScreen {
   public SelectOrganizationScreen() {
     addMenuOption("1", "Find by name");
-    addMenuOption("2", "Find by phone number");
-    addMenuOption("3", "Find by email");
+    addMenuOption("4", "Find by address");
+    addMenuOption("3", "Find by phone number");
+    addMenuOption("4", "Find by email");
   }
 
   @Override
@@ -19,25 +20,28 @@ public class SelectOrganizationScreen extends MenuScreen {
 
   @Override
   Transition handleInput(String input) {
-    String query;
+    String query = clsAndReadString("Enter your search query: ");
+    ArrayList<Organization> result;
     switch (input) {
       case "1":
-        query = clsAndReadString("Enter a search query: ");
-        ArrayList<Organization> result = OrganizationManager.getInstance().searchByName(query);
-        if (result.isEmpty()) {
-          return new Transition(Transition.Type.INVALID, "No organization name matched your query.");
-        } else {
-          if (result.size() == 1) {
-            return new Transition(Transition.Type.SWITCH, new OrganizationView(result.get(0)));
-          } else {
-            return new Transition(Transition.Type.SWITCH, new OrganizationListView(result));
-          }
-        }
+        result = OrganizationManager.getInstance().searchByName(query);
+        break;
       case "2":
+        result = OrganizationManager.getInstance().searchByAddress(query);
+        break;
       case "3":
-        return new Transition(Transition.Type.INVALID, "Not implemented yet");
+        result = OrganizationManager.getInstance().searchByPhone(query);
+        break;
+      case "4":
+        result = OrganizationManager.getInstance().searchByEmail(query);
+        break;
       default:
         return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+    }
+    if (result.isEmpty()) {
+      return new Transition(Transition.Type.INVALID, "No organization matched your query.");
+    } else {
+      return new Transition(Transition.Type.SWITCH, new OrganizationListView(result));
     }
   }
 }

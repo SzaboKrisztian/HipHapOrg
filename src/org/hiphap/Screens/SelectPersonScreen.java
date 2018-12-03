@@ -19,25 +19,25 @@ public class SelectPersonScreen extends MenuScreen {
 
   @Override
   Transition handleInput(String input) {
-    String query;
+    String query = clsAndReadString("Enter your search query: ");
+    ArrayList<Person> result;
     switch (input) {
       case "1":
-        query = clsAndReadString("Enter a search query: ");
-        ArrayList<Person> result = PersonManager.getInstance().searchByName(query);
-        if (result.isEmpty()) {
-          return new Transition(Transition.Type.INVALID, "No person name matched your query.");
-        } else {
-          if (result.size() == 1) {
-            return new Transition(Transition.Type.SWITCH, new PersonView(result.get(0)));
-          } else {
-            return new Transition(Transition.Type.SWITCH, new PersonListView(result));
-          }
-        }
+        result = PersonManager.getInstance().searchByName(query);
+        break;
       case "2":
+        result = PersonManager.getInstance().searchByPhone(query);
+        break;
       case "3":
-        return new Transition(Transition.Type.INVALID, "Not implemented yet");
+        result = PersonManager.getInstance().searchByEmail(query);
+        break;
       default:
         return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+    }
+    if (result.isEmpty()) {
+      return new Transition(Transition.Type.INVALID, "No person matched your query.");
+    } else {
+      return new Transition(Transition.Type.SWITCH, new PersonListView(result));
     }
   }
 }

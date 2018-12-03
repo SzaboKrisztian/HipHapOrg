@@ -37,6 +37,7 @@ public class SelectEventScreen extends MenuScreen {
         } catch (DateTimeParseException e){
           return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
         }
+        break;
       case "3":
         query = clsAndReadString("Enter an event location to search for: ");
         result = EventManager.getInstance().searchByLocation(query);
@@ -47,11 +48,7 @@ public class SelectEventScreen extends MenuScreen {
     if (result.isEmpty()) {
       return new Transition(Transition.Type.INVALID, "No event name matched your query.");
     } else {
-      if (result.size() == 1) {
-        return new Transition(Transition.Type.SWITCH, new EventView(result.get(0)));
-      } else {
-        return new Transition(Transition.Type.SWITCH, new EventListView(result));
-      }
+      return new Transition(Transition.Type.SWITCH, new EventListView(result));
     }
   }
 }
