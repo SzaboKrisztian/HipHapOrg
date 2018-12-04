@@ -1,4 +1,6 @@
 .idea/
 .DS_Store
+.vscode/
+JavaApplication10/
 *.log
 *.class
