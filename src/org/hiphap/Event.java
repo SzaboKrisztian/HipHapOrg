@@ -15,11 +15,11 @@ public class Event implements Serializable {
   private LocalDateTime finish;
   private String location;
   private EventType eventType;
-  private ArrayList<Entity> organizedFor;
-  private LinkedHashMap<Entity, Boolean> attendees;
+  private LinkedHashMap<Entity, Boolean> organizers;
+  private LinkedHashMap<Entity, Boolean> participants;
   private ArrayList<EventResource> eventResources;
   private ArrayList<Employee> staff;
-  private User organizer;
+  private User hipHapOrganizer;
   public static final DateTimeFormatter DT_FORMAT = new DateTimeFormatterBuilder()
       .appendPattern("yyyy-MM-dd[ HH][:mm][:ss]")
       .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
@@ -30,8 +30,8 @@ public class Event implements Serializable {
 
   public Event(String name) {
     this.setName(name);
-    organizedFor = new ArrayList<>();
-    attendees = new LinkedHashMap<>();
+    organizers = new LinkedHashMap<>();
+    participants = new LinkedHashMap<>();
     eventResources = new ArrayList<>();
     staff = new ArrayList<>();
   }
@@ -84,28 +84,28 @@ public class Event implements Serializable {
     return this.eventType;
   }
   
-  public void addToOrganizedFor(Entity entity) {
-    this.organizedFor.add(entity);
+  public void addOrganizer(Entity entity, boolean subscribeForNotifications) {
+    this.organizers.put(entity, subscribeForNotifications);
   }
   
-  public void deleteFromOrganizedFor(Entity entity) {
-    this.organizedFor.remove(entity);
+  public boolean deleteOrganizer(Entity entity) {
+    return this.organizers.remove(entity);
   }
 
-  public ArrayList<Entity> getOrganizedFor() {
-    return this.organizedFor;
+  public ArrayList<Entity> getOrganizers() {
+    return new ArrayList<>(this.organizers.keySet());
   }
 
   public void addAttendee(Entity entity, boolean subscribeForNotifications) {
-    this.attendees.put(entity, subscribeForNotifications);
+    this.participants.put(entity, subscribeForNotifications);
   }
 
-  public boolean deleteFromAttendee(Entity entity) {
-    return this.attendees.remove(entity);
+  public boolean deleteAttendee(Entity entity) {
+    return this.participants.remove(entity);
   }
 
-  public ArrayList<Entity> getAttendees() {
-    return new ArrayList<Entity>(this.attendees.keySet());
+  public ArrayList<Entity> getParticipants() {
+    return new ArrayList<Entity>(this.participants.keySet());
   }
 
   public void addEventResource(EventResource eventResource) {
@@ -152,12 +152,12 @@ public class Event implements Serializable {
     return this.staff;
   }
 
-  public void setOrganizer(User organizer) {
-    this.organizer = organizer;
+  public void setHipHapOrganizer(User hipHapOrganizer) {
+    this.hipHapOrganizer = hipHapOrganizer;
   }
 
-  public User getOrganizer() {
-    return this.organizer;
+  public User getHipHapOrganizer() {
+    return this.hipHapOrganizer;
   }
 
 

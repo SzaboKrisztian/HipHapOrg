@@ -6,17 +6,17 @@ import org.hiphap.Organization;
 import org.hiphap.Person;
 import java.util.ArrayList;
 
-public class ManageParticipants extends MenuScreen {
+public class ManageOrganizers extends MenuScreen {
   private Event currentEvent;
 
-  public ManageParticipants(Event event) {
+  public ManageOrganizers(Event event) {
     this.currentEvent = event;
-    addMenuOption("1", "View participants");
-    addMenuOption("2", "Add participant from persons database");
-    addMenuOption("3", "Add participant from organizations database");
-    addMenuOption("4", "Add new person as participant");
-    addMenuOption("5", "Add new organization as participant");
-    addMenuOption("6", "Delete participant");
+    addMenuOption("1", "View organizers");
+    addMenuOption("2", "Add organizer from persons database");
+    addMenuOption("3", "Add organizer from organizations database");
+    addMenuOption("4", "Add new person as organizer");
+    addMenuOption("5", "Add new organization as organizer");
+    addMenuOption("6", "Delete organizer");
   }
 
 
@@ -31,7 +31,7 @@ public class ManageParticipants extends MenuScreen {
     boolean subscribeToNotifications;
     switch (input) {
       case "1":
-        ArrayList<Entity> list = filterAttendees();
+        ArrayList<Entity> list = filterOrganizers();
         for (Entity item: list) {
           System.out.printf(" - %s%n", item);
         }
@@ -41,8 +41,8 @@ public class ManageParticipants extends MenuScreen {
         if (result.getType() == Transition.Type.REPLY) {
           Person person = (Person) result.getPayload();
           subscribeToNotifications = clsAndReadBoolean("Subscribe person to notifications?");
-          currentEvent.addAttendee(person, subscribeToNotifications);
-          return new Transition(Transition.Type.SUCCESS, "Person successfully added to attendee list.");
+          currentEvent.addOrganizer(person, subscribeToNotifications);
+          return new Transition(Transition.Type.SUCCESS, "Person successfully added to organizers list.");
         } else {
           return result;
         }
@@ -51,8 +51,8 @@ public class ManageParticipants extends MenuScreen {
         if (result.getType() == Transition.Type.REPLY) {
           Organization organization = (Organization) result.getPayload();
           subscribeToNotifications = clsAndReadBoolean("Subscribe organization to notifications?");
-          currentEvent.addAttendee(organization, subscribeToNotifications);
-          return new Transition(Transition.Type.SUCCESS, "Organization successfully added to attendee list.");
+          currentEvent.addOrganizer(organization, subscribeToNotifications);
+          return new Transition(Transition.Type.SUCCESS, "Organization successfully added to organizers list.");
         } else {
           return result;
         }
@@ -71,8 +71,8 @@ public class ManageParticipants extends MenuScreen {
         newPerson.setPhone(clsAndReadString("Enter the person's phone number: "));
         newPerson.setEmail(clsAndReadString("Enter the person's email address: "));
         subscribeToNotifications = clsAndReadBoolean("Subscribe person to notifications?");
-        currentEvent.addAttendee(newPerson, subscribeToNotifications);
-        return new Transition(Transition.Type.SUCCESS, "Person successfully added to attendee list.");
+        currentEvent.addOrganizer(newPerson, subscribeToNotifications);
+        return new Transition(Transition.Type.SUCCESS, "Person successfully added to organizers list.");
       case "5":
         String name = null;
         do {
@@ -87,23 +87,23 @@ public class ManageParticipants extends MenuScreen {
         newOrganization.setPhone(clsAndReadString("Enter the organization's phone number: "));
         newOrganization.setEmail(clsAndReadString("Enter the organization's email address: "));
         subscribeToNotifications = clsAndReadBoolean("Subscribe organization to notifications?");
-        currentEvent.addAttendee(newOrganization, subscribeToNotifications);
-        return new Transition(Transition.Type.SUCCESS, "Organization successfully added to attendee list.");
+        currentEvent.addOrganizer(newOrganization, subscribeToNotifications);
+        return new Transition(Transition.Type.SUCCESS, "Organization successfully added to organizers list.");
       case "6":
-        ArrayList<Entity> filteredAttendees = filterAttendees();
+        ArrayList<Entity> filteredOrganizers = filterOrganizers();
         clearScreen();
         int index = 1;
-        for (Entity entity: filteredAttendees) {
+        for (Entity entity: filteredOrganizers) {
           System.out.printf("[%d] %s%n", index++, entity);
         }
-        Integer choice = readInteger("Select which attendee to delete: ");
+        Integer choice = readInteger("Select which organizer to delete: ");
         if (choice != null) {
-          if (choice >= 1 && choice <= filteredAttendees.size()) {
-            boolean success = currentEvent.deleteAttendee(filteredAttendees.get(choice - 1));
+          if (choice >= 1 && choice <= filteredOrganizers.size()) {
+            boolean success = currentEvent.deleteOrganizer(filteredOrganizers.get(choice - 1));
             if (success) {
-              return new Transition(Transition.Type.SUCCESS, "Attendee successfully removed from list.");
+              return new Transition(Transition.Type.SUCCESS, "Organizer successfully removed from list.");
             } else {
-              return new Transition(Transition.Type.INVALID, "Error removing attendee from list.");
+              return new Transition(Transition.Type.INVALID, "Error removing organizer from list.");
             }
           } else {
             return new Transition(Transition.Type.INVALID, "Invalid selection; try again.");
@@ -116,24 +116,24 @@ public class ManageParticipants extends MenuScreen {
     }
   }
 
-  private ArrayList<Entity> filterAttendees() {
+  private ArrayList<Entity> filterOrganizers() {
     String query = clsAndReadString("Enter a search query");
-    ArrayList<Entity> filteredAttendees = new ArrayList<>();
-    for (Entity entity: currentEvent.getParticipants()) {
+    ArrayList<Entity> filteredOrganizers = new ArrayList<>();
+    for (Entity entity: currentEvent.getOrganizers()) {
       if (entity instanceof Person) {
         Person item = (Person) entity;
         if (item.getFirstName().toLowerCase().contains(query.toLowerCase())
             || item.getMiddleName().toLowerCase().contains(query.toLowerCase())
             || item.getLastName().toLowerCase().contains(query.toLowerCase())) {
-          filteredAttendees.add(item);
+          filteredOrganizers.add(item);
         }
       } else if (entity instanceof Organization) {
         Organization item = (Organization) entity;
         if (item.getName().toLowerCase().contains(query.toLowerCase())) {
-          filteredAttendees.add(item);
+          filteredOrganizers.add(item);
         }
       }
     }
-    return filteredAttendees;
+    return filteredOrganizers;
   }
 }

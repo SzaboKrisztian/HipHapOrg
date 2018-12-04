@@ -25,7 +25,7 @@ public class EventView extends MenuScreen {
       case "1":
         return new Transition(Transition.Type.SWITCH, new EventEditDetails(currentEvent));
       case "2":
-        return new Transition(Transition.Type.INVALID, "Not implemented yet");
+        return new Transition(Transition.Type.SWITCH, new ManageOrganizers(currentEvent));
       case "3":
         return new Transition(Transition.Type.SWITCH, new ManageParticipants(currentEvent));
       case "4":
@@ -57,8 +57,8 @@ public class EventView extends MenuScreen {
     System.out.printf("Starts: %s%n", currentEvent.getStart() == null ? "N/A" : currentEvent.getStartAsString());
     System.out.printf("Ends: %s%n", currentEvent.getFinish() == null ? "N/A" : currentEvent.getFinishAsString());
     System.out.printf("Location: %s%n", (currentEvent.getLocation() == null || currentEvent.getLocation().equals("")) ? "N/A" : currentEvent.getLocation());
-    System.out.printf("Organized for: %s%n", currentEvent.getOrganizedFor() == null ? "N/A" : currentEvent.getOrganizedFor());
-    System.out.printf("No. of attendees: %s%n", currentEvent.getAttendees() == null ? "N/A" : currentEvent.getAttendees().size());
+    System.out.printf("Organized for: %s%n", currentEvent.getOrganizers() == null ? "N/A" : currentEvent.getOrganizers());
+    System.out.printf("No. of attendees: %s%n", currentEvent.getParticipants() == null ? "N/A" : currentEvent.getParticipants().size());
     System.out.printf("No. of HHO staff hired: %s%n", currentEvent.getStaff() == null ? "N/A" : currentEvent.getStaff().size());
     System.out.printf("Total resources cost: %s kr.%n", currentEvent.getEventResources() == null ? "N/A" : currentEvent.getResourcesCost());
     System.out.printf("----------%n");

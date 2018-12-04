@@ -40,7 +40,7 @@ public class CreateEventScreen extends Screen {
       System.out.println("Error parsing starting date/time. No value set;");
     }
 
-    newEvent.setOrganizer(UserManager.getInstance().getCurrentUser());
+    newEvent.setHipHapOrganizer(UserManager.getInstance().getCurrentUser());
     EventManager.getInstance().addEvent(newEvent);
     return new Transition(Transition.Type.BACK, "Event successfully created.");
   }
