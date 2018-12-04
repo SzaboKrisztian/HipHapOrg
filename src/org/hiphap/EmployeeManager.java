@@ -3,6 +3,10 @@ package org.hiphap;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * this class create a new instance of employee
+ * saves employees' data into a Array list
+ */
 public class EmployeeManager {
   private static EmployeeManager instance;
   private ArrayList<Employee> employees = new ArrayList<>();
@@ -12,6 +16,10 @@ public class EmployeeManager {
     
   }
 
+  /**
+   * this method creats a new instance of employee manager
+   * @return employee manager
+   */
   public static EmployeeManager getInstance() {
     if (instance == null) {
       instance = new EmployeeManager();
@@ -19,6 +27,11 @@ public class EmployeeManager {
     return instance;
   }
 
+  /**
+   * this creates a array list of employees' name
+   * @param name searched person
+   * @return list employees'
+   */
   public ArrayList<Employee> searchByName(String name) {
     ArrayList<Employee> result = new ArrayList<>();
 
@@ -32,6 +45,11 @@ public class EmployeeManager {
     return result;
   }
 
+  /**
+   * this creates a array list of employees' based on thier phone numbers'
+   * @param phoneNo supplied by user
+   * @return list of employees
+   */
   public ArrayList<Employee> searchByPhone(String phoneNo) {
     ArrayList<Employee> result = new ArrayList<>();
 
@@ -44,6 +62,11 @@ public class EmployeeManager {
     return result;
   }
 
+  /**
+   *this creates a array list of employees' based on thier email
+   * @param email supplied by user
+   * @return list of employees
+   */
   public ArrayList<Employee> searchByEmail(String email) {
     ArrayList<Employee> result = new ArrayList<>();
 
@@ -56,6 +79,10 @@ public class EmployeeManager {
     return result;
   }
 
+  /**
+   * this loads employees' data to array list
+   * @return true or false if successfully loaded
+   */
   public boolean loadEmployeeData() {
     Object data = FileManager.loadBinaryDataFromFile(EMPLOYEES_DATA_FILE);
     if (data != null) {
@@ -71,6 +98,9 @@ public class EmployeeManager {
     return false;
   }
 
+  /**
+   * this saves employees' data to a file
+   */
   public void saveEmployeeData() {
     FileManager.saveBinaryDataToFile(EMPLOYEES_DATA_FILE, employees);
   }

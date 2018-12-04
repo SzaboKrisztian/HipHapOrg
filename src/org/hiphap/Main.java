@@ -8,6 +8,9 @@ import java.io.File;
 import java.util.Stack;
 
 import static org.hiphap.Screens.Screen.clsAndReadBoolean;
+/**
+ * This the main entery point to the program
+ * */
 
 public class Main {
   public static void main(String[] args) {

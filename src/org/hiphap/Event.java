@@ -8,6 +8,9 @@ import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * this class creates events and save thier data into an array list
+ */
 
 public class Event implements Serializable {
   private String name;
@@ -27,7 +30,10 @@ public class Event implements Serializable {
       .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
       .toFormatter();
 
-
+  /**
+   *
+   * @param name
+   */
   public Event(String name) {
     this.setName(name);
     organizedFor = new ArrayList<>();
