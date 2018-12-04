@@ -23,8 +23,8 @@ public class EmployeeManager {
     ArrayList<Employee> result = new ArrayList<>();
 
     for (Employee employee: employees) {
-      if (employee.getFirstName().toLowerCase().contains(name)
-          || employee.getLastName().toLowerCase().contains(name)) {
+      if (employee.getFirstName().toLowerCase().contains(name.toLowerCase())
+          || employee.getLastName().toLowerCase().contains(name.toLowerCase())) {
         result.add(employee);
       }
     }
@@ -36,7 +36,7 @@ public class EmployeeManager {
     ArrayList<Employee> result = new ArrayList<>();
 
     for (Employee employee: employees) {
-      if (employee.getPhone().toLowerCase().contains(phoneNo)) {
+      if (employee.getPhone().toLowerCase().contains(phoneNo.toLowerCase())) {
         result.add(employee);
       }
     }
@@ -48,7 +48,7 @@ public class EmployeeManager {
     ArrayList<Employee> result = new ArrayList<>();
 
     for (Employee employee: employees) {
-      if (employee.getEmail().toLowerCase().contains(email)) {
+      if (employee.getEmail().toLowerCase().contains(email.toLowerCase())) {
         result.add(employee);
       }
     }

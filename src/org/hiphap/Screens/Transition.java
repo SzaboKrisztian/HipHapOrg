@@ -60,6 +60,7 @@ public class Transition {
   }
 
   public enum Type {
+    REPLY,
     SWITCH,
     BACK,
     SAVE_DATA,

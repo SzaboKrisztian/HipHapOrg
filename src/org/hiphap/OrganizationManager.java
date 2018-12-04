@@ -23,7 +23,7 @@ public class OrganizationManager {
     ArrayList<Organization> result = new ArrayList<>();
 
     for (Organization organization: organizations) {
-      if (organization.getName().toLowerCase().contains(name)) {
+      if (organization.getName().toLowerCase().contains(name.toLowerCase())) {
         result.add(organization);
       }
     }
@@ -35,7 +35,7 @@ public class OrganizationManager {
     ArrayList<Organization> result = new ArrayList<>();
 
     for (Organization organization: organizations) {
-      if (organization.getAddress().toLowerCase().contains(address)) {
+      if (organization.getAddress().toLowerCase().contains(address.toLowerCase())) {
         result.add(organization);
       }
     }
@@ -47,7 +47,7 @@ public class OrganizationManager {
     ArrayList<Organization> result = new ArrayList<>();
 
     for (Organization organization: organizations) {
-      if (organization.getEmail().toLowerCase().contains(email)) {
+      if (organization.getEmail().toLowerCase().contains(email.toLowerCase())) {
         result.add(organization);
       }
     }
@@ -59,7 +59,7 @@ public class OrganizationManager {
     ArrayList<Organization> result = new ArrayList<>();
 
     for (Organization organization: organizations) {
-      if (organization.getPhone().toLowerCase().contains(phoneNo)) {
+      if (organization.getPhone().toLowerCase().contains(phoneNo.toLowerCase())) {
         result.add(organization);
       }
     }

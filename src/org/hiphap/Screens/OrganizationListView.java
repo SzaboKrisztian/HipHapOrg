@@ -36,7 +36,9 @@ public class OrganizationListView extends MenuScreen {
     try {
       index = Integer.parseInt(input) - 1;
       if (index >= 0 && index < organizationList.size()) {
-        return new Transition(Transition.Type.SWITCH, new OrganizationView(organizationList.get(index)));
+        Transition result = new Transition(Transition.Type.REPLY);
+        result.setPayload(organizationList.get(index));
+        return result;
       } else {
         return new Transition(Transition.Type.INVALID, "Invalid choice. Try again: ");
       }

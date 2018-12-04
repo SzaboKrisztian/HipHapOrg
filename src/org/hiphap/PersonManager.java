@@ -23,8 +23,9 @@ public class PersonManager {
     ArrayList<Person> result = new ArrayList<>();
 
     for (Person person: persons) {
-      if (person.getFirstName().toLowerCase().contains(name)
-          || person.getLastName().toLowerCase().contains(name)) {
+      if (person.getFirstName().toLowerCase().contains(name.toLowerCase())
+          || person.getLastName().toLowerCase().contains(name.toLowerCase())
+          || person.getMiddleName().toLowerCase().contains(name.toLowerCase())) {
         result.add(person);
       }
     }
@@ -36,7 +37,7 @@ public class PersonManager {
     ArrayList<Person> result = new ArrayList<>();
 
     for (Person person: persons) {
-      if (person.getPhone().toLowerCase().contains(phoneNo)) {
+      if (person.getPhone().toLowerCase().contains(phoneNo.toLowerCase())) {
         result.add(person);
       }
     }
@@ -48,7 +49,7 @@ public class PersonManager {
     ArrayList<Person> result = new ArrayList<>();
 
     for (Person person: persons) {
-      if (person.getEmail().toLowerCase().contains(email)) {
+      if (person.getEmail().toLowerCase().contains(email.toLowerCase())) {
         result.add(person);
       }
     }

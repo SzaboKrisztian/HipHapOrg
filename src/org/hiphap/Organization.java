@@ -41,4 +41,8 @@ public class Organization implements Entity {
   public void setPhone(String phone) {
     this.phone = phone;
   }
+
+  public String toString() {
+    return this.name;
+  }
 }

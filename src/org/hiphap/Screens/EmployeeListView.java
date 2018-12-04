@@ -37,7 +37,9 @@ public class EmployeeListView extends MenuScreen {
     try {
       index = Integer.parseInt(input) - 1;
       if (index >= 0 && index < employeeList.size()) {
-        return new Transition(Transition.Type.SWITCH, new EmployeeView(employeeList.get(index)));
+        Transition result = new Transition(Transition.Type.REPLY);
+        result.setPayload(employeeList.get(index));
+        return result;
       } else {
         return new Transition(Transition.Type.INVALID, "Invalid choice. Try again: ");
       }

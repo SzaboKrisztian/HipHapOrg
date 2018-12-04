@@ -36,7 +36,9 @@ public class EventListView extends MenuScreen {
     try {
       index = Integer.parseInt(input) - 1;
       if (index >= 0 && index < eventList.size()) {
-        return new Transition(Transition.Type.SWITCH, new EventView(eventList.get(index)));
+        Transition result = new Transition(Transition.Type.REPLY);
+        result.setPayload(eventList.get(index));
+        return result;
       } else {
         return new Transition(Transition.Type.INVALID, "Invalid choice. Try again: ");
       }

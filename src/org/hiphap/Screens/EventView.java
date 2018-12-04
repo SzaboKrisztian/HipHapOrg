@@ -25,8 +25,9 @@ public class EventView extends MenuScreen {
       case "1":
         return new Transition(Transition.Type.SWITCH, new EventEditDetails(currentEvent));
       case "2":
-      case "3":
         return new Transition(Transition.Type.INVALID, "Not implemented yet");
+      case "3":
+        return new Transition(Transition.Type.SWITCH, new ManageParticipants(currentEvent));
       case "4":
         return new Transition(Transition.Type.SWITCH, new ManageEventResources(currentEvent));
       case "5":

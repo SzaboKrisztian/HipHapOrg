@@ -37,7 +37,7 @@ public class SelectPersonScreen extends MenuScreen {
     if (result.isEmpty()) {
       return new Transition(Transition.Type.INVALID, "No person matched your query.");
     } else {
-      return new Transition(Transition.Type.SWITCH, new PersonListView(result));
+      return new PersonListView(result).show(null);
     }
   }
 }

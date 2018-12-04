@@ -41,7 +41,7 @@ public class SelectOrganizationScreen extends MenuScreen {
     if (result.isEmpty()) {
       return new Transition(Transition.Type.INVALID, "No organization matched your query.");
     } else {
-      return new Transition(Transition.Type.SWITCH, new OrganizationListView(result));
+      return new OrganizationListView(result).show(null);
     }
   }
 }

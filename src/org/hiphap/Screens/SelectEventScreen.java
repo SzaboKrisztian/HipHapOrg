@@ -48,7 +48,7 @@ public class SelectEventScreen extends MenuScreen {
     if (result.isEmpty()) {
       return new Transition(Transition.Type.INVALID, "No event name matched your query.");
     } else {
-      return new Transition(Transition.Type.SWITCH, new EventListView(result));
+      return new EventListView(result).show(null);
     }
   }
 }

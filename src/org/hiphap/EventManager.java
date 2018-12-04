@@ -87,10 +87,10 @@ public class EventManager {
     ArrayList<Event> result = new ArrayList<>();
 
     for (Event event: events) {
-      if ((event.getStart().toLocalDate().isBefore(time.toLocalDate()) ||
-          event.getStart().toLocalDate().isEqual(time.toLocalDate())) &&
-          event.getFinish().toLocalDate().isAfter(time.toLocalDate()) ||
-          event.getFinish().toLocalDate().isEqual(time.toLocalDate())) {
+      if ((event.getStart() != null && (event.getStart().toLocalDate().isBefore(time.toLocalDate()) ||
+          event.getStart().toLocalDate().isEqual(time.toLocalDate()))) &&
+          (event.getFinish() != null && (event.getFinish().toLocalDate().isAfter(time.toLocalDate()) ||
+          event.getFinish().toLocalDate().isEqual(time.toLocalDate())))) {
         result.add(event);
       }
     }

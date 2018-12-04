@@ -1,5 +1,10 @@
 package org.hiphap.Screens;
 
+import org.hiphap.Employee;
+import org.hiphap.Event;
+import org.hiphap.Organization;
+import org.hiphap.Person;
+
 public class SelectMenu extends MenuScreen {
   public SelectMenu() {
     this.setMenuNode(true);
@@ -10,15 +15,40 @@ public class SelectMenu extends MenuScreen {
   }
 
   Transition handleInput(String input) {
+    Transition result;
     switch (input) {
       case "1":
-        return new Transition(Transition.Type.SWITCH, new SelectEventScreen());
+        result = new SelectEventScreen().show(null);
+        if (result.getType() == Transition.Type.REPLY) {
+          Event event = (Event) result.getPayload();
+          return new Transition(Transition.Type.SWITCH, new EventView(event));
+        } else {
+          return result;
+        }
       case "2":
-        return new Transition(Transition.Type.SWITCH, new SelectPersonScreen());
+        result = new SelectPersonScreen().show(null);
+        if (result.getType() == Transition.Type.REPLY) {
+          Person person = (Person) result.getPayload();
+          return new Transition(Transition.Type.SWITCH, new PersonView(person));
+        } else {
+          return result;
+        }
       case "3":
-        return new Transition(Transition.Type.SWITCH, new SelectOrganizationScreen());
+        result = new SelectOrganizationScreen().show(null);
+        if (result.getType() == Transition.Type.REPLY) {
+          Organization organization = (Organization) result.getPayload();
+          return new Transition(Transition.Type.SWITCH, new OrganizationView(organization));
+        } else {
+          return result;
+        }
       case "4":
-        return new Transition(Transition.Type.SWITCH, new SelectEmployeeScreen());
+        result = new SelectEmployeeScreen().show(null);
+        if (result.getType() == Transition.Type.REPLY) {
+          Employee employee = (Employee) result.getPayload();
+          return new Transition(Transition.Type.SWITCH, new EmployeeView(employee));
+        } else {
+          return result;
+        }
       default:
         return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
     }

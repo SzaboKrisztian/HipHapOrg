@@ -37,7 +37,7 @@ public class SelectEmployeeScreen extends MenuScreen {
     if (result.isEmpty()) {
       return new Transition(Transition.Type.INVALID, "No employee matched your query.");
     } else {
-      return new Transition(Transition.Type.SWITCH, new EmployeeListView(result));
+      return new EmployeeListView(result).show(null);
     }
   }
 }

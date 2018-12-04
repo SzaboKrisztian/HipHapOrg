@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
 
 
 public class Event implements Serializable {
@@ -16,7 +16,7 @@ public class Event implements Serializable {
   private String location;
   private EventType eventType;
   private ArrayList<Entity> organizedFor;
-  private ArrayList<Entity> attendees;
+  private LinkedHashMap<Entity, Boolean> attendees;
   private ArrayList<EventResource> eventResources;
   private ArrayList<Employee> staff;
   private User organizer;
@@ -31,7 +31,7 @@ public class Event implements Serializable {
   public Event(String name) {
     this.setName(name);
     organizedFor = new ArrayList<>();
-    attendees = new ArrayList<>();
+    attendees = new LinkedHashMap<>();
     eventResources = new ArrayList<>();
     staff = new ArrayList<>();
   }
@@ -96,16 +96,16 @@ public class Event implements Serializable {
     return this.organizedFor;
   }
 
-  public void addAttendee(Entity entity) {
-    this.attendees.add(entity);
+  public void addAttendee(Entity entity, boolean subscribeForNotifications) {
+    this.attendees.put(entity, subscribeForNotifications);
   }
 
-  public void deleteFromAttendee(Entity entity) {
-    this.attendees.remove(entity);
+  public boolean deleteFromAttendee(Entity entity) {
+    return this.attendees.remove(entity);
   }
 
   public ArrayList<Entity> getAttendees() {
-    return this.attendees;
+    return new ArrayList<Entity>(this.attendees.keySet());
   }
 
   public void addEventResource(EventResource eventResource) {
