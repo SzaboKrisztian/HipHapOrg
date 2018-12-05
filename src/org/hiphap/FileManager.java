@@ -21,9 +21,11 @@ public class FileManager {
       }
     }
     if (found) {
-      File outputFile = new File("notifications" + File.separator +
-          event.getName().replace(' ', '_') + ".txt");
-      outputFile.mkdir();
+      String path = "notifications";
+      File directory = new File(path);
+      directory.mkdir();
+      File outputFile = new File(path.concat(File.separator).concat(event.
+          getName().replace(' ', '_').concat(".txt")));
       PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
       writer.printf("%nOrganizers:%n--------------------%n");
       for (Map.Entry<Entity, Boolean> entry : event.getOrganizersAsEntrySet()) {

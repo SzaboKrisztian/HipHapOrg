@@ -31,11 +31,11 @@ public class ManageStaff extends MenuScreen {
         }
         return new Transition(Transition.Type.SUCCESS);
       case "2":
-        result = new SelectPersonScreen().show(null);
+        result = new SelectEmployeeScreen().show(null);
         if (result.getType() == Transition.Type.REPLY) {
           Employee employee = (Employee) result.getPayload();
           currentEvent.addStaff(employee);
-          return new Transition(Transition.Type.SUCCESS, "Employee successfully added to attendee list.");
+          return new Transition(Transition.Type.SUCCESS, "Employee successfully added to staff list.");
         } else {
           return result;
         }

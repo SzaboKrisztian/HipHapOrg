@@ -75,6 +75,8 @@ public class EventView extends MenuScreen {
     System.out.printf("Organized for: %s", currentEvent.getOrganizers().isEmpty() ? "N/A" : currentEvent.getOrganizers().get(0));
     if (currentEvent.getOrganizers().size() > 1) {
       System.out.printf(" plus %d more.%n", currentEvent.getOrganizers().size() - 1);
+    } else {
+      System.out.printf("%n");
     }
     System.out.printf("No. of attendees: %s%n", currentEvent.getParticipants().isEmpty() ? "N/A" : currentEvent.getParticipants().size());
     System.out.printf("No. of HHO staff hired: %s%n", currentEvent.getStaff().isEmpty() ? "N/A" : currentEvent.getStaff().size());
