@@ -72,10 +72,13 @@ public class EventView extends MenuScreen {
     System.out.printf("Starts: %s%n", currentEvent.getStart() == null ? "N/A" : currentEvent.getStartAsString());
     System.out.printf("Ends: %s%n", currentEvent.getFinish() == null ? "N/A" : currentEvent.getFinishAsString());
     System.out.printf("Location: %s%n", (currentEvent.getLocation() == null || currentEvent.getLocation().equals("")) ? "N/A" : currentEvent.getLocation());
-    System.out.printf("Organized for: %s%n", currentEvent.getOrganizers() == null ? "N/A" : currentEvent.getOrganizers());
-    System.out.printf("No. of attendees: %s%n", currentEvent.getParticipants() == null ? "N/A" : currentEvent.getParticipants().size());
-    System.out.printf("No. of HHO staff hired: %s%n", currentEvent.getStaff() == null ? "N/A" : currentEvent.getStaff().size());
-    System.out.printf("Total resources cost: %s kr.%n", currentEvent.getEventResources() == null ? "N/A" : currentEvent.getResourcesCost());
+    System.out.printf("Organized for: %s", currentEvent.getOrganizers().isEmpty() ? "N/A" : currentEvent.getOrganizers().get(0));
+    if (currentEvent.getOrganizers().size() > 1) {
+      System.out.printf(" plus %d more.%n", currentEvent.getOrganizers().size() - 1);
+    }
+    System.out.printf("No. of attendees: %s%n", currentEvent.getParticipants().isEmpty() ? "N/A" : currentEvent.getParticipants().size());
+    System.out.printf("No. of HHO staff hired: %s%n", currentEvent.getStaff().isEmpty() ? "N/A" : currentEvent.getStaff().size());
+    System.out.printf("Total resources cost: %s kr.%n", currentEvent.getEventResources().isEmpty() ? "N/A" : currentEvent.getResourcesCost());
     System.out.printf("----------%n");
   }
 }
