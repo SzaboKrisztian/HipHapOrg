@@ -1,8 +1,70 @@
 package org.hiphap;
 
 import java.io.*;
+import java.util.Map;
 
 public class FileManager {
+  public static boolean printNotifications(Event event) throws IOException {
+    boolean found = false;
+    for (Map.Entry<Entity, Boolean> entry: event.getOrganizersAsEntrySet()) {
+      if (entry.getValue()) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      for (Map.Entry<Entity, Boolean> entry: event.getParticipantsAsEntrySet()) {
+        if (entry.getValue()) {
+          found = true;
+          break;
+        }
+      }
+    }
+    if (found) {
+      File outputFile = new File("notifications" + File.separator +
+          event.getName().replace(' ', '_') + ".txt");
+      outputFile.mkdir();
+      PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
+      writer.printf("%nOrganizers:%n--------------------%n");
+      for (Map.Entry<Entity, Boolean> entry : event.getOrganizersAsEntrySet()) {
+        if (entry.getValue()) {
+          writer.printf("%s%n", buildNotificationString(entry.getKey()));
+        }
+      }
+      writer.printf("%nParticipants:%n--------------------%n");
+      for (Map.Entry<Entity, Boolean> entry : event.getParticipantsAsEntrySet()) {
+        if (entry.getValue()) {
+          writer.printf("%s%n", buildNotificationString(entry.getKey()));
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  private static String buildNotificationString(Entity entity) {
+    StringBuilder result = new StringBuilder();
+    String email = entity.getEmail();
+    String phone = entity.getPhone();
+    if (!email.equals("") || !phone.equals("")) {
+      result.append("Notified ");
+      result.append(entity.toString());
+      result.append(" by ");
+      if (!email.equals("")) {
+        result.append("email at: ");
+        result.append(email);
+        if (!phone.equals("")) {
+          result.append(" and SMS at: ");
+          result.append(phone);
+        }
+      } else if (!phone.equals("")) {
+        result.append("SMS at: ");
+        result.append(phone);
+      }
+    }
+    return result.toString();
+  }
+
   public static Object loadBinaryDataFromFile(String filename) {
     FileInputStream fileInputStream;
     try {

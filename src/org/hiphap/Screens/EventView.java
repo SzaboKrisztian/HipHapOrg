@@ -2,6 +2,9 @@ package org.hiphap.Screens;
 
 import org.hiphap.Event;
 import org.hiphap.EventManager;
+import org.hiphap.FileManager;
+
+import java.io.IOException;
 
 public class EventView extends MenuScreen {
   private Event currentEvent;
@@ -31,10 +34,22 @@ public class EventView extends MenuScreen {
       case "4":
         return new Transition(Transition.Type.SWITCH, new ManageEventResources(currentEvent));
       case "5":
+        return new Transition(Transition.Type.SWITCH, new ManageStaff(currentEvent));
       case "6":
       case "7":
-      case "8":
         return new Transition(Transition.Type.INVALID, "Not implemented yet");
+      case "8":
+        try {
+          boolean result = FileManager.printNotifications(currentEvent);
+          if (result) {
+            return new Transition(Transition.Type.SUCCESS, "Notifications successfully sent.");
+          } else {
+            return new Transition(Transition.Type.INVALID, "No entities subscribed to receive notifications found.");
+          }
+        } catch (IOException e) {
+          return new Transition(Transition.Type.INVALID, "Error writing notifications file.");
+        }
+
       case "9":
         if (clsAndReadBoolean("WARNING! Operation cannot be undone. Are you sure you wish to delete the event?")) {
           if (EventManager.getInstance().deleteEvent(currentEvent)) {

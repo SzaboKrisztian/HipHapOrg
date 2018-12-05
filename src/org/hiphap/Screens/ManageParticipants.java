@@ -41,7 +41,7 @@ public class ManageParticipants extends MenuScreen {
         if (result.getType() == Transition.Type.REPLY) {
           Person person = (Person) result.getPayload();
           subscribeToNotifications = clsAndReadBoolean("Subscribe person to notifications?");
-          currentEvent.addAttendee(person, subscribeToNotifications);
+          currentEvent.addParticipant(person, subscribeToNotifications);
           return new Transition(Transition.Type.SUCCESS, "Person successfully added to attendee list.");
         } else {
           return result;
@@ -51,7 +51,7 @@ public class ManageParticipants extends MenuScreen {
         if (result.getType() == Transition.Type.REPLY) {
           Organization organization = (Organization) result.getPayload();
           subscribeToNotifications = clsAndReadBoolean("Subscribe organization to notifications?");
-          currentEvent.addAttendee(organization, subscribeToNotifications);
+          currentEvent.addParticipant(organization, subscribeToNotifications);
           return new Transition(Transition.Type.SUCCESS, "Organization successfully added to attendee list.");
         } else {
           return result;
@@ -71,7 +71,7 @@ public class ManageParticipants extends MenuScreen {
         newPerson.setPhone(clsAndReadString("Enter the person's phone number: "));
         newPerson.setEmail(clsAndReadString("Enter the person's email address: "));
         subscribeToNotifications = clsAndReadBoolean("Subscribe person to notifications?");
-        currentEvent.addAttendee(newPerson, subscribeToNotifications);
+        currentEvent.addParticipant(newPerson, subscribeToNotifications);
         return new Transition(Transition.Type.SUCCESS, "Person successfully added to attendee list.");
       case "5":
         String name = null;
@@ -87,7 +87,7 @@ public class ManageParticipants extends MenuScreen {
         newOrganization.setPhone(clsAndReadString("Enter the organization's phone number: "));
         newOrganization.setEmail(clsAndReadString("Enter the organization's email address: "));
         subscribeToNotifications = clsAndReadBoolean("Subscribe organization to notifications?");
-        currentEvent.addAttendee(newOrganization, subscribeToNotifications);
+        currentEvent.addParticipant(newOrganization, subscribeToNotifications);
         return new Transition(Transition.Type.SUCCESS, "Organization successfully added to attendee list.");
       case "6":
         ArrayList<Entity> filteredAttendees = filterAttendees();
@@ -99,7 +99,7 @@ public class ManageParticipants extends MenuScreen {
         Integer choice = readInteger("Select which attendee to delete: ");
         if (choice != null) {
           if (choice >= 1 && choice <= filteredAttendees.size()) {
-            boolean success = currentEvent.deleteAttendee(filteredAttendees.get(choice - 1));
+            boolean success = currentEvent.deleteParticipant(filteredAttendees.get(choice - 1));
             if (success) {
               return new Transition(Transition.Type.SUCCESS, "Attendee successfully removed from list.");
             } else {

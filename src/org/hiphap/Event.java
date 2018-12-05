@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 
 public class Event implements Serializable {
@@ -96,16 +98,24 @@ public class Event implements Serializable {
     return new ArrayList<>(this.organizers.keySet());
   }
 
-  public void addAttendee(Entity entity, boolean subscribeForNotifications) {
+  public Set<Map.Entry<Entity, Boolean>> getOrganizersAsEntrySet() {
+    return this.organizers.entrySet();
+  }
+
+  public void addParticipant(Entity entity, boolean subscribeForNotifications) {
     this.participants.put(entity, subscribeForNotifications);
   }
 
-  public boolean deleteAttendee(Entity entity) {
+  public boolean deleteParticipant(Entity entity) {
     return this.participants.remove(entity);
   }
 
   public ArrayList<Entity> getParticipants() {
-    return new ArrayList<Entity>(this.participants.keySet());
+    return new ArrayList<>(this.participants.keySet());
+  }
+
+  public Set<Map.Entry<Entity, Boolean>> getParticipantsAsEntrySet() {
+    return this.participants.entrySet();
   }
 
   public void addEventResource(EventResource eventResource) {
@@ -124,7 +134,7 @@ public class Event implements Serializable {
     ArrayList<EventResource> result = new ArrayList<>();
     if (eventResources != null) {
       for (EventResource resource : eventResources) {
-        if (resource.getName().toLowerCase().contains(name)) {
+        if (resource.getName().toLowerCase().contains(name.toLowerCase())) {
           result.add(resource);
         }
       }
@@ -144,8 +154,8 @@ public class Event implements Serializable {
     this.staff.add(employee);
   }
 
-  public void deleteStaff(Employee employee) {
-    this.staff.remove(employee);
+  public boolean deleteStaff(Employee employee) {
+    return this.staff.remove(employee);
   }
 
   public ArrayList<Employee> getStaff() {

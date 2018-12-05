@@ -1,19 +1,16 @@
 package org.hiphap;
 
-public class Person implements Entity {
+public class Person extends Entity {
   private String firstName;
   private String middleName;
   private String lastName;
-  private String email;
-  private String phone;
-  
+
 
   public Person(String firstName) {
+    super();
     this.firstName = firstName;
     this.middleName = "";
     this.lastName = "";
-    this.email = "";
-    this.phone = "";
   }
 
   public String getFirstName() {
@@ -38,22 +35,6 @@ public class Person implements Entity {
 
   public void setLastName(String lastName) {
     this.lastName = lastName;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPhone() {
-    return phone;
-  }
-
-  public void setPhone(String phone) {
-    this.phone = phone;
   }
 
   public String toString() {
