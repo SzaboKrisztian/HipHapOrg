@@ -2,6 +2,7 @@ package org.hiphap.Screens;
 
 import org.hiphap.Employee;
 import org.hiphap.EmployeeManager;
+import org.hiphap.Person;
 
 public class CreateEmployeeScreen extends MenuScreen {
   public CreateEmployeeScreen() {
@@ -15,7 +16,20 @@ public class CreateEmployeeScreen extends MenuScreen {
       case "1":
         return createFromScratch();
       case "2":
-        return new Transition(Transition.Type.INVALID, "Not implemented yet");
+        Transition result = new SelectPersonScreen().show(null);
+        if (result.getType() == Transition.Type.REPLY) {
+          Person person = (Person) result.getPayload();
+          Employee newEmployee = new Employee(person);
+          Double hourlyRate = clsAndReadDouble("Enter employee's hourly rate: ");
+          if (hourlyRate == null) {
+            hourlyRate = 0.0;
+          }
+          newEmployee.setHourlyRate(hourlyRate);
+          EmployeeManager.getInstance().addEmployee(newEmployee);
+          return new Transition(Transition.Type.SUCCESS, "Employee successfully created.");
+        } else {
+          return result;
+        }
       default:
         return new Transition(Transition.Type.INVALID, "Invalid input. Try again: ");
 
@@ -36,6 +50,11 @@ public class CreateEmployeeScreen extends MenuScreen {
     newEmployee.setMiddleName(clsAndReadString("Enter the employee's middle name: "));
     newEmployee.setEmail(clsAndReadString("Enter the employee's email: "));
     newEmployee.setPhone(clsAndReadString("Enter the employee's phone number: "));
+    Double hourlyRate = clsAndReadDouble("Enter the employee's hourly rate: ");
+    if (hourlyRate != null) {
+      hourlyRate = 0.0;
+    }
+    newEmployee.setHourlyRate(hourlyRate);
     EmployeeManager.getInstance().addEmployee(newEmployee);
     return new Transition(Transition.Type.BACK, "Employee successfully created.");
   }

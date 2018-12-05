@@ -79,4 +79,10 @@ public class EmployeeManager {
     employees.add(employee);
     saveEmployeeData();
   }
+
+  public boolean deleteEmployee(Employee employee) {
+    boolean result = employees.remove(employee);
+    saveEmployeeData();
+    return result;
+  }
 }
