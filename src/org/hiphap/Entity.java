@@ -2,7 +2,7 @@ package org.hiphap;
 
 import java.io.Serializable;
 
-public abstract class Entity implements Serializable {
+public abstract class Entity implements Serializable, CsvPrintable {
   private String email;
   private String phone;
 

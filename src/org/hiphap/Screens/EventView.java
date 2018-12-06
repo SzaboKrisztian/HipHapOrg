@@ -37,17 +37,17 @@ public class EventView extends MenuScreen {
         return new Transition(Transition.Type.SWITCH, new ManageStaff(currentEvent));
       case "6":
       case "7":
-        return new Transition(Transition.Type.INVALID, "Not implemented yet");
+        return new Transition(Transition.Type.ERROR, "Not implemented yet");
       case "8":
         try {
           boolean result = FileManager.printNotifications(currentEvent);
           if (result) {
             return new Transition(Transition.Type.SUCCESS, "Notifications successfully sent.");
           } else {
-            return new Transition(Transition.Type.INVALID, "No entities subscribed to receive notifications found.");
+            return new Transition(Transition.Type.ERROR, "No entities subscribed to receive notifications found.");
           }
         } catch (IOException e) {
-          return new Transition(Transition.Type.INVALID, "Error writing notifications file.");
+          return new Transition(Transition.Type.ERROR, "Error writing notifications file.");
         }
 
       case "9":
@@ -55,13 +55,13 @@ public class EventView extends MenuScreen {
           if (EventManager.getInstance().deleteEvent(currentEvent)) {
             return new Transition(Transition.Type.BACK, "Event successfully deleted.");
           } else {
-            return new Transition(Transition.Type.INVALID, "Error deleting event.");
+            return new Transition(Transition.Type.ERROR, "Error deleting event.");
           }
         } else {
-          return new Transition(Transition.Type.INVALID, "Operation aborted.");
+          return new Transition(Transition.Type.ERROR, "Operation aborted.");
         }
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
   }
 

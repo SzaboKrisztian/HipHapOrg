@@ -29,13 +29,13 @@ public class SelectEventScreen extends MenuScreen {
         result = EventManager.getInstance().searchByName(query);
         break;
       case "2":
-        String timeText = clsAndReadString("Enter the event's end as yyyy-mm-dd [hh:mm:ss]: ");
+        String timeText = clsAndReadString("Enter the event's end as yyyy-mm-dd hh:mm:ss: ");
         LocalDateTime time;
         try {
           time = LocalDateTime.parse(timeText, Event.DT_FORMAT);
           result = EventManager.getInstance().searchByDate(time);
         } catch (DateTimeParseException e){
-          return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+          return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
         }
         break;
       case "3":
@@ -43,10 +43,10 @@ public class SelectEventScreen extends MenuScreen {
         result = EventManager.getInstance().searchByLocation(query);
         break;
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
     if (result.isEmpty()) {
-      return new Transition(Transition.Type.INVALID, "No event name matched your query.");
+      return new Transition(Transition.Type.ERROR, "No event name matched your query.");
     } else {
       return new EventListView(result).show(null);
     }

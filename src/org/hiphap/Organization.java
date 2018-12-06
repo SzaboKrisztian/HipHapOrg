@@ -27,4 +27,9 @@ public class Organization extends Entity {
   public String toString() {
     return this.name;
   }
+
+  public String getCsvString() {
+    return getName().concat("|").concat(getAddress()).concat("|").concat(getEmail()).
+        concat("|").concat(getPhone());
+  }
 }

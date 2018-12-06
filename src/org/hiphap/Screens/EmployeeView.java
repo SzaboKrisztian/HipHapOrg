@@ -40,7 +40,7 @@ public class EmployeeView extends MenuScreen {
         System.out.println("Old hourly rate: " + currentEmployee.getHourlyRate());
         Double hourlyRate = readDouble("Enter new hourly rate: ");
         if (hourlyRate == null) {
-          return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+          return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
         } else {
           currentEmployee.setHourlyRate(hourlyRate);
           return new Transition(Transition.Type.SUCCESS, "Hourly rate successfully changed.");
@@ -51,13 +51,13 @@ public class EmployeeView extends MenuScreen {
           if (EmployeeManager.getInstance().deleteEmployee(currentEmployee)) {
             return new Transition(Transition.Type.BACK, "Employee successfully deleted.");
           } else {
-            return new Transition(Transition.Type.INVALID, "Error deleting person.");
+            return new Transition(Transition.Type.ERROR, "Error deleting person.");
           }
         } else {
-          return new Transition(Transition.Type.INVALID, "Operation aborted.");
+          return new Transition(Transition.Type.ERROR, "Operation aborted.");
         }
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
   }
 

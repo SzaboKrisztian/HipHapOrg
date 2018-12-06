@@ -40,10 +40,10 @@ public class EventListView extends MenuScreen {
         result.setPayload(eventList.get(index));
         return result;
       } else {
-        return new Transition(Transition.Type.INVALID, "Invalid choice. Try again: ");
+        return new Transition(Transition.Type.ERROR, "Invalid choice. Try again: ");
       }
     } catch (NumberFormatException e) {
-      return new Transition(Transition.Type.INVALID, "Invalid input. Try again: ");
+      return new Transition(Transition.Type.ERROR, "Invalid input. Try again: ");
     }
   }
 }

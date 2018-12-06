@@ -43,7 +43,7 @@ public class Main {
             saveAllData();
           }
         case SUCCESS:
-        case INVALID:
+        case ERROR:
           break;
       }
     }

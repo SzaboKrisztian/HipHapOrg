@@ -45,12 +45,12 @@ public class EventTypeListView extends MenuScreen {
             if (currentEvent.getEventType() == selectedEventType) {
               currentEvent.setEventType(null);
             }
-            return new Transition(Transition.Type.BACK, "Successfully deleted entry.");
+            return new Transition(Transition.Type.SUCCESS, "Successfully deleted entry.");
           } else {
-            return new Transition(Transition.Type.INVALID, "Invalid option; try again.");
+            return new Transition(Transition.Type.ERROR, "Invalid option; try again.");
           }
         } catch (NumberFormatException e) {
-          return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+          return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
         }
       case "r":
         displayEntries();
@@ -63,14 +63,14 @@ public class EventTypeListView extends MenuScreen {
             if (!newName.equals("")) {
               selected.setName(newName);
             } else {
-              return new Transition(Transition.Type.INVALID, "Operation aborted.");
+              return new Transition(Transition.Type.ERROR, "Operation aborted.");
             }
-            return new Transition(Transition.Type.BACK, "Successfully renamed entry.");
+            return new Transition(Transition.Type.SUCCESS, "Successfully renamed entry.");
           } else {
-            return new Transition(Transition.Type.INVALID, "Invalid option; try again.");
+            return new Transition(Transition.Type.ERROR, "Invalid option; try again.");
           }
         } catch (NumberFormatException e) {
-          return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+          return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
         }
       default:
         int option;
@@ -81,10 +81,10 @@ public class EventTypeListView extends MenuScreen {
             currentEvent.setEventType(selectedEventType);
             return new Transition(Transition.Type.BACK, "Event type successfully set.");
           } else {
-            return new Transition(Transition.Type.INVALID, "Invalid option; try again: ");
+            return new Transition(Transition.Type.ERROR, "Invalid option; try again: ");
           }
         } catch (NumberFormatException e) {
-          return new Transition(Transition.Type.INVALID, "Invalid input; try again: ");
+          return new Transition(Transition.Type.ERROR, "Invalid input; try again: ");
         }
     }
   }

@@ -67,6 +67,6 @@ public class Transition {
     LOGOUT,
     EXIT,
     SUCCESS,
-    INVALID
+    ERROR
   }
 }

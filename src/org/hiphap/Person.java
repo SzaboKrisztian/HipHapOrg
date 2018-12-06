@@ -47,4 +47,20 @@ public class Person extends Entity {
     }
     return result;
   }
+
+  public String toFullString() {
+    String result = this.firstName;
+    if (!this.middleName.equals("")) {
+      result = result.concat(" ").concat(middleName);
+    }
+    if (!this.lastName.equals("")) {
+      result = result.concat(" ").concat(lastName);
+    }
+    return result;
+  }
+
+  public String getCsvString() {
+    return getFirstName().concat("|").concat(getLastName()).concat("|").concat(getMiddleName()).
+        concat("|").concat(getEmail()).concat("|").concat(getPhone());
+  }
 }

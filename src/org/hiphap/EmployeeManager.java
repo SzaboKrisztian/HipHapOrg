@@ -56,6 +56,10 @@ public class EmployeeManager {
     return result;
   }
 
+  public ArrayList<Employee> getEmployees() {
+    return this.employees;
+  }
+
   public boolean loadEmployeeData() {
     Object data = FileManager.loadBinaryDataFromFile(EMPLOYEES_DATA_FILE);
     if (data != null) {

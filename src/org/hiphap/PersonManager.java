@@ -57,6 +57,10 @@ public class PersonManager {
     return result;
   }
 
+  public ArrayList<Person> getPersons() {
+    return this.persons;
+  }
+
   public void addPerson(Person person) {
     persons.add(person);
     savePersonData();

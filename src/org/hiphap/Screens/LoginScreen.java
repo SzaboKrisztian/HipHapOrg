@@ -23,7 +23,7 @@ public class LoginScreen extends MenuScreen {
         case "2":
           return new Transition(Transition.Type.LOGOUT);
         default:
-          return new Transition(Transition.Type.INVALID, "Invalid input; try again: ");
+          return new Transition(Transition.Type.ERROR, "Invalid input; try again: ");
       }
     } else {
       switch (input) {
@@ -34,10 +34,10 @@ public class LoginScreen extends MenuScreen {
           if (UserManager.getInstance().authenticate(username, password)) {
             return new Transition(Transition.Type.SWITCH, new MainMenuScreen(), "Authentication successful.");
           } else {
-            return new Transition(Transition.Type.INVALID, "Username and/or password incorrect.");
+            return new Transition(Transition.Type.ERROR, "Username and/or password incorrect.");
           }
         default:
-          return new Transition(Transition.Type.INVALID, "Invalid input; try again: ");
+          return new Transition(Transition.Type.ERROR, "Invalid input; try again: ");
       }
     }
   }

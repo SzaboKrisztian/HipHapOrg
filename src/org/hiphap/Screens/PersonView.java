@@ -12,7 +12,7 @@ public class PersonView extends MenuScreen {
         String firstName = null;
         do {
           clearScreen();
-          System.out.println("Old name: " + currentPerson.toString());
+          System.out.println("Old name: " + currentPerson.toFullString());
           if (firstName != null && firstName.equals("")) {
             System.out.println("First name cannot be blank.");
           }
@@ -42,13 +42,13 @@ public class PersonView extends MenuScreen {
           if (PersonManager.getInstance().deletePerson(currentPerson)) {
             return new Transition(Transition.Type.BACK, "Person successfully deleted.");
           } else {
-            return new Transition(Transition.Type.INVALID, "Error deleting person.");
+            return new Transition(Transition.Type.ERROR, "Error deleting person.");
           }
         } else {
-          return new Transition(Transition.Type.INVALID, "Operation aborted.");
+          return new Transition(Transition.Type.ERROR, "Operation aborted.");
         }
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
   }
 

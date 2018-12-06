@@ -33,7 +33,7 @@ public class EventEditDetails extends MenuScreen {
       case "3":
         clearScreen();
         System.out.println("Old start time: " + currentEvent.getStartAsString());
-        String startText = readString("Enter new starting time as yyyy-mm-dd [hh:mm:ss]: ");
+        String startText = readString("Enter new starting time as yyyy-mm-dd hh:mm:ss: ");
         try {
           LocalDateTime newStart = LocalDateTime.parse(startText, Event.DT_FORMAT);
           currentEvent.setStart(newStart);
@@ -44,12 +44,12 @@ public class EventEditDetails extends MenuScreen {
           }
           return new Transition(Transition.Type.SUCCESS, message);
         } catch (DateTimeParseException e) {
-          return new Transition(Transition.Type.INVALID, "Invalid input.");
+          return new Transition(Transition.Type.ERROR, "Invalid input.");
         }
       case "4":
         clearScreen();
         System.out.println("Old finishing time: " + currentEvent.getFinishAsString());
-        String finishText = readString("Enter new finishing time as yyyy-mm-dd [hh:mm:ss]: ");
+        String finishText = readString("Enter new finishing time as yyyy-mm-dd hh:mm:ss: ");
         try {
           LocalDateTime newFinish = LocalDateTime.parse(finishText, Event.DT_FORMAT);
           currentEvent.setFinish(newFinish);
@@ -60,7 +60,7 @@ public class EventEditDetails extends MenuScreen {
           }
           return new Transition(Transition.Type.SUCCESS, message);
         } catch (DateTimeParseException e) {
-          return new Transition(Transition.Type.INVALID, "Invalid input.");
+          return new Transition(Transition.Type.ERROR, "Invalid input.");
         }
       case "5":
         clearScreen();
@@ -78,7 +78,7 @@ public class EventEditDetails extends MenuScreen {
           return new Transition(Transition.Type.SUCCESS, "Operation cancelled.");
         }
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
   }
 

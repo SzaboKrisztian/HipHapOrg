@@ -12,7 +12,7 @@ public class UserManager {
 
   private UserManager() {
     if (!loadUserData()) {
-      users.add(new User("groot", "123", true));
+      users.add(new User("admin", "123", true));
     }
   }
 
@@ -21,6 +21,14 @@ public class UserManager {
       instance = new UserManager();
     }
     return instance;
+  }
+
+  public ArrayList<String> getUsernames() {
+    ArrayList<String> result = new ArrayList<>();
+    for (User user: users) {
+      result.add(user.getUsername());
+    }
+    return result;
   }
 
   public void addUser(User user) {

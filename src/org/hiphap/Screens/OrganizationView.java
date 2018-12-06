@@ -43,13 +43,13 @@ public class OrganizationView extends MenuScreen {
           if (OrganizationManager.getInstance().deleteOrganization(currentOrganization)) {
             return new Transition(Transition.Type.BACK, "Organization successfully deleted.");
           } else {
-            return new Transition(Transition.Type.INVALID, "Error deleting organization.");
+            return new Transition(Transition.Type.ERROR, "Error deleting organization.");
           }
         } else {
-          return new Transition(Transition.Type.INVALID, "Operation aborted.");
+          return new Transition(Transition.Type.ERROR, "Operation aborted.");
         }
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
   }
 

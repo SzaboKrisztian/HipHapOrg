@@ -46,7 +46,7 @@ public class ManageEventResources extends MenuScreen {
         String query = clsAndReadString("Enter a query: ");
         ArrayList<EventResource> resources = currentEvent.getEventResources(query);
         if (resources.isEmpty()) {
-          return new Transition(Transition.Type.INVALID, "No resource matched your query.");
+          return new Transition(Transition.Type.ERROR, "No resource matched your query.");
         } else if (resources.size() == 1) {
           selection = resources.get(0);
         } else {
@@ -58,16 +58,16 @@ public class ManageEventResources extends MenuScreen {
           if (option != null && option >= 1 && option <= resources.size()) {
             selection = resources.get(option - 1);
           } else {
-            return new Transition(Transition.Type.INVALID, "Invalid selection.");
+            return new Transition(Transition.Type.ERROR, "Invalid selection.");
           }
         }
         if (currentEvent.deleteEventResource(selection)) {
           return new Transition(Transition.Type.SUCCESS, "Resource successfully deleted.");
         } else {
-          return new Transition(Transition.Type.INVALID, "Failed to delete resource.");
+          return new Transition(Transition.Type.ERROR, "Failed to delete resource.");
         }
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
   }
 

@@ -31,7 +31,7 @@ public class CreateEmployeeScreen extends MenuScreen {
           return result;
         }
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input. Try again: ");
+        return new Transition(Transition.Type.ERROR, "Invalid input. Try again: ");
 
     }
   }

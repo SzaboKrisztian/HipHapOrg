@@ -1,10 +1,10 @@
 package org.hiphap.Screens;
 
-import org.hiphap.Event;
-import org.hiphap.EventManager;
-import org.hiphap.UserManager;
+import org.hiphap.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 
 public class CreateEventScreen extends Screen {
@@ -18,11 +18,11 @@ public class CreateEventScreen extends Screen {
       eventName = clsAndReadString("Enter the event's name: ");
     } while (eventName.equals(""));
     newEvent = new Event(eventName);
+    newEvent.setEventType(pickEventType());
     newEvent.setLocation(clsAndReadString("Enter the event's location: "));
-    String startText = clsAndReadString("Enter the event's start as yyyy-mm-dd [hh:mm:ss]: ");
-    String finishText = clsAndReadString("Enter the event's end as yyyy-mm-dd [hh:mm:ss]: ");
+    String startText = clsAndReadString("Enter the event's start as yyyy-mm-dd hh:mm:ss: ");
+    String finishText = clsAndReadString("Enter the event's end as yyyy-mm-dd hh:mm:ss: ");
     LocalDateTime start, finish;
-
     try {
       start = LocalDateTime.parse(startText, Event.DT_FORMAT);
       newEvent.setStart(start);
@@ -43,5 +43,23 @@ public class CreateEventScreen extends Screen {
     newEvent.setHipHapOrganizer(UserManager.getInstance().getCurrentUser());
     EventManager.getInstance().addEvent(newEvent);
     return new Transition(Transition.Type.BACK, "Event successfully created.");
+  }
+
+  private EventType pickEventType() {
+    ArrayList<EventType> eventTypes = EventTypeManager.getInstance().getEventTypes();
+    if (eventTypes.isEmpty()) {
+      return null;
+    } else {
+      int index = 1;
+      for (EventType eventType: eventTypes) {
+        System.out.printf("[%d] %s%n", index++, eventType.getName());
+      }
+      Integer selection = readInteger("Pick an event type: ");
+      if (selection != null && selection >= 1 && selection <= eventTypes.size()) {
+        return eventTypes.get(selection - 1);
+      } else {
+        return null;
+      }
+    }
   }
 }

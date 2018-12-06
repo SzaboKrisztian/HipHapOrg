@@ -103,16 +103,16 @@ public class ManageOrganizers extends MenuScreen {
             if (success) {
               return new Transition(Transition.Type.SUCCESS, "Organizer successfully removed from list.");
             } else {
-              return new Transition(Transition.Type.INVALID, "Error removing organizer from list.");
+              return new Transition(Transition.Type.ERROR, "Error removing organizer from list.");
             }
           } else {
-            return new Transition(Transition.Type.INVALID, "Invalid selection; try again.");
+            return new Transition(Transition.Type.ERROR, "Invalid selection; try again.");
           }
         } else {
-          return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+          return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
         }
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
   }
 

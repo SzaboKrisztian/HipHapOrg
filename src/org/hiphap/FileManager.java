@@ -25,23 +25,55 @@ public class FileManager {
       File directory = new File(path);
       directory.mkdir();
       File outputFile = new File(path.concat(File.separator).concat(event.
-          getName().replace(' ', '_').concat(".txt")));
+          getName().replace(' ', '_')).concat(".txt"));
       PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
-      writer.printf("%nOrganizers:%n--------------------%n");
+      writer.println("\nOrganizers:\n--------------------");
       for (Map.Entry<Entity, Boolean> entry : event.getOrganizersAsEntrySet()) {
         if (entry.getValue()) {
-          writer.printf("%s%n", buildNotificationString(entry.getKey()));
+          writer.println(buildNotificationString(entry.getKey()));
         }
       }
-      writer.printf("%nParticipants:%n--------------------%n");
+      writer.println("\nParticipants:\n--------------------");
       for (Map.Entry<Entity, Boolean> entry : event.getParticipantsAsEntrySet()) {
         if (entry.getValue()) {
-          writer.printf("%s%n", buildNotificationString(entry.getKey()));
+          writer.println(buildNotificationString(entry.getKey()));
         }
       }
+      writer.flush();
+      writer.close();
       return true;
     }
     return false;
+  }
+
+  public static void exportCsvData() throws IOException {
+    String path = "exported_data";
+    File directory = new File(path);
+    directory.mkdir();
+
+    File outputFile = new File(path.concat(File.separator).concat("employees.csv"));
+    PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
+    for (Employee employee: EmployeeManager.getInstance().getEmployees()) {
+      writer.println(employee.getCsvString());
+    }
+    writer.flush();
+    writer.close();
+
+    outputFile = new File(path.concat(File.separator).concat("organizations.csv"));
+    writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
+    for (Organization organization: OrganizationManager.getInstance().getOrganizations()) {
+      writer.println(organization.getCsvString());
+    }
+    writer.flush();
+    writer.close();
+
+    outputFile = new File(path.concat(File.separator).concat("persons.csv"));
+    writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
+    for (Person person: PersonManager.getInstance().getPersons()) {
+      writer.println(person.getCsvString());
+    }
+    writer.flush();
+    writer.close();
   }
 
   private static String buildNotificationString(Entity entity) {

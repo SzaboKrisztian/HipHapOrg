@@ -67,6 +67,10 @@ public class OrganizationManager {
     return result;
   }
 
+  public ArrayList<Organization> getOrganizations() {
+    return this.organizations;
+  }
+
   public boolean loadOrganizationData() {
     Object data = FileManager.loadBinaryDataFromFile(ORGANIZATIONS_DATA_FILE);
     if (data != null) {

@@ -1,6 +1,6 @@
 package org.hiphap;
 
-public class Employee extends Person {
+public class Employee extends Person implements CsvPrintable {
   private double hourlyRate;
   public Employee(String name) {
     super(name);
@@ -21,5 +21,11 @@ public class Employee extends Person {
 
   public void setHourlyRate(double hourlyRate) {
     this.hourlyRate = hourlyRate;
+  }
+
+  public String getCsvString() {
+    return getFirstName().concat("|").concat(getLastName()).concat("|").
+        concat(getMiddleName()).concat("|").concat(getEmail()).concat("|").
+        concat(getPhone()).concat("|").concat(Double.toString(hourlyRate));
   }
 }

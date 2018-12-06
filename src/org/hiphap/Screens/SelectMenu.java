@@ -50,7 +50,7 @@ public class SelectMenu extends MenuScreen {
           return result;
         }
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
   }
 

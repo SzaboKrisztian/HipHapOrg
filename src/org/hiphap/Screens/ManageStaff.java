@@ -53,16 +53,16 @@ public class ManageStaff extends MenuScreen {
             if (success) {
               return new Transition(Transition.Type.SUCCESS, "Employee successfully removed from list.");
             } else {
-              return new Transition(Transition.Type.INVALID, "Error removing employee from list.");
+              return new Transition(Transition.Type.ERROR, "Error removing employee from list.");
             }
           } else {
-            return new Transition(Transition.Type.INVALID, "Invalid selection; try again.");
+            return new Transition(Transition.Type.ERROR, "Invalid selection; try again.");
           }
         } else {
-          return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+          return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
         }
       default:
-        return new Transition(Transition.Type.INVALID, "Invalid input; try again.");
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
   }
 
