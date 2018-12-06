@@ -2,5 +2,8 @@
 .DS_Store
 .vscode/
 JavaApplication10/
+*.dat
+*.txt
+*.csv
 *.log
 *.class
