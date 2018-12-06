@@ -41,6 +41,6 @@ public class MainMenuScreen extends MenuScreen {
   }
 
   void showContent() {
-    printPadding();
+    clearScreen();
   }
 }

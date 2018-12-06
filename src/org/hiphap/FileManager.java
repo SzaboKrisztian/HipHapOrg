@@ -76,6 +76,18 @@ public class FileManager {
     writer.close();
   }
 
+  public static void printEventReport(Event event) throws IOException {
+    String path = "reports";
+    File directory = new File(path);
+    directory.mkdir();
+    File outputFile = new File(path.concat(File.separator).concat(event.
+        getName().replace(' ', '_')).concat(".txt"));
+    PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
+    writer.println("There will be contents");
+    writer.flush();
+    writer.close();
+  }
+
   private static String buildNotificationString(Entity entity) {
     StringBuilder result = new StringBuilder();
     String email = entity.getEmail();

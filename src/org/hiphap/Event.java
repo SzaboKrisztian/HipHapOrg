@@ -20,7 +20,7 @@ public class Event implements Serializable {
   private LinkedHashMap<Entity, Boolean> organizers;
   private LinkedHashMap<Entity, Boolean> participants;
   private ArrayList<EventResource> eventResources;
-  private ArrayList<Employee> staff;
+  private LinkedHashMap<Employee, Double> staff;
   private User hipHapOrganizer;
   public static final DateTimeFormatter DT_FORMAT = new DateTimeFormatterBuilder()
       .appendPattern("yyyy-MM-dd[ HH][:mm][:ss]")
@@ -35,7 +35,7 @@ public class Event implements Serializable {
     organizers = new LinkedHashMap<>();
     participants = new LinkedHashMap<>();
     eventResources = new ArrayList<>();
-    staff = new ArrayList<>();
+    staff = new LinkedHashMap<>();
   }
 
   public void setName(String name) {
@@ -150,16 +150,25 @@ public class Event implements Serializable {
     return result;
   }
 
-  public void addStaff(Employee employee) {
-    this.staff.add(employee);
+  public void addStaff(Employee employee, Double numHours) {
+    this.staff.put(employee, numHours);
   }
 
   public boolean deleteStaff(Employee employee) {
-    return this.staff.remove(employee);
+    Double value = this.staff.remove(employee);
+    return value != null;
   }
 
   public ArrayList<Employee> getStaff() {
-    return this.staff;
+    return new ArrayList<>(this.staff.keySet());
+  }
+
+  public Double getHours(Employee employee) {
+    return this.staff.get(employee);
+  }
+
+  public void setHours(Employee employee, double numHours) {
+    this.staff.put(employee, numHours);
   }
 
   public void setHipHapOrganizer(User hipHapOrganizer) {

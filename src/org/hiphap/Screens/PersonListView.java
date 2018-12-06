@@ -24,10 +24,10 @@ public class PersonListView extends MenuScreen {
   @Override
   void showContent() {
     if (personList.size() > MAX_ITEMS) {
-      printPadding();
+      clearScreen();
       System.out.println("Showing first " + MAX_ITEMS + " results; refine your query for more precise results.");
     } else {
-      printPadding();
+      clearScreen();
     }
   }
 

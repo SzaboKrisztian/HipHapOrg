@@ -9,9 +9,9 @@ public class ManageStaff extends MenuScreen {
 
   public ManageStaff(Event event) {
     this.currentEvent = event;
-    addMenuOption("1", "View staff");
+    addMenuOption("1", "View and edit staff");
     addMenuOption("2", "Add staff from employee database");
-    addMenuOption("3", "Delete staff");
+    addMenuOption("3", "Remove staff");
   }
 
 
@@ -23,18 +23,42 @@ public class ManageStaff extends MenuScreen {
   @Override
   Transition handleInput(String input) {
     Transition result;
+    int index;
     switch (input) {
       case "1":
         ArrayList<Employee> list = filterEmployees();
+        index = 1;
         for (Employee item: list) {
-          System.out.printf(" - %s%n", item);
+          System.out.printf("[%d] %s - %.2f hours%n", index++, item, currentEvent.getHours(item));
         }
-        return new Transition(Transition.Type.SUCCESS);
+        String answer = readString("Pick entry to edit, anything else to go back: ");
+        try {
+          int option = Integer.parseInt(answer);
+          if (option >= 1 && option <= list.size()) {
+            Employee selectedEmployee = list.get(option - 1);
+            clearScreen();
+            System.out.println("Employee was previously scheduled to work %.2f hours.%n");
+            Double numHours = readDouble("Enter new amount of hours: ");
+            if (numHours == null) {
+              numHours = 0.0;
+            }
+            currentEvent.setHours(selectedEmployee, numHours);
+            return new Transition(Transition.Type.SUCCESS);
+          } else {
+            return new Transition(Transition.Type.SUCCESS);
+          }
+        } catch (NumberFormatException e) {
+          return new Transition(Transition.Type.SUCCESS);
+        }
       case "2":
         result = new SelectEmployeeScreen().show(null);
         if (result.getType() == Transition.Type.REPLY) {
           Employee employee = (Employee) result.getPayload();
-          currentEvent.addStaff(employee);
+          Double numHours = clsAndReadDouble("Enter number of hours the employee is scheduled to work: ");
+          if (numHours == null) {
+            numHours = 0.0;
+          }
+          currentEvent.addStaff(employee, numHours);
           return new Transition(Transition.Type.SUCCESS, "Employee successfully added to staff list.");
         } else {
           return result;
@@ -42,7 +66,7 @@ public class ManageStaff extends MenuScreen {
       case "3":
         ArrayList<Employee> filteredEmployees = filterEmployees();
         clearScreen();
-        int index = 1;
+        index = 1;
         for (Employee employee: filteredEmployees) {
           System.out.printf("[%d] %s%n", index++, employee);
         }

@@ -25,6 +25,6 @@ public class CreateMenu extends MenuScreen {
   }
 
   public void showContent() {
-    printPadding();
+    clearScreen();
   }
 }

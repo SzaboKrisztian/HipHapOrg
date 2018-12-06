@@ -40,13 +40,6 @@ public abstract class MenuScreen extends Screen {
     return action;
   }
 
-  void printPadding() {
-    int linesToPrint = 50;
-    for (int i = 0; i < linesToPrint; i++) {
-      System.out.printf("%n");
-    }
-  }
-
   void addMenuOption(String key, String name) {
     this.options.put(key, name);
   }

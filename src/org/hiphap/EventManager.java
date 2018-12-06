@@ -39,18 +39,6 @@ public class EventManager {
     FileManager.saveBinaryDataToFile(EVENTS_DATA_FILE, events);
   }
 
-  public ArrayList<Event> searchByName(String name) {
-    ArrayList<Event> result = new ArrayList<>();
-
-    for (Event event: events) {
-      if (event.getName().toLowerCase().contains(name)) {
-        result.add(event);
-      }
-    }
-
-    return result;
-  }
-
   public void addEvent(Event event) {
     events.add(event);
     saveEventData();
@@ -71,12 +59,42 @@ public class EventManager {
     }
   }
 
+  public ArrayList<Event> searchByName(String name) {
+    ArrayList<Event> result = new ArrayList<>();
+
+    if (UserManager.getInstance().getCurrentUser().isAdmin()) {
+      for (Event event : events) {
+        if (event.getName().toLowerCase().contains(name)) {
+          result.add(event);
+        }
+      }
+    } else {
+      for (Event event : events) {
+        if (event.getName().toLowerCase().contains(name) &&
+            event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
+          result.add(event);
+        }
+      }
+    }
+
+    return result;
+  }
+
   public ArrayList<Event> searchByLocation(String location) {
     ArrayList<Event> result = new ArrayList<>();
 
-    for (Event event: events) {
-      if (event.getLocation().toLowerCase().contains(location)) {
-        result.add(event);
+    if (UserManager.getInstance().getCurrentUser().isAdmin()) {
+      for (Event event : events) {
+        if (event.getLocation().toLowerCase().contains(location)) {
+          result.add(event);
+        }
+      }
+    } else {
+      for (Event event : events) {
+        if (event.getLocation().toLowerCase().contains(location) &&
+            event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
+          result.add(event);
+        }
       }
     }
 
@@ -86,12 +104,24 @@ public class EventManager {
   public ArrayList<Event> searchByDate(LocalDateTime time) {
     ArrayList<Event> result = new ArrayList<>();
 
-    for (Event event: events) {
-      if ((event.getStart() != null && (event.getStart().toLocalDate().isBefore(time.toLocalDate()) ||
-          event.getStart().toLocalDate().isEqual(time.toLocalDate()))) &&
-          (event.getFinish() != null && (event.getFinish().toLocalDate().isAfter(time.toLocalDate()) ||
-          event.getFinish().toLocalDate().isEqual(time.toLocalDate())))) {
-        result.add(event);
+    if (UserManager.getInstance().getCurrentUser().isAdmin()) {
+      for (Event event : events) {
+        if ((event.getStart() != null && (event.getStart().toLocalDate().isBefore(time.toLocalDate()) ||
+            event.getStart().toLocalDate().isEqual(time.toLocalDate()))) &&
+            (event.getFinish() != null && (event.getFinish().toLocalDate().isAfter(time.toLocalDate()) ||
+            event.getFinish().toLocalDate().isEqual(time.toLocalDate())))) {
+          result.add(event);
+        }
+      }
+    } else {
+      for (Event event : events) {
+        if ((event.getStart() != null && (event.getStart().toLocalDate().isBefore(time.toLocalDate()) ||
+            event.getStart().toLocalDate().isEqual(time.toLocalDate()))) &&
+            (event.getFinish() != null && (event.getFinish().toLocalDate().isAfter(time.toLocalDate()) ||
+            event.getFinish().toLocalDate().isEqual(time.toLocalDate()))) &&
+            event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
+          result.add(event);
+        }
       }
     }
 

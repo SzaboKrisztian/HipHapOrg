@@ -15,7 +15,7 @@ public class SelectOrganizationScreen extends MenuScreen {
 
   @Override
   void showContent() {
-    printPadding();
+    clearScreen();
   }
 
   @Override

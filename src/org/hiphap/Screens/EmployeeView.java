@@ -72,7 +72,7 @@ public class EmployeeView extends MenuScreen {
   }
 
   public void showContent() {
-    printPadding();
+    clearScreen();
     System.out.println("Employee name: " + currentEmployee.toString());
     System.out.println("Email address: " + (currentEmployee.getEmail().equals("") ?
         "N/A" : currentEmployee.getEmail()));

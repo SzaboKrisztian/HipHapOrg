@@ -64,7 +64,7 @@ public class OrganizationView extends MenuScreen {
   }
 
   public void showContent() {
-    printPadding();
+    clearScreen();
     System.out.println("Organization name: " + currentOrganization.getName());
     System.out.println("Address: " + (currentOrganization.getAddress().equals("") ?
         "N/A" : currentOrganization.getAddress()));

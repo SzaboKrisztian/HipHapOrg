@@ -55,6 +55,6 @@ public class SelectMenu extends MenuScreen {
   }
 
   public void showContent() {
-    printPadding();
+    clearScreen();
   }
 }

@@ -43,7 +43,7 @@ public class LoginScreen extends MenuScreen {
   }
 
   public void showContent() {
-    printPadding();
+    clearScreen();
     if (this.message != null) {
       System.out.println(message + "\n");
     }

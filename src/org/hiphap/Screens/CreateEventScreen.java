@@ -21,7 +21,7 @@ public class CreateEventScreen extends Screen {
     newEvent.setEventType(pickEventType());
     newEvent.setLocation(clsAndReadString("Enter the event's location: "));
     String startText = clsAndReadString("Enter the event's start as yyyy-mm-dd hh:mm:ss: ");
-    String finishText = clsAndReadString("Enter the event's end as yyyy-mm-dd hh:mm:ss: ");
+    String finishText = readString("Enter the event's end as yyyy-mm-dd hh:mm:ss: ");
     LocalDateTime start, finish;
     try {
       start = LocalDateTime.parse(startText, Event.DT_FORMAT);

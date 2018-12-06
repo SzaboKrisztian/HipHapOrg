@@ -83,7 +83,7 @@ public class EventEditDetails extends MenuScreen {
   }
 
   public void showContent() {
-    printPadding();
+    clearScreen();
     System.out.printf("Event name: %s%n", currentEvent.getName());
     System.out.printf("Event type: %s%n", currentEvent.getEventType() == null ? "N/A" : currentEvent.getEventType());
     System.out.printf("Starts: %s%n", currentEvent.getStart() == null ? "N/A" : currentEvent.getStartAsString());

@@ -14,7 +14,7 @@ public class SelectEmployeeScreen extends MenuScreen {
 
   @Override
   void showContent() {
-    printPadding();
+    clearScreen();
   }
 
   @Override
