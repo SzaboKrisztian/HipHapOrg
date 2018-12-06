@@ -1,6 +1,7 @@
 package org.hiphap.Screens;
 
 import org.hiphap.Event;
+import org.hiphap.EventType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -29,7 +30,14 @@ public class EventEditDetails extends MenuScreen {
           return new Transition(Transition.Type.SUCCESS, "Operation cancelled.");
         }
       case "2":
-        return new Transition(Transition.Type.SWITCH, new EventTypeListView(currentEvent));
+        Transition result = new EventTypeListView().show(null);
+        if (result.getType() == Transition.Type.REPLY && result.getPayload() != null) {
+          EventType selectedEventType = (EventType) result.getPayload();
+          this.currentEvent.setEventType(selectedEventType);
+          return new Transition(Transition.Type.SUCCESS, "Event type successfully changed.");
+        } else {
+          return result;
+        }
       case "3":
         clearScreen();
         System.out.println("Old start time: " + currentEvent.getStartAsString());

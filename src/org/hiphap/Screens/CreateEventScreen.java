@@ -1,10 +1,8 @@
 package org.hiphap.Screens;
 
 import org.hiphap.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 
 public class CreateEventScreen extends Screen {
@@ -12,7 +10,7 @@ public class CreateEventScreen extends Screen {
     Event newEvent;
     String eventName = null;
     do {
-      if (eventName != null && eventName.equals("")) {
+      if (eventName != null) {
         System.out.println("This field must be completed");
       }
       eventName = clsAndReadString("Enter the event's name: ");
@@ -46,20 +44,11 @@ public class CreateEventScreen extends Screen {
   }
 
   private EventType pickEventType() {
-    ArrayList<EventType> eventTypes = EventTypeManager.getInstance().getEventTypes();
-    if (eventTypes.isEmpty()) {
-      return null;
+    Transition reply = new EventTypeListView().show(null);
+    if (reply.getType() == Transition.Type.REPLY && reply.getPayload() != null) {
+      return (EventType) reply.getPayload();
     } else {
-      int index = 1;
-      for (EventType eventType: eventTypes) {
-        System.out.printf("[%d] %s%n", index++, eventType.getName());
-      }
-      Integer selection = readInteger("Pick an event type: ");
-      if (selection != null && selection >= 1 && selection <= eventTypes.size()) {
-        return eventTypes.get(selection - 1);
-      } else {
-        return null;
-      }
+      return null;
     }
   }
 }
