@@ -37,7 +37,7 @@ public class ManageStaff extends MenuScreen {
           if (option >= 1 && option <= list.size()) {
             Employee selectedEmployee = list.get(option - 1);
             clearScreen();
-            System.out.println("Employee was previously scheduled to work %.2f hours.%n");
+            System.out.printf("Employee was previously scheduled to work %.2f hours.%n", currentEvent.getHours(selectedEmployee));
             Double numHours = readDouble("Enter new amount of hours: ");
             if (numHours == null) {
               numHours = 0.0;

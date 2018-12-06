@@ -85,7 +85,7 @@ public class EventView extends MenuScreen {
     } else {
       System.out.printf("%n");
     }
-    System.out.printf("No. of attendees: %s%n", currentEvent.getParticipants().isEmpty() ? "N/A" : currentEvent.getParticipants().size());
+    System.out.printf("No. of participants: %s%n", currentEvent.getParticipants().isEmpty() ? "N/A" : currentEvent.getParticipants().size());
     System.out.printf("No. of HHO staff hired: %s, cost: %.2f kr.%n", currentEvent.getStaff().isEmpty() ? "N/A" : currentEvent.getStaff().size(), calculateStaffCost());
     System.out.printf("Total resources cost: %s kr.%n", currentEvent.getEventResources().isEmpty() ? "N/A" : currentEvent.getResourcesCost());
     Double hipHapFee = currentEvent.getResourcesCost() * 0.05 < 1000.0 ? 1000.0 : currentEvent.getResourcesCost() * 0.05;

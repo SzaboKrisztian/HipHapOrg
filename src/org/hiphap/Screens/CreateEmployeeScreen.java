@@ -61,6 +61,6 @@ public class CreateEmployeeScreen extends MenuScreen {
 
   @Override
   void showContent() {
-
+    clearScreen();
   }
 }

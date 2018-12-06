@@ -35,6 +35,7 @@ public class ManageParticipants extends MenuScreen {
         for (Entity item: list) {
           System.out.printf(" - %s%n", item);
         }
+        readString("Any input to continue;");
         return new Transition(Transition.Type.SUCCESS);
       case "2":
         result = new SelectPersonScreen().show(null);
