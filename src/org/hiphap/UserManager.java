@@ -77,6 +77,7 @@ public class UserManager {
     currentUser = null;
   }
 
+  @SuppressWarnings("unchecked")
   public boolean loadUserData() {
     Object data = FileManager.loadBinaryDataFromFile(USERS_DATA_FILE);
     if (data != null) {
@@ -94,17 +95,5 @@ public class UserManager {
 
   public void saveUserData() {
     FileManager.saveBinaryDataToFile(USERS_DATA_FILE, users);
-  }
-
-  public ArrayList<User> searchByName(String name) {
-    ArrayList<User> result = new ArrayList<>();
-
-    for (User user: users) {
-      if (user.getUsername().toLowerCase().contains(name)) {
-        result.add(user);
-      }
-    }
-
-    return result;
   }
 }

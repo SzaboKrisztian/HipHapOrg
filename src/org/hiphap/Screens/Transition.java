@@ -35,20 +35,12 @@ public class Transition {
     return this.type;
   }
 
-  public void setScreen(Screen screen) {
-    this.screen = screen;
-  }
-
   public Screen getScreen() {
     return screen;
   }
 
   public String getMessage() {
     return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
   }
 
   public void setPayload(Object payload) {
@@ -62,6 +54,7 @@ public class Transition {
   public enum Type {
     REPLY,
     SWITCH,
+    COMPOSITION_CHANGE,
     BACK,
     SAVE_DATA,
     LOGOUT,

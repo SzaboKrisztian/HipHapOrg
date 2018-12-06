@@ -12,16 +12,16 @@ import java.util.Set;
 
 
 public class Event implements Serializable {
-  private String name;
-  private LocalDateTime start;
-  private LocalDateTime finish;
-  private String location;
-  private EventType eventType;
-  private LinkedHashMap<Entity, Boolean> organizers;
-  private LinkedHashMap<Entity, Boolean> participants;
-  private ArrayList<EventResource> eventResources;
-  private LinkedHashMap<Employee, Double> staff;
-  private User hipHapOrganizer;
+  protected String name;
+  protected LocalDateTime start;
+  protected LocalDateTime finish;
+  protected String location;
+  protected EventType eventType;
+  protected LinkedHashMap<Entity, Boolean> organizers;
+  protected LinkedHashMap<Entity, Boolean> participants;
+  protected ArrayList<EventResource> eventResources;
+  protected LinkedHashMap<Employee, Double> staff;
+  protected User hipHapOrganizer;
   public static final DateTimeFormatter DT_FORMAT = new DateTimeFormatterBuilder()
       .appendPattern("yyyy-MM-dd[ HH][:mm][:ss]")
       .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
@@ -36,6 +36,19 @@ public class Event implements Serializable {
     participants = new LinkedHashMap<>();
     eventResources = new ArrayList<>();
     staff = new LinkedHashMap<>();
+  }
+
+  public Event(Arrangement arrangement) {
+    this.name = arrangement.name;
+    this.start = arrangement.start;
+    this.finish = arrangement.finish;
+    this.location = arrangement.location;
+    this.eventType = arrangement.eventType;
+    this.organizers = arrangement.organizers;
+    this.participants = arrangement.participants;
+    this.eventResources = arrangement.eventResources;
+    this.staff = arrangement.staff;
+    this.hipHapOrganizer = arrangement.hipHapOrganizer;
   }
 
   public void setName(String name) {
@@ -150,6 +163,23 @@ public class Event implements Serializable {
     return result;
   }
 
+  public Double getHipHapFee() {
+    return getResourcesCost() * 0.05 < 1000.0 ? 1000.0 : getResourcesCost() * 0.05;
+  }
+
+  public Double getStaffCost() {
+    double result = 0.0;
+    for (Employee employee: staff.keySet()) {
+      result += employee.getHourlyRate() * getHours(employee);
+    }
+
+    return result;
+  }
+
+  public Double getTotalEventCost() {
+    return getResourcesCost() + getHipHapFee() + getStaffCost();
+  }
+
   public void addStaff(Employee employee, Double numHours) {
     this.staff.put(employee, numHours);
   }
@@ -171,6 +201,10 @@ public class Event implements Serializable {
     this.staff.put(employee, numHours);
   }
 
+  public boolean isWorking(Employee employee) {
+    return this.staff.containsKey(employee);
+  }
+
   public void setHipHapOrganizer(User hipHapOrganizer) {
     this.hipHapOrganizer = hipHapOrganizer;
   }
@@ -179,5 +213,15 @@ public class Event implements Serializable {
     return this.hipHapOrganizer;
   }
 
-
+  public boolean isScheduleOverlap(Event event) {
+    if (this.start != null && event.start != null) {
+      if (this.finish != null && event.finish != null) {
+        return this.start.isAfter(event.start) && this.start.isBefore(event.finish) ||
+            this.finish.isAfter(event.start) && this.finish.isBefore(event.finish);
+      } else {
+        return this.start.toLocalDate().equals(event.start.toLocalDate());
+      }
+    }
+    return false;
+  }
 }

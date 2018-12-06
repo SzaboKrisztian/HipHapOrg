@@ -12,7 +12,7 @@ public class EmployeeView extends MenuScreen {
         do {
           clearScreen();
           System.out.println("Old name: " + currentEmployee.toString());
-          if (firstName != null && firstName.equals("")) {
+          if (firstName != null) {
             System.out.println("First name cannot be blank.");
           }
           firstName = readString("Input first name: ");

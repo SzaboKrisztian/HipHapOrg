@@ -23,19 +23,17 @@ public class EventTypeManager {
     return this.eventTypes;
   }
 
-  public boolean loadEventTypeData() {
+  @SuppressWarnings("unchecked")
+  public void loadEventTypeData() {
     Object data = FileManager.loadBinaryDataFromFile(EventTypeS_DATA_FILE);
     if (data != null) {
       try {
         eventTypes = (ArrayList<EventType>) data;
         Logger.getInstance().write("EventType data loaded successfully.");
-        return true;
       } catch (ClassCastException e) {
         Logger.getInstance().write("Error loading eventType data: " + e.toString());
-        return false;
       }
     }
-    return false;
   }
 
   public void saveEventTypeData() {
@@ -47,10 +45,9 @@ public class EventTypeManager {
     saveEventTypeData();
   }
 
-  public boolean deleteEventType(EventType eventType) {
-    boolean result = eventTypes.remove(eventType);
+  public void deleteEventType(EventType eventType) {
+    eventTypes.remove(eventType);
     saveEventTypeData();
     EventManager.getInstance().clearEventsOfType(eventType);
-    return result;
   }
 }

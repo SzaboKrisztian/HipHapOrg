@@ -103,7 +103,7 @@ public class FileManager {
           result.append(" and SMS at: ");
           result.append(phone);
         }
-      } else if (!phone.equals("")) {
+      } else {
         result.append("SMS at: ");
         result.append(phone);
       }

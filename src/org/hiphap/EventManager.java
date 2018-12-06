@@ -20,19 +20,17 @@ public class EventManager {
     return instance;
   }
 
-  public boolean loadEventData() {
+  @SuppressWarnings("unchecked")
+  public void loadEventData() {
     Object data = FileManager.loadBinaryDataFromFile(EVENTS_DATA_FILE);
     if (data != null) {
       try {
         events = (ArrayList<Event>) data;
         Logger.getInstance().write("Event data loaded successfully.");
-        return true;
       } catch (ClassCastException e) {
         Logger.getInstance().write("Error loading event data: " + e.toString());
-        return false;
       }
     }
-    return false;
   }
 
   public void saveEventData() {
@@ -106,19 +104,13 @@ public class EventManager {
 
     if (UserManager.getInstance().getCurrentUser().isAdmin()) {
       for (Event event : events) {
-        if ((event.getStart() != null && (event.getStart().toLocalDate().isBefore(time.toLocalDate()) ||
-            event.getStart().toLocalDate().isEqual(time.toLocalDate()))) &&
-            (event.getFinish() != null && (event.getFinish().toLocalDate().isAfter(time.toLocalDate()) ||
-            event.getFinish().toLocalDate().isEqual(time.toLocalDate())))) {
+        if (isTimeInsideEvent(time, event)) {
           result.add(event);
         }
       }
     } else {
       for (Event event : events) {
-        if ((event.getStart() != null && (event.getStart().toLocalDate().isBefore(time.toLocalDate()) ||
-            event.getStart().toLocalDate().isEqual(time.toLocalDate()))) &&
-            (event.getFinish() != null && (event.getFinish().toLocalDate().isAfter(time.toLocalDate()) ||
-            event.getFinish().toLocalDate().isEqual(time.toLocalDate()))) &&
+        if (isTimeInsideEvent(time, event) &&
             event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
           result.add(event);
         }
@@ -126,5 +118,17 @@ public class EventManager {
     }
 
     return result;
+  }
+
+  private boolean isTimeInsideEvent(LocalDateTime time, Event event) {
+    return (event.getStart() != null && (event.getStart().toLocalDate().
+        isBefore(time.toLocalDate()) || event.getStart().toLocalDate().
+        isEqual(time.toLocalDate()))) && (event.getFinish() != null &&
+        (event.getFinish().toLocalDate().isAfter(time.toLocalDate()) ||
+        event.getFinish().toLocalDate().isEqual(time.toLocalDate())));
+  }
+
+  public boolean isTopLevelEvent(Event event) {
+    return this.events.contains(event);
   }
 }

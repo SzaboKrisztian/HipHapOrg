@@ -11,7 +11,7 @@ public class EventResource implements Serializable {
   }
 
   public EventResource(String name, Double cost) {
-    this(name);
+    this.name = name;
     this.cost = cost;
   }
 
@@ -25,9 +25,5 @@ public class EventResource implements Serializable {
 
   public Double getCost() {
     return cost;
-  }
-
-  public void setCost(double cost) {
-    this.cost = cost;
   }
 }

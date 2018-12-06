@@ -12,7 +12,7 @@ public class OrganizationView extends MenuScreen {
         do {
           clearScreen();
           System.out.println("Old name: " + currentOrganization.toString());
-          if (name != null && name.equals("")) {
+          if (name != null) {
             System.out.println("Organization name cannot be blank.");
           }
           name = readString("Input the organization's name: ");

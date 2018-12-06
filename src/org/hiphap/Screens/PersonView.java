@@ -13,7 +13,7 @@ public class PersonView extends MenuScreen {
         do {
           clearScreen();
           System.out.println("Old name: " + currentPerson.toFullString());
-          if (firstName != null && firstName.equals("")) {
+          if (firstName != null) {
             System.out.println("First name cannot be blank.");
           }
           firstName = readString("Input first name: ");

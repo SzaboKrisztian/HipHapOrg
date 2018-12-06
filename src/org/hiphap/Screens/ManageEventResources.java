@@ -29,7 +29,7 @@ public class ManageEventResources extends MenuScreen {
       case "1":
         String name = null;
         do {
-          if (name != null && name.equals("")) {
+          if (name != null) {
             System.out.println("Name cannot be blank.");
           }
           name = clsAndReadString("Enter resource name: ");
@@ -69,17 +69,5 @@ public class ManageEventResources extends MenuScreen {
       default:
         return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
     }
-  }
-
-  private void printResources(String filter) {
-    ArrayList<EventResource> resources = currentEvent.getEventResources(filter);
-    int index = 1;
-    for (EventResource resource: resources) {
-        System.out.printf("[%d] %s - %.2f", index++, resource.getName(), resource.getCost());
-    }
-  }
-
-  private void printResources() {
-    printResources("");
   }
 }

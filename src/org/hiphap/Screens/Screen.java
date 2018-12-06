@@ -38,11 +38,6 @@ public abstract class Screen {
     return input.length() > 0 && input.toLowerCase().startsWith("y");
   }
 
-  public static Integer clsAndReadInteger(String message) {
-    clearScreen();
-    return readInteger(message);
-  }
-
   public static Integer readInteger(String message) {
     System.out.println(message);
     String input = ConsoleManager.getInstance().getScanner().nextLine();

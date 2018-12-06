@@ -61,7 +61,7 @@ public class ManageParticipants extends MenuScreen {
         String firstName = null;
         do {
           clearScreen();
-          if (firstName != null && firstName.equals("")) {
+          if (firstName != null) {
             System.out.println("First name cannot be blank");
           }
           firstName = readString("Enter the person's first name: ");
@@ -78,7 +78,7 @@ public class ManageParticipants extends MenuScreen {
         String name = null;
         do {
           clearScreen();
-          if (name != null && name.equals("")) {
+          if (name != null) {
             System.out.println("Organization name cannot be blank");
           }
           name = readString("Enter the organization's name: ");

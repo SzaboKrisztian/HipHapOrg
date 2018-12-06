@@ -26,18 +26,17 @@ public class LoginScreen extends MenuScreen {
           return new Transition(Transition.Type.ERROR, "Invalid input; try again: ");
       }
     } else {
-      switch (input) {
-        case "1":
-          String username, password;
-          username = clsAndReadString("Enter your username: ");
-          password = clsAndReadString("Enter your password: ");
-          if (UserManager.getInstance().authenticate(username, password)) {
-            return new Transition(Transition.Type.SWITCH, new MainMenuScreen(), "Authentication successful.");
-          } else {
-            return new Transition(Transition.Type.ERROR, "Username and/or password incorrect.");
-          }
-        default:
-          return new Transition(Transition.Type.ERROR, "Invalid input; try again: ");
+      if (input.equals("1")) {
+        String username, password;
+        username = clsAndReadString("Enter your username: ");
+        password = clsAndReadString("Enter your password: ");
+        if (UserManager.getInstance().authenticate(username, password)) {
+          return new Transition(Transition.Type.SWITCH, new MainMenuScreen(), "Authentication successful.");
+        } else {
+          return new Transition(Transition.Type.ERROR, "Username and/or password incorrect.");
+        }
+      } else {
+        return new Transition(Transition.Type.ERROR, "Invalid input; try again: ");
       }
     }
   }

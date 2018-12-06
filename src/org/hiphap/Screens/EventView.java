@@ -1,9 +1,6 @@
 package org.hiphap.Screens;
 
-import org.hiphap.Employee;
-import org.hiphap.Event;
-import org.hiphap.EventManager;
-import org.hiphap.FileManager;
+import org.hiphap.*;
 
 import java.io.IOException;
 
@@ -18,10 +15,12 @@ public class EventView extends MenuScreen {
     addMenuOption("3", "Manage participants");
     addMenuOption("4", "Manage resources");
     addMenuOption("5", "Manage staff");
-    addMenuOption("6", "Manage composition");
-    addMenuOption("7", "Print event report");
-    addMenuOption("8", "Notify subscribed parties");
-    addMenuOption("9", "Delete event");
+    addMenuOption("6", "Print event report");
+    addMenuOption("7", "Notify subscribed parties");
+    addMenuOption("8", "Delete event");
+    if (EventManager.getInstance().isTopLevelEvent(currentEvent)) {
+      addMenuOption("9", "Manage composition");
+    }
   }
 
   Transition handleInput(String input) {
@@ -37,15 +36,13 @@ public class EventView extends MenuScreen {
       case "5":
         return new Transition(Transition.Type.SWITCH, new ManageStaff(currentEvent));
       case "6":
-        return new Transition(Transition.Type.ERROR, "Not implemented yet");
-      case "7":
         try {
           FileManager.printEventReport(currentEvent);
           return new Transition(Transition.Type.SUCCESS, "Event report successfully written.");
         } catch (IOException e) {
           return new Transition(Transition.Type.ERROR, "Error writing report file.");
         }
-      case "8":
+      case "7":
         try {
           boolean result = FileManager.printNotifications(currentEvent);
           if (result) {
@@ -57,7 +54,7 @@ public class EventView extends MenuScreen {
           return new Transition(Transition.Type.ERROR, "Error writing notifications file.");
         }
 
-      case "9":
+      case "8":
         if (clsAndReadBoolean("WARNING! Operation cannot be undone. Are you sure you wish to delete the event?")) {
           if (EventManager.getInstance().deleteEvent(currentEvent)) {
             return new Transition(Transition.Type.BACK, "Event successfully deleted.");
@@ -66,6 +63,15 @@ public class EventView extends MenuScreen {
           }
         } else {
           return new Transition(Transition.Type.ERROR, "Operation aborted.");
+        }
+      case "9":
+        if (EventManager.getInstance().isTopLevelEvent(currentEvent)) {
+          if (currentEvent instanceof Arrangement) {
+            Arrangement currentArrangement = (Arrangement) currentEvent;
+            return new Transition(Transition.Type.SWITCH, new ManageComposition(currentArrangement));
+          } else {
+            return new Transition(Transition.Type.SWITCH, new CompositionPrompt(currentEvent));
+          }
         }
       default:
         return new Transition(Transition.Type.ERROR, "Invalid input; try again.");
@@ -86,20 +92,21 @@ public class EventView extends MenuScreen {
       System.out.printf("%n");
     }
     System.out.printf("No. of participants: %s%n", currentEvent.getParticipants().isEmpty() ? "N/A" : currentEvent.getParticipants().size());
-    System.out.printf("No. of HHO staff hired: %s, cost: %.2f kr.%n", currentEvent.getStaff().isEmpty() ? "N/A" : currentEvent.getStaff().size(), calculateStaffCost());
+    System.out.printf("No. of HHO staff hired: %s, cost: %.2f kr.%n", currentEvent.getStaff().isEmpty() ? "N/A" : currentEvent.getStaff().size(), currentEvent.getStaffCost());
     System.out.printf("Total resources cost: %s kr.%n", currentEvent.getEventResources().isEmpty() ? "N/A" : currentEvent.getResourcesCost());
-    Double hipHapFee = currentEvent.getResourcesCost() * 0.05 < 1000.0 ? 1000.0 : currentEvent.getResourcesCost() * 0.05;
-    System.out.printf("HipHap organizing fee: %.2f kr.%n", hipHapFee);
-    System.out.printf("Total event cost: %.2f kr.%n", calculateStaffCost() + currentEvent.getResourcesCost() + hipHapFee);
+    System.out.printf("HipHap organizing fee: %.2f kr.%n", currentEvent.getHipHapFee());
+    System.out.printf("Total event cost: %.2f kr.%n", currentEvent.getTotalEventCost());
+    if (this.currentEvent instanceof Arrangement) {
+      Double total = 0.0;
+      Arrangement arr = (Arrangement) this.currentEvent;
+      for (Event event: arr.getSubEvents()) {
+        total += event.getTotalEventCost();
+      }
+      System.out.printf("Sub-events total cost: %.2f kr.%n", total);
+      System.out.printf("Grand total cost: %.2f kr. %n", currentEvent.getTotalEventCost() + total);
+    }
     System.out.printf("----------%n");
   }
 
-  private double calculateStaffCost() {
-    double result = 0.0;
-    for (Employee employee: currentEvent.getStaff()) {
-      result += employee.getHourlyRate() * currentEvent.getHours(employee);
-    }
 
-    return result;
-  }
 }

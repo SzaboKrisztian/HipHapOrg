@@ -60,19 +60,17 @@ public class EmployeeManager {
     return this.employees;
   }
 
-  public boolean loadEmployeeData() {
+  @SuppressWarnings("unchecked")
+  public void loadEmployeeData() {
     Object data = FileManager.loadBinaryDataFromFile(EMPLOYEES_DATA_FILE);
     if (data != null) {
       try {
         employees = (ArrayList<Employee>) data;
         Logger.getInstance().write("Employee data loaded successfully.");
-        return true;
       } catch (ClassCastException e) {
         Logger.getInstance().write("Error loading employee data: " + e.toString());
-        return false;
       }
     }
-    return false;
   }
 
   public void saveEmployeeData() {

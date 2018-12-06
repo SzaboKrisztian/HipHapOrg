@@ -71,19 +71,17 @@ public class OrganizationManager {
     return this.organizations;
   }
 
-  public boolean loadOrganizationData() {
+  @SuppressWarnings("unchecked")
+  public void loadOrganizationData() {
     Object data = FileManager.loadBinaryDataFromFile(ORGANIZATIONS_DATA_FILE);
     if (data != null) {
       try {
         organizations = (ArrayList<Organization>) data;
         Logger.getInstance().write("Organization data loaded successfully.");
-        return true;
       } catch (ClassCastException e) {
         Logger.getInstance().write("Error loading organization data: " + e.toString());
-        return false;
       }
     }
-    return false;
   }
 
   public void saveOrganizationData() {

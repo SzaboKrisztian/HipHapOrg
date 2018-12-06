@@ -72,19 +72,17 @@ public class PersonManager {
     return result;
   }
 
-  public boolean loadPersonData() {
+  @SuppressWarnings("unchecked")
+  public void loadPersonData() {
     Object data = FileManager.loadBinaryDataFromFile(PERSONS_DATA_FILE);
     if (data != null) {
       try {
         persons = (ArrayList<Person>) data;
         Logger.getInstance().write("Person data loaded successfully.");
-        return true;
       } catch (ClassCastException e) {
         Logger.getInstance().write("Error loading person data: " + e.toString());
-        return false;
       }
     }
-    return false;
   }
 
   public void savePersonData() {

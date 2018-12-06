@@ -7,19 +7,26 @@ import java.time.format.DateTimeParseException;
 
 public class CreateEventScreen extends Screen {
   public Transition show(String message) {
+    boolean isArrangement =
+        clsAndReadBoolean("Would you like to make this an arrangement of events?");
+    String noun = isArrangement ? "arrangement" : "event";
     Event newEvent;
     String eventName = null;
     do {
       if (eventName != null) {
         System.out.println("This field must be completed");
       }
-      eventName = clsAndReadString("Enter the event's name: ");
+      eventName = clsAndReadString("Enter the " + noun + "'s name: ");
     } while (eventName.equals(""));
-    newEvent = new Event(eventName);
+    if (!isArrangement) {
+      newEvent = new Event(eventName);
+    } else {
+      newEvent = new Arrangement(eventName);
+    }
     newEvent.setEventType(pickEventType());
-    newEvent.setLocation(clsAndReadString("Enter the event's location: "));
-    String startText = clsAndReadString("Enter the event's start as yyyy-mm-dd hh:mm:ss: ");
-    String finishText = readString("Enter the event's end as yyyy-mm-dd hh:mm:ss: ");
+    newEvent.setLocation(clsAndReadString("Enter the " + noun + "'s location: "));
+    String startText = clsAndReadString("Enter the " + noun + "'s start as yyyy-mm-dd hh:mm:ss: ");
+    String finishText = readString("Enter the " + noun + "'s end as yyyy-mm-dd hh:mm:ss: ");
     LocalDateTime start, finish;
     try {
       start = LocalDateTime.parse(startText, Event.DT_FORMAT);
@@ -40,7 +47,7 @@ public class CreateEventScreen extends Screen {
 
     newEvent.setHipHapOrganizer(UserManager.getInstance().getCurrentUser());
     EventManager.getInstance().addEvent(newEvent);
-    return new Transition(Transition.Type.BACK, "Event successfully created.");
+    return new Transition(Transition.Type.BACK, "The " + noun + " was successfully created.");
   }
 
   private EventType pickEventType() {

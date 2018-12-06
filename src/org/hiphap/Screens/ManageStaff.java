@@ -54,6 +54,10 @@ public class ManageStaff extends MenuScreen {
         result = new SelectEmployeeScreen().show(null);
         if (result.getType() == Transition.Type.REPLY) {
           Employee employee = (Employee) result.getPayload();
+          if (isThereScheduleConflict(employee)) {
+            readString("Any input to continue...");
+            return new Transition(Transition.Type.ERROR, "Cannot add employee because of scheduling conflict.");
+          }
           Double numHours = clsAndReadDouble("Enter number of hours the employee is scheduled to work: ");
           if (numHours == null) {
             numHours = 0.0;
@@ -101,5 +105,34 @@ public class ManageStaff extends MenuScreen {
       }
     }
     return filteredEmployees;
+  }
+
+  private boolean isThereScheduleConflict(Employee employee) {
+    ArrayList<Event> workingIn = new ArrayList<>();
+    for (Event event: getAllEvents(EventManager.getInstance().searchByName(""))) {
+      if (event.isWorking(employee)) {
+        workingIn.add(event);
+      }
+    }
+
+    for (Event event: workingIn) {
+      if (currentEvent.isScheduleOverlap(event)) {
+        System.out.println("Schedule overlap with event " + event.getName());
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private ArrayList<Event> getAllEvents(ArrayList<Event> events) {
+    ArrayList<Event> result = new ArrayList<>();
+    for (Event event: events) {
+      result.add(event);
+      if (event instanceof Arrangement) {
+        result.addAll(getAllEvents(((Arrangement) event).getSubEvents()));
+      }
+    }
+    return result;
   }
 }

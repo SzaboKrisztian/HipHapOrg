@@ -1,5 +1,6 @@
 package org.hiphap;
 
+import org.hiphap.Screens.EventView;
 import org.hiphap.Screens.LoginScreen;
 import org.hiphap.Screens.Screen;
 import org.hiphap.Screens.Transition;
@@ -33,7 +34,7 @@ public class Main {
         case BACK:
           do {
             screens.pop();
-          } while (!(screens.peek().isMenuNode()));
+          } while (!screens.peek().isMenuNode());
           break;
         case EXIT:
           promptToSaveChanges();
@@ -42,6 +43,14 @@ public class Main {
           if (UserManager.getInstance().isAuthenticated()) {
             saveAllData();
           }
+        case COMPOSITION_CHANGE:
+          Event newEvent = (Event) result.getPayload();
+          do {
+            screens.pop();
+          } while (!(screens.peek() instanceof EventView));
+          screens.pop();
+          screens.push(new EventView(newEvent));
+          break;
         case SUCCESS:
         case ERROR:
           break;

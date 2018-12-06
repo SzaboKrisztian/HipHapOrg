@@ -40,7 +40,7 @@ public class CreateEmployeeScreen extends MenuScreen {
     Employee newEmployee;
     String firstName = null;
     do {
-      if (firstName != null && firstName.equals("")) {
+      if (firstName != null) {
         System.out.println("This field must be completed");
       }
       firstName = clsAndReadString("Enter the employee's first name: ");
