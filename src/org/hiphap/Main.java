@@ -43,6 +43,7 @@ public class Main {
           if (UserManager.getInstance().isAuthenticated()) {
             saveAllData();
           }
+          break;
         case COMPOSITION_CHANGE:
           Event newEvent = (Event) result.getPayload();
           do {
