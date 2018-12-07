@@ -43,7 +43,7 @@ public class ManageParticipants extends MenuScreen {
           Person person = (Person) result.getPayload();
           subscribeToNotifications = clsAndReadBoolean("Subscribe person to notifications?");
           currentEvent.addParticipant(person, subscribeToNotifications);
-          return new Transition(Transition.Type.SUCCESS, "Person successfully added to attendee list.");
+          return new Transition(Transition.Type.SUCCESS, "Person successfully added to participants list.");
         } else {
           return result;
         }
@@ -53,7 +53,7 @@ public class ManageParticipants extends MenuScreen {
           Organization organization = (Organization) result.getPayload();
           subscribeToNotifications = clsAndReadBoolean("Subscribe organization to notifications?");
           currentEvent.addParticipant(organization, subscribeToNotifications);
-          return new Transition(Transition.Type.SUCCESS, "Organization successfully added to attendee list.");
+          return new Transition(Transition.Type.SUCCESS, "Organization successfully added to participants list.");
         } else {
           return result;
         }
@@ -97,15 +97,11 @@ public class ManageParticipants extends MenuScreen {
         for (Entity entity: filteredAttendees) {
           System.out.printf("[%d] %s%n", index++, entity);
         }
-        Integer choice = readInteger("Select which attendee to delete: ");
+        Integer choice = readInteger("Select which participant to delete: ");
         if (choice != null) {
           if (choice >= 1 && choice <= filteredAttendees.size()) {
-            boolean success = currentEvent.deleteParticipant(filteredAttendees.get(choice - 1));
-            if (success) {
-              return new Transition(Transition.Type.SUCCESS, "Attendee successfully removed from list.");
-            } else {
-              return new Transition(Transition.Type.ERROR, "Error removing attendee from list.");
-            }
+            currentEvent.deleteParticipant(filteredAttendees.get(choice - 1));
+            return new Transition(Transition.Type.SUCCESS, "Participant successfully removed from list.");
           } else {
             return new Transition(Transition.Type.ERROR, "Invalid selection; try again.");
           }

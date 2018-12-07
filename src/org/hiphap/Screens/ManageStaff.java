@@ -54,6 +54,9 @@ public class ManageStaff extends MenuScreen {
         result = new SelectEmployeeScreen().show(null);
         if (result.getType() == Transition.Type.REPLY) {
           Employee employee = (Employee) result.getPayload();
+          if (currentEvent.getStaff().contains(employee)) {
+            return new Transition(Transition.Type.ERROR, "Cannot add the same employee twice.");
+          }
           if (isThereScheduleConflict(employee)) {
             readString("Any input to continue...");
             return new Transition(Transition.Type.ERROR, "Cannot add employee because of scheduling conflict.");

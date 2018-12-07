@@ -120,8 +120,8 @@ public class Event implements Serializable {
     this.participants.put(entity, subscribeForNotifications);
   }
 
-  public boolean deleteParticipant(Entity entity) {
-    return this.participants.remove(entity);
+  public void deleteParticipant(Entity entity) {
+    this.participants.remove(entity);
   }
 
   public ArrayList<Entity> getParticipants() {
