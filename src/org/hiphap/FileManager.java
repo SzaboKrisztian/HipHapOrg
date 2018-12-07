@@ -3,17 +3,30 @@ package org.hiphap;
 import java.io.*;
 import java.util.Map;
 
+/**
+ * This class only holds static methods meant to help with writing to and reading from
+ * files on disk.
+ */
 public class FileManager {
+  /**
+   * Sends out the notifications to the subscribed parties. In our system, this is just
+   * simulated by creating a file under the "notifications" folder and writing them there.
+   * The filename is generated based on the {@link Event} object's name.
+   *
+   * @param event the {@link Event} to whose subscribed parties to send notifications to
+   * @return true if there is at least one party found that subscribed to notifications
+   * @throws IOException if there is any error while writing the file to disk
+   */
   public static boolean printNotifications(Event event) throws IOException {
     boolean found = false;
-    for (Map.Entry<Entity, Boolean> entry: event.getOrganizersAsEntrySet()) {
+    for (Map.Entry<Entity, Boolean> entry : event.getOrganizersAsEntrySet()) {
       if (entry.getValue()) {
         found = true;
         break;
       }
     }
     if (!found) {
-      for (Map.Entry<Entity, Boolean> entry: event.getParticipantsAsEntrySet()) {
+      for (Map.Entry<Entity, Boolean> entry : event.getParticipantsAsEntrySet()) {
         if (entry.getValue()) {
           found = true;
           break;
@@ -46,6 +59,13 @@ public class FileManager {
     return false;
   }
 
+  /**
+   * Export {@link Employee}, {@link Organization}, and {@link Person} data to csv files
+   * under the "exported_data" folder. The associated files are called, in turn, "employees.csv",
+   * "organizations.csv", and "persons.csv". These are overwritten if the already exist.
+   *
+   * @throws IOException if there is any error while writing the files to disk
+   */
   public static void exportCsvData() throws IOException {
     String path = "exported_data";
     File directory = new File(path);
@@ -53,7 +73,7 @@ public class FileManager {
 
     File outputFile = new File(path.concat(File.separator).concat("employees.csv"));
     PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
-    for (Employee employee: EmployeeManager.getInstance().getEmployees()) {
+    for (Employee employee : EmployeeManager.getInstance().getEmployees()) {
       writer.println(employee.getCsvString());
     }
     writer.flush();
@@ -61,7 +81,7 @@ public class FileManager {
 
     outputFile = new File(path.concat(File.separator).concat("organizations.csv"));
     writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
-    for (Organization organization: OrganizationManager.getInstance().getOrganizations()) {
+    for (Organization organization : OrganizationManager.getInstance().getOrganizations()) {
       writer.println(organization.getCsvString());
     }
     writer.flush();
@@ -69,13 +89,21 @@ public class FileManager {
 
     outputFile = new File(path.concat(File.separator).concat("persons.csv"));
     writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
-    for (Person person: PersonManager.getInstance().getPersons()) {
+    for (Person person : PersonManager.getInstance().getPersons()) {
       writer.println(person.getCsvString());
     }
     writer.flush();
     writer.close();
   }
 
+  /**
+   * Print a report under the "reports" folder, for a particular {@link Event} object,
+   * containing a summary of all the data associated with it. The file name is generated
+   * based on the {@link Event} object's name.
+   *
+   * @param event the {@link Event} based on which to generate the report
+   * @throws IOException if there is any error while writing the file to disk
+   */
   public static void printEventReport(Event event) throws IOException {
     String path = "reports";
     File directory = new File(path);
@@ -109,7 +137,7 @@ public class FileManager {
       writer.printf("%s%n", event.getParticipants().get(size - 1));
     }
     writer.printf("Event resources: %.2f kr.%n", event.getResourcesCost());
-    for (EventResource eventResource: event.getEventResources()) {
+    for (EventResource eventResource : event.getEventResources()) {
       writer.printf(" - %s", eventResource.getName());
       if (eventResource.getCost() != null) {
         writer.printf(": %.2f", eventResource.getCost());
@@ -128,6 +156,13 @@ public class FileManager {
     writer.close();
   }
 
+  /**
+   * Generates a single notification line based on available contact details
+   * of a particular {@link Entity}.
+   *
+   * @param entity the {@link Entity} for who to generate the notification
+   * @return a {@link String} containing the notification text
+   */
   private static String buildNotificationString(Entity entity) {
     StringBuilder result = new StringBuilder();
     String email = entity.getEmail();
@@ -151,6 +186,12 @@ public class FileManager {
     return result.toString();
   }
 
+  /**
+   * Deserialize an {@link Object} from binary data in a file.
+   *
+   * @param filename the file whose contents are to be deserialized
+   * @return an {@link Object} holding the data from the file
+   */
   public static Object loadBinaryDataFromFile(String filename) {
     FileInputStream fileInputStream;
     try {
@@ -169,6 +210,12 @@ public class FileManager {
     return null;
   }
 
+  /**
+   * Serialize an {@link Object} as binary data and write it to a file.
+   *
+   * @param filename the file to which to write
+   * @param object   the {@link Object} to be written
+   */
   public static void saveBinaryDataToFile(String filename, Object object) {
     FileOutputStream fileOutputStream;
     ObjectOutputStream objectOutputStream;

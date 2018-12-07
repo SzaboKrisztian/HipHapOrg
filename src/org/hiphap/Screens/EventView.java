@@ -56,11 +56,8 @@ public class EventView extends MenuScreen {
 
       case "8":
         if (clsAndReadBoolean("WARNING! Operation cannot be undone. Are you sure you wish to delete the event?")) {
-          if (EventManager.getInstance().deleteEvent(currentEvent)) {
-            return new Transition(Transition.Type.BACK, "Event successfully deleted.");
-          } else {
-            return new Transition(Transition.Type.ERROR, "Error deleting event.");
-          }
+          EventManager.getInstance().deleteEvent(currentEvent);
+          return new Transition(Transition.Type.BACK, "Event successfully deleted.");
         } else {
           return new Transition(Transition.Type.ERROR, "Operation aborted.");
         }
@@ -89,7 +86,7 @@ public class EventView extends MenuScreen {
     System.out.printf("Starts: %s%n", currentEvent.getStart() == null ? "N/A" : currentEvent.getStartAsString());
     System.out.printf("Ends: %s%n", currentEvent.getFinish() == null ? "N/A" : currentEvent.getFinishAsString());
     System.out.printf("Location: %s%n", (currentEvent.getLocation() == null || currentEvent.getLocation().equals("")) ? "N/A" : currentEvent.getLocation());
-    System.out.printf("Organized for: %s", currentEvent.getOrganizers().isEmpty() ? "N/A" : currentEvent.getOrganizers().get(0));
+    System.out.printf("Organized by: %s", currentEvent.getOrganizers().isEmpty() ? "N/A" : currentEvent.getOrganizers().get(0));
     if (currentEvent.getOrganizers().size() > 1) {
       System.out.printf(" plus %d more.%n", currentEvent.getOrganizers().size() - 1);
     } else {

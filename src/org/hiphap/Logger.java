@@ -7,9 +7,15 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class was used during development for easily writing error messages to log files.
+ * Such functionality was needed because the system console was used for the user interface,
+ * thus making debugging sometimes difficult. The DEBUG_MODE flag should be set to false in
+ * production.
+ */
 public class Logger {
   private static Logger instance;
-  private final boolean DEBUG_MODE = true;
+  private final boolean DEBUG_MODE = false;
   private File logFile;
   private PrintWriter writer;
 

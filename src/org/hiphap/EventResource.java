@@ -2,8 +2,17 @@ package org.hiphap;
 
 import java.io.Serializable;
 
+/**
+ * This class represents a good or a service that's purchased or hired for an event
+ */
 public class EventResource implements Serializable {
+  /**
+   * A {@link String} representation of this resource's name
+   */
   private String name;
+  /**
+   * A {@link Double} representation of the associated cost. Can be null
+   */
   private Double cost;
 
   public EventResource(String name) {

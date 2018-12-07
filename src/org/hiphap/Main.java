@@ -10,7 +10,19 @@ import java.util.Stack;
 
 import static org.hiphap.Screens.Screen.clsAndReadBoolean;
 
+/**
+ * This class is the main entry point in the program. The main function also holds the
+ * program's infinite loop, which manages a stack of {@link Screen} objects, that represent
+ * each GUI screen. These communicate among themselves by the way of {@link Transition} objects
+ * that tell the main loop what action to take next, and can optionally also pass {@link String}
+ * messages and arbitrary {@link Object}s among each other.
+ */
 public class Main {
+  /**
+   * The program's entry point
+   *
+   * @param args command line arguments are ignored as they serve no function
+   */
   public static void main(String[] args) {
     initData();
     Stack<Screen> screens = new Stack<>();
@@ -59,6 +71,10 @@ public class Main {
     }
   }
 
+  /**
+   * Initializes all the singleton manager classes. This has the side effect of
+   * also loading all the data from the associated files.
+   */
   private static void initData() {
     File directory = new File("data");
     if (directory.mkdir()) {
@@ -69,10 +85,14 @@ public class Main {
     EventManager.getInstance();
     PersonManager.getInstance();
     OrganizationManager.getInstance();
-    EmployeeManager.getInstance().loadEmployeeData();
+    EmployeeManager.getInstance();
     EventTypeManager.getInstance();
   }
 
+  /**
+   * A final prompt to save all system data, used before logging the {@link User} out
+   * or completely exiting the program.
+   */
   private static void promptToSaveChanges() {
     if (UserManager.getInstance().isAuthenticated()) {
       boolean result = clsAndReadBoolean("Do you wish to save changes before leaving?");
@@ -82,11 +102,15 @@ public class Main {
     }
   }
 
+  /**
+   * Make each singleton manager class save its respective data to the associated file.
+   */
   private static void saveAllData() {
     EventManager.getInstance().saveEventData();
     UserManager.getInstance().saveUserData();
     PersonManager.getInstance().savePersonData();
     OrganizationManager.getInstance().saveOrganizationData();
     EmployeeManager.getInstance().saveEmployeeData();
+    EventTypeManager.getInstance().saveEventTypeData();
   }
 }

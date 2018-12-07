@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 
 /**
- * This class inherits event, and adds the ability to hold other events within itself.
- * It represents the concepts of arrangements of events.
+ * This class inherits the {@link Event} class, and adds the ability to hold other
+ * events within itself. It represents the concepts of arrangements of events.
  */
 public class Arrangement extends Event {
   private ArrayList<Event> subEvents = new ArrayList<>();
@@ -13,7 +13,7 @@ public class Arrangement extends Event {
   /**
    * Constructor that creates a new Arrangement object
    *
-   * @param name  sets the name of the arrangement. Cannot be blank.
+   * @param name sets the name of the arrangement. Cannot be blank.
    */
   public Arrangement(String name) {
     super(name);
@@ -22,7 +22,7 @@ public class Arrangement extends Event {
   /**
    * Constructor that creates an arrangement based on another existing event.
    *
-   * @param event  sets all the attributes to the event's attributes.
+   * @param event sets all the attributes to the event's attributes.
    */
   public Arrangement(Event event) {
     super(event.name);
@@ -38,9 +38,9 @@ public class Arrangement extends Event {
   }
 
   /**
-   * Add an event to the arrangement's collection of sub-events.
+   * Add an {@link Event} to the arrangement's collection of sub-events.
    *
-   * @param event  the event to be added
+   * @param event the {@link Event} to be added
    */
   public void addSubEvent(Event event) {
     this.subEvents.add(event);
@@ -56,9 +56,9 @@ public class Arrangement extends Event {
   }
 
   /**
-   * Deletes an event from the arrangement's sub-events collection.
+   * Deletes an {@link Event} from the arrangement's sub-events collection.
    *
-   * @param event  the event to be removed
+   * @param event the {@link Event} to be removed
    */
   public void removeEvent(Event event) {
     this.subEvents.remove(event);

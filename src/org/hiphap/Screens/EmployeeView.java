@@ -48,11 +48,8 @@ public class EmployeeView extends MenuScreen {
       case "5":
         if (clsAndReadBoolean("WARNING! Operation cannot be undone. Are you " +
             "sure you wish to delete this employee?")) {
-          if (EmployeeManager.getInstance().deleteEmployee(currentEmployee)) {
-            return new Transition(Transition.Type.BACK, "Employee successfully deleted.");
-          } else {
-            return new Transition(Transition.Type.ERROR, "Error deleting person.");
-          }
+          EmployeeManager.getInstance().deleteEmployee(currentEmployee);
+          return new Transition(Transition.Type.BACK, "Employee successfully deleted.");
         } else {
           return new Transition(Transition.Type.ERROR, "Operation aborted.");
         }

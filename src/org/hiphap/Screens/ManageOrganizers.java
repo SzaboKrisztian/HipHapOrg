@@ -100,12 +100,8 @@ public class ManageOrganizers extends MenuScreen {
         Integer choice = readInteger("Select which organizer to delete: ");
         if (choice != null) {
           if (choice >= 1 && choice <= filteredOrganizers.size()) {
-            boolean success = currentEvent.deleteOrganizer(filteredOrganizers.get(choice - 1));
-            if (success) {
-              return new Transition(Transition.Type.SUCCESS, "Organizer successfully removed from list.");
-            } else {
-              return new Transition(Transition.Type.ERROR, "Error removing organizer from list.");
-            }
+            currentEvent.deleteOrganizer(filteredOrganizers.get(choice - 1));
+            return new Transition(Transition.Type.SUCCESS, "Organizer successfully removed from list.");
           } else {
             return new Transition(Transition.Type.ERROR, "Invalid selection; try again.");
           }

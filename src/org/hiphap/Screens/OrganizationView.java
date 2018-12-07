@@ -40,11 +40,8 @@ public class OrganizationView extends MenuScreen {
       case "5":
         if (clsAndReadBoolean("WARNING! Operation cannot be undone. Are you " +
             "sure you wish to delete this organization?")) {
-          if (OrganizationManager.getInstance().deleteOrganization(currentOrganization)) {
-            return new Transition(Transition.Type.BACK, "Organization successfully deleted.");
-          } else {
-            return new Transition(Transition.Type.ERROR, "Error deleting organization.");
-          }
+          OrganizationManager.getInstance().deleteOrganization(currentOrganization);
+          return new Transition(Transition.Type.BACK, "Organization successfully deleted.");
         } else {
           return new Transition(Transition.Type.ERROR, "Operation aborted.");
         }

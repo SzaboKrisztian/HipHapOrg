@@ -80,12 +80,8 @@ public class ManageStaff extends MenuScreen {
         Integer choice = readInteger("Select which employee to remove: ");
         if (choice != null) {
           if (choice >= 1 && choice <= filteredEmployees.size()) {
-            boolean success = currentEvent.deleteStaff(filteredEmployees.get(choice - 1));
-            if (success) {
-              return new Transition(Transition.Type.SUCCESS, "Employee successfully removed from list.");
-            } else {
-              return new Transition(Transition.Type.ERROR, "Error removing employee from list.");
-            }
+            currentEvent.deleteStaff(filteredEmployees.get(choice - 1));
+            return new Transition(Transition.Type.SUCCESS, "Employee successfully removed from list.");
           } else {
             return new Transition(Transition.Type.ERROR, "Invalid selection; try again.");
           }

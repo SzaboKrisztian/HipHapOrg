@@ -39,11 +39,8 @@ public class PersonView extends MenuScreen {
       case "4":
         if (clsAndReadBoolean("WARNING! Operation cannot be undone. Are you " +
             "sure you wish to delete this person?")) {
-          if (PersonManager.getInstance().deletePerson(currentPerson)) {
-            return new Transition(Transition.Type.BACK, "Person successfully deleted.");
-          } else {
-            return new Transition(Transition.Type.ERROR, "Error deleting person.");
-          }
+          PersonManager.getInstance().deletePerson(currentPerson);
+          return new Transition(Transition.Type.BACK, "Person successfully deleted.");
         } else {
           return new Transition(Transition.Type.ERROR, "Operation aborted.");
         }

@@ -31,7 +31,7 @@ public class ManageParticipants extends MenuScreen {
     boolean subscribeToNotifications;
     switch (input) {
       case "1":
-        ArrayList<Entity> list = filterAttendees();
+        ArrayList<Entity> list = filterParticipants();
         for (Entity item: list) {
           System.out.printf(" - %s%n", item);
         }
@@ -73,7 +73,7 @@ public class ManageParticipants extends MenuScreen {
         newPerson.setEmail(clsAndReadString("Enter the person's email address: "));
         subscribeToNotifications = clsAndReadBoolean("Subscribe person to notifications?");
         currentEvent.addParticipant(newPerson, subscribeToNotifications);
-        return new Transition(Transition.Type.SUCCESS, "Person successfully added to attendee list.");
+        return new Transition(Transition.Type.SUCCESS, "Person successfully added to participant list.");
       case "5":
         String name = null;
         do {
@@ -89,18 +89,18 @@ public class ManageParticipants extends MenuScreen {
         newOrganization.setEmail(clsAndReadString("Enter the organization's email address: "));
         subscribeToNotifications = clsAndReadBoolean("Subscribe organization to notifications?");
         currentEvent.addParticipant(newOrganization, subscribeToNotifications);
-        return new Transition(Transition.Type.SUCCESS, "Organization successfully added to attendee list.");
+        return new Transition(Transition.Type.SUCCESS, "Organization successfully added to participant list.");
       case "6":
-        ArrayList<Entity> filteredAttendees = filterAttendees();
+        ArrayList<Entity> filteredParticipants = filterParticipants();
         clearScreen();
         int index = 1;
-        for (Entity entity: filteredAttendees) {
+        for (Entity entity: filteredParticipants) {
           System.out.printf("[%d] %s%n", index++, entity);
         }
         Integer choice = readInteger("Select which participant to delete: ");
         if (choice != null) {
-          if (choice >= 1 && choice <= filteredAttendees.size()) {
-            currentEvent.deleteParticipant(filteredAttendees.get(choice - 1));
+          if (choice >= 1 && choice <= filteredParticipants.size()) {
+            currentEvent.deleteParticipant(filteredParticipants.get(choice - 1));
             return new Transition(Transition.Type.SUCCESS, "Participant successfully removed from list.");
           } else {
             return new Transition(Transition.Type.ERROR, "Invalid selection; try again.");
@@ -113,24 +113,24 @@ public class ManageParticipants extends MenuScreen {
     }
   }
 
-  private ArrayList<Entity> filterAttendees() {
+  private ArrayList<Entity> filterParticipants() {
     String query = clsAndReadString("Enter a search query");
-    ArrayList<Entity> filteredAttendees = new ArrayList<>();
+    ArrayList<Entity> filteredParticipants = new ArrayList<>();
     for (Entity entity: currentEvent.getParticipants()) {
       if (entity instanceof Person) {
         Person item = (Person) entity;
         if (item.getFirstName().toLowerCase().contains(query.toLowerCase())
             || item.getMiddleName().toLowerCase().contains(query.toLowerCase())
             || item.getLastName().toLowerCase().contains(query.toLowerCase())) {
-          filteredAttendees.add(item);
+          filteredParticipants.add(item);
         }
       } else if (entity instanceof Organization) {
         Organization item = (Organization) entity;
         if (item.getName().toLowerCase().contains(query.toLowerCase())) {
-          filteredAttendees.add(item);
+          filteredParticipants.add(item);
         }
       }
     }
-    return filteredAttendees;
+    return filteredParticipants;
   }
 }
