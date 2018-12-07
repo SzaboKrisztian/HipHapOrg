@@ -35,7 +35,7 @@ public class ManageComposition extends MenuScreen {
       switch (input) {
         case "n":
           arrangement.addSubEvent(new Event(clsAndReadString("Enter a name for the new event: ")));
-          return new Transition(Transition.Type.SUCCESS, "Event successfully added.");
+          return new Transition(Transition.Type.BACK, "Event successfully added.");
         case "m":
           Transition reply = new SelectEventScreen().show(null);
           if (reply.getType() == Transition.Type.REPLY && reply.getPayload() != null) {

@@ -36,6 +36,7 @@ public class Event implements Serializable {
     participants = new LinkedHashMap<>();
     eventResources = new ArrayList<>();
     staff = new LinkedHashMap<>();
+    hipHapOrganizer = UserManager.getInstance().getCurrentUser();
   }
 
   public Event(Arrangement arrangement) {
