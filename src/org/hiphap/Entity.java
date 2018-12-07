@@ -28,4 +28,6 @@ public abstract class Entity implements Serializable, CsvPrintable {
   }
 
   public abstract String toString();
+
+  public abstract boolean containsInName(String string);
 }

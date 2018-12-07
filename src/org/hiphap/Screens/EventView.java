@@ -80,8 +80,12 @@ public class EventView extends MenuScreen {
 
   public void showContent() {
     clearScreen();
-    System.out.printf("Event name: %s%n", currentEvent.getName());
-    System.out.printf("Event type: %s%n", currentEvent.getEventType() == null ? "N/A" : currentEvent.getEventType());
+    String noun = "Event";
+    if (currentEvent instanceof Arrangement) {
+      noun = "Arrangement";
+    }
+    System.out.printf(noun + " name: %s%n", currentEvent.getName());
+    System.out.printf(noun + " type: %s%n", currentEvent.getEventType() == null ? "N/A" : currentEvent.getEventType());
     System.out.printf("Starts: %s%n", currentEvent.getStart() == null ? "N/A" : currentEvent.getStartAsString());
     System.out.printf("Ends: %s%n", currentEvent.getFinish() == null ? "N/A" : currentEvent.getFinishAsString());
     System.out.printf("Location: %s%n", (currentEvent.getLocation() == null || currentEvent.getLocation().equals("")) ? "N/A" : currentEvent.getLocation());
@@ -95,7 +99,7 @@ public class EventView extends MenuScreen {
     System.out.printf("No. of HHO staff hired: %s, cost: %.2f kr.%n", currentEvent.getStaff().isEmpty() ? "N/A" : currentEvent.getStaff().size(), currentEvent.getStaffCost());
     System.out.printf("Total resources cost: %s kr.%n", currentEvent.getEventResources().isEmpty() ? "N/A" : currentEvent.getResourcesCost());
     System.out.printf("HipHap organizing fee: %.2f kr.%n", currentEvent.getHipHapFee());
-    System.out.printf("Total event cost: %.2f kr.%n", currentEvent.getTotalEventCost());
+    System.out.printf("Total cost: %.2f kr.%n", currentEvent.getTotalEventCost());
     if (this.currentEvent instanceof Arrangement) {
       Double total = 0.0;
       Arrangement arr = (Arrangement) this.currentEvent;

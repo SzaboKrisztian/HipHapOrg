@@ -12,6 +12,7 @@ public class SelectEventScreen extends MenuScreen {
     addMenuOption("1", "Find by name");
     addMenuOption("2", "Find by date");
     addMenuOption("3", "Find by location");
+    addMenuOption("4", "Find by organizer");
   }
 
   @Override
@@ -41,6 +42,10 @@ public class SelectEventScreen extends MenuScreen {
       case "3":
         query = clsAndReadString("Enter an event location to search for: ");
         result = EventManager.getInstance().searchByLocation(query);
+        break;
+      case "4":
+        query = clsAndReadString("Enter a name to search for: ");
+        result = EventManager.getInstance().searchByOrganizer(query);
         break;
       default:
         return new Transition(Transition.Type.ERROR, "Invalid input; try again.");

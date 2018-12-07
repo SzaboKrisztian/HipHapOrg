@@ -48,6 +48,13 @@ public class Person extends Entity {
     return result;
   }
 
+  @Override
+  public boolean containsInName(String string) {
+    return this.firstName.toLowerCase().contains(string.toLowerCase()) ||
+        this.lastName.toLowerCase().contains(string.toLowerCase()) ||
+        this.middleName.toLowerCase().contains(string.toLowerCase());
+  }
+
   public String toFullString() {
     String result = this.firstName;
     if (!this.middleName.equals("")) {
