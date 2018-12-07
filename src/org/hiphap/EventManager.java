@@ -62,13 +62,13 @@ public class EventManager {
 
     if (UserManager.getInstance().getCurrentUser().isAdmin()) {
       for (Event event : events) {
-        if (event.getName().toLowerCase().contains(name)) {
+        if (event.getName().toLowerCase().contains(name.toLowerCase())) {
           result.add(event);
         }
       }
     } else {
       for (Event event : events) {
-        if (event.getName().toLowerCase().contains(name) &&
+        if (event.getName().toLowerCase().contains(name.toLowerCase()) &&
             event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
           result.add(event);
         }
@@ -83,13 +83,13 @@ public class EventManager {
 
     if (UserManager.getInstance().getCurrentUser().isAdmin()) {
       for (Event event : events) {
-        if (event.getLocation().toLowerCase().contains(location)) {
+        if (event.getLocation().toLowerCase().contains(location.toLowerCase())) {
           result.add(event);
         }
       }
     } else {
       for (Event event : events) {
-        if (event.getLocation().toLowerCase().contains(location) &&
+        if (event.getLocation().toLowerCase().contains(location.toLowerCase()) &&
             event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
           result.add(event);
         }
@@ -113,6 +113,34 @@ public class EventManager {
         if (isTimeInsideEvent(time, event) &&
             event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
           result.add(event);
+        }
+      }
+    }
+
+    return result;
+  }
+
+  public ArrayList<Event> searchByOrganizer(String string) {
+    ArrayList<Event> result = new ArrayList<>();
+
+    if (UserManager.getInstance().getCurrentUser().isAdmin()) {
+      for (Event event : events) {
+        for (Entity entity: event.getOrganizers()) {
+          if (entity.containsInName(string.toLowerCase())) {
+            result.add(event);
+            break;
+          }
+        }
+      }
+    } else {
+      for (Event event : events) {
+        if (event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
+          for (Entity entity: event.getOrganizers()) {
+            if (entity.containsInName(string.toLowerCase())) {
+              result.add(event);
+              break;
+            }
+          }
         }
       }
     }

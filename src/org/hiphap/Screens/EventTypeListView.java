@@ -54,7 +54,7 @@ public class EventTypeListView extends MenuScreen {
         try {
           int renOption = Integer.parseInt(renInput);
           if (renOption >= 1 && renOption <= eventTypes.size()) {
-            EventType selected = eventTypes.get(renOption);
+            EventType selected = eventTypes.get(renOption - 1);
             String newName = clsAndReadString("Old name: " + selected.getName() + "\nInput new name: ");
             if (!newName.equals("")) {
               selected.setName(newName);

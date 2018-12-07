@@ -23,6 +23,7 @@ public class CreateEventScreen extends Screen {
     } else {
       newEvent = new Arrangement(eventName);
     }
+    System.out.println("Select the event's type: ");
     newEvent.setEventType(pickEventType());
     newEvent.setLocation(clsAndReadString("Enter the " + noun + "'s location: "));
     String startText = clsAndReadString("Enter the " + noun + "'s start as yyyy-mm-dd hh:mm:ss: ");

@@ -158,7 +158,9 @@ public class Event implements Serializable {
   public Double getResourcesCost() {
     Double result = 0.0;
     for (EventResource resource: eventResources) {
-      result += resource.getCost();
+      if (resource.getCost() != null) {
+        result += resource.getCost();
+      }
     }
     return result;
   }

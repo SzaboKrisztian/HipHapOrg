@@ -83,7 +83,39 @@ public class FileManager {
     File outputFile = new File(path.concat(File.separator).concat(event.
         getName().replace(' ', '_')).concat(".txt"));
     PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
-    writer.println("There will be contents");
+    writer.printf("General report for event: %s%n", event.getName());
+    writer.printf("Type of event: %s%n", event.eventType == null ? "N/A" : event.eventType.getName());
+    writer.printf("Event location: %s%n", event.location.equals("") ? "N/A" : event.getLocation());
+    writer.printf("Starting date and time: %s%n", event.getStart() == null ? "N/A" : event.getStart().format(Event.DT_FORMAT));
+    writer.printf("Ending date and time: %s%n", event.getFinish() == null ? "N/A" : event.getFinish().format(Event.DT_FORMAT));
+    writer.printf("Event created by system user: %s%n", event.getHipHapOrganizer().getUsername());
+    writer.println("Event organized for: ");
+    int i = 0, size = event.getOrganizers().size();
+    while (i < size - 2) {
+      writer.printf("%s, ", event.getOrganizers().get(i++));
+    }
+    writer.printf("%s%n", event.getOrganizers().get(size - 1));
+    size = event.getParticipants().size();
+    writer.printf("Participants: %d%n", size);
+    i = 0;
+    while (i < size - 2) {
+      writer.printf("%s, ", event.getParticipants().get(i++));
+    }
+    writer.printf("%s%n", event.getParticipants().get(size - 1));
+    writer.printf("Event resources: %.2f kr.%n", event.getResourcesCost());
+    for (EventResource eventResource: event.getEventResources()) {
+      writer.printf(" - %s", eventResource.getName());
+      if (eventResource.getCost() != null) {
+        writer.printf(": %.2f", eventResource.getCost());
+      }
+      writer.printf("%n");
+    }
+    writer.printf("Event staff: %d hired.%n", event.getStaff().size());
+    StringBuilder staffString = new StringBuilder();
+    for (Employee employee: event.getStaff()) {
+      staffString.append(employee).append(", ");
+    }
+    writer.print(staffString.toString().substring(0, staffString.length() - 2));
     writer.flush();
     writer.close();
   }

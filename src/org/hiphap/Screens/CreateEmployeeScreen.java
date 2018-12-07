@@ -3,6 +3,7 @@ package org.hiphap.Screens;
 import org.hiphap.Employee;
 import org.hiphap.EmployeeManager;
 import org.hiphap.Person;
+import org.hiphap.PersonManager;
 
 public class CreateEmployeeScreen extends MenuScreen {
   public CreateEmployeeScreen() {
@@ -26,7 +27,8 @@ public class CreateEmployeeScreen extends MenuScreen {
           }
           newEmployee.setHourlyRate(hourlyRate);
           EmployeeManager.getInstance().addEmployee(newEmployee);
-          return new Transition(Transition.Type.BACK, "Employee successfully created.");
+          PersonManager.getInstance().deletePerson(person);
+          return new Transition(Transition.Type.BACK, "Employee successfully created and removed from persons database.");
         } else {
           return result;
         }

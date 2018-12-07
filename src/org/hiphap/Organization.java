@@ -28,6 +28,11 @@ public class Organization extends Entity {
     return this.name;
   }
 
+  @Override
+  public boolean containsInName(String string) {
+    return this.name.toLowerCase().contains(string.toLowerCase());
+  }
+
   public String getCsvString() {
     return getName().concat("|").concat(getAddress()).concat("|").concat(getEmail()).
         concat("|").concat(getPhone());
