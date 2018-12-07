@@ -40,6 +40,9 @@ public class ManageComposition extends MenuScreen {
           Transition reply = new SelectEventScreen().show(null);
           if (reply.getType() == Transition.Type.REPLY && reply.getPayload() != null) {
             Event selectedEvent = (Event) reply.getPayload();
+            if (selectedEvent instanceof Arrangement) {
+              return new Transition(Transition.Type.ERROR, "Cannot add an arrangement to another arrangement");
+            }
             arrangement.addSubEvent(selectedEvent);
             EventManager.getInstance().deleteEvent(selectedEvent);
             return new Transition(Transition.Type.SUCCESS, "Event successfully moved into arrangement.");
