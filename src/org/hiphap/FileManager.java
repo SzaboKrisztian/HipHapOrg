@@ -85,7 +85,7 @@ public class FileManager {
     PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
     writer.printf("General report for event: %s%n", event.getName());
     writer.printf("Type of event: %s%n", event.eventType == null ? "N/A" : event.eventType.getName());
-    writer.printf("Event location: %s%n", event.location.equals("") ? "N/A" : event.getLocation());
+    writer.printf("Event location: %s%n", event.location == null || event.location.equals("") ? "N/A" : event.getLocation());
     writer.printf("Starting date and time: %s%n", event.getStart() == null ? "N/A" : event.getStart().format(Event.DT_FORMAT));
     writer.printf("Ending date and time: %s%n", event.getFinish() == null ? "N/A" : event.getFinish().format(Event.DT_FORMAT));
     writer.printf("Event created by system user: %s%n", event.getHipHapOrganizer().getUsername());

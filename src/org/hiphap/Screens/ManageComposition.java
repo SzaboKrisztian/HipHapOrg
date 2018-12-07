@@ -69,7 +69,7 @@ public class ManageComposition extends MenuScreen {
           if (arrangement.getSubEvents().isEmpty()) {
             EventManager.getInstance().addEvent(new Event(this.arrangement));
             EventManager.getInstance().deleteEvent(this.arrangement);
-            return new Transition(Transition.Type.SUCCESS, "Arrangement successfully transformed into event.");
+            return new Transition(Transition.Type.COMPOSITION_CHANGE, "Arrangement successfully transformed into event.");
           } else {
             return new Transition(Transition.Type.ERROR, "Arrangement must first be free of sub-events");
           }
