@@ -6,7 +6,7 @@ import org.hiphap.UserManager;
 public class ManageUsers extends MenuScreen {
   public ManageUsers() {
     addMenuOption("1", "List system users");
-    addMenuOption("2", "Change current user's password");
+    addMenuOption("2", "Change user password");
     addMenuOption("3", "Create new user");
     addMenuOption("4", "Delete user");
   }
@@ -22,7 +22,7 @@ public class ManageUsers extends MenuScreen {
     switch (input) {
       case "1":
         clearScreen();
-        for (String username: UserManager.getInstance().getUsernames()) {
+        for (String username : UserManager.getInstance().getUsernames()) {
           System.out.printf(" - %s%n", username);
         }
         readString("Any input to continue...\n");
@@ -39,13 +39,18 @@ public class ManageUsers extends MenuScreen {
   }
 
   private Transition changePassword() {
-    String oldPassword = clsAndReadString("Enter old password: ");
-    String newPassword = clsAndReadString("Enter new password: ");
-    String repeatPassword = clsAndReadString("Confirm new password: ");
-    if (UserManager.getInstance().getCurrentUser().changePassword(oldPassword, newPassword, repeatPassword)) {
-      return new Transition(Transition.Type.SUCCESS, "Password successfully changed.");
+    String username = clsAndReadString("Which user's password would you like to change? ");
+    if (UserManager.getInstance().isUsernameTaken(username)) {
+      String oldPassword = clsAndReadString("Enter old password: ");
+      String newPassword = clsAndReadString("Enter new password: ");
+      String repeatPassword = clsAndReadString("Confirm new password: ");
+      if (UserManager.getInstance().changePassword(username, oldPassword, newPassword, repeatPassword)) {
+        return new Transition(Transition.Type.SUCCESS, "Password successfully changed.");
+      } else {
+        return new Transition(Transition.Type.ERROR, "Wrong password, or new passwords do not match.");
+      }
     } else {
-      return new Transition(Transition.Type.ERROR, "Wrong password, or new passwords do not match.");
+      return new Transition(Transition.Type.ERROR, "No such user exists.");
     }
   }
 

@@ -75,23 +75,24 @@ public class EventManager {
   }
 
   /**
-   * Sets the {@link EventType} attribute to null for all {@link Event} objects within the
-   * system that match the parameter.
+   * Sets the {@link EventType} attribute to a new {@link EventType} for all {@link Event} objects
+   * within the system that match the first parameter.
    *
    * @param type the {@link EventType} to check against
+   * @param newType the {@link EventType} to replace with. Can be null
    */
-  public void clearEventsOfType(EventType type) {
+  public void renameEventType(EventType type, EventType newType) {
     for (Event event : events) {
       if (event instanceof Arrangement) {
         Arrangement arrangement = (Arrangement) event;
         for (Event event1 : arrangement.getSubEvents()) {
           if (event1.getEventType() == type) {
-            event1.setEventType(null);
+            event1.setEventType(newType);
           }
         }
       }
       if (event.getEventType() == type) {
-        event.setEventType(null);
+        event.setEventType(newType);
       }
     }
   }

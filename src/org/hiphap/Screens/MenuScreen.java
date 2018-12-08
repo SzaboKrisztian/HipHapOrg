@@ -36,7 +36,7 @@ public abstract class MenuScreen extends Screen {
     if (message != null) {
       System.out.println(message);
     }
-    String input = ConsoleManager.getInstance().getScanner().nextLine();
+    String input = readString("Pick an option: ");
     switch (input.toLowerCase()) {
       case "x":
         action = new Transition(Transition.Type.EXIT);

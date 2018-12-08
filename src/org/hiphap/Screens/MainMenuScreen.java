@@ -12,7 +12,7 @@ public class MainMenuScreen extends MenuScreen {
     addMenuOption("2", "Select...");
     if (UserManager.getInstance().getCurrentUser().isAdmin()) {
       addMenuOption("3", "Manage users");
-      addMenuOption("4", "Export csv data");
+      addMenuOption("4", "Export CSV data");
     }
   }
 

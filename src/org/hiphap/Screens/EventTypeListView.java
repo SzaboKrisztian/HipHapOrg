@@ -1,5 +1,6 @@
 package org.hiphap.Screens;
 
+import org.hiphap.EventManager;
 import org.hiphap.EventType;
 import org.hiphap.EventTypeManager;
 
@@ -55,13 +56,15 @@ public class EventTypeListView extends MenuScreen {
           int renOption = Integer.parseInt(renInput);
           if (renOption >= 1 && renOption <= eventTypes.size()) {
             EventType selected = eventTypes.get(renOption - 1);
+            EventType old = selected;
             String newName = clsAndReadString("Old name: " + selected.getName() + "\nInput new name: ");
             if (!newName.equals("")) {
               selected.setName(newName);
+              EventManager.getInstance().renameEventType(old, selected);
+              return new Transition(Transition.Type.SUCCESS, "Successfully renamed entry.");
             } else {
               return new Transition(Transition.Type.ERROR, "Operation aborted.");
             }
-            return new Transition(Transition.Type.SUCCESS, "Successfully renamed entry.");
           } else {
             return new Transition(Transition.Type.ERROR, "Invalid option; try again.");
           }

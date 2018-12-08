@@ -50,7 +50,7 @@ public class UserManager {
    */
   public ArrayList<String> getUsernames() {
     ArrayList<String> result = new ArrayList<>();
-    for (User user: users) {
+    for (User user : users) {
       result.add(user.getUsername());
     }
     return result;
@@ -83,7 +83,7 @@ public class UserManager {
    * @return true if login was successful
    */
   public boolean authenticate(String username, String password) {
-    for (User user: users) {
+    for (User user : users) {
       if (user.getUsername().equals(username)) {
         if (user.authenticate(password)) {
           currentUser = user;
@@ -101,7 +101,7 @@ public class UserManager {
    * @return true if the username is already registered on the system
    */
   public boolean isUsernameTaken(String username) {
-    for (User user: users) {
+    for (User user : users) {
       if (username.equals(user.getUsername())) {
         return true;
       }
@@ -116,7 +116,7 @@ public class UserManager {
    * @return true if the {@link User} was successfully removed.
    */
   public boolean deleteUser(String username) {
-    for (User user: users) {
+    for (User user : users) {
       if (user.getUsername().equals(username)) {
         return users.remove(user);
       }
@@ -159,6 +159,32 @@ public class UserManager {
       }
     }
     return false;
+  }
+
+  /**
+   * Changes the password of a particular {@link User} on the system
+   *
+   * @param username        the username that's password is to be changed
+   * @param password        the respective user's old password
+   * @param newPassword     the desired new password
+   * @param confirmPassword confirmation of the new password
+   * @return true if the username is registered on the system, and the password is
+   * correct, and the newPassword and confirmPassword match.
+   */
+  public boolean changePassword(String username, String password, String newPassword, String confirmPassword) {
+    boolean result = false;
+    if (isUsernameTaken(username)) {
+      User selectedUser = null;
+      for (User user : users) {
+        if (user.getUsername().equals(username)) {
+          selectedUser = user;
+        }
+      }
+      if (selectedUser != null) {
+        result = selectedUser.changePassword(password, newPassword, confirmPassword);
+      }
+    }
+    return result;
   }
 
   /**

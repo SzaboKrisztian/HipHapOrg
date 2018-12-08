@@ -75,6 +75,6 @@ public class EventTypeManager {
   public void deleteEventType(EventType eventType) {
     eventTypes.remove(eventType);
     saveEventTypeData();
-    EventManager.getInstance().clearEventsOfType(eventType);
+    EventManager.getInstance().renameEventType(eventType, null);
   }
 }

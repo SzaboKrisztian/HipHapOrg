@@ -5,7 +5,7 @@ package org.hiphap;
  * easier for it to be reused under several different events. It inherits from
  * the {@link Person} class, and further adds the attribute of an hourly rate.
  */
-public class Employee extends Person implements CsvPrintable {
+public class Employee extends Person {
   /**
    * A {@link Double} representation of this Employee's hourly rate that is
    * used to calculate the pay for any particular event that the he/she will
