@@ -38,12 +38,15 @@ public class CreateEventScreen extends Screen {
           newEvent.setFinish(finish);
         } else {
           System.out.println("Finishing time must be after starting time.");
+          readString("[Enter] to continue...");
         }
       } catch (DateTimeParseException e) {
         System.out.println("Error parsing finishing date/time. No value set;");
+        readString("[Enter] to continue...");
       }
     } catch (DateTimeParseException e) {
       System.out.println("Error parsing starting date/time. No value set;");
+      readString("[Enter] to continue...");
     }
 
     newEvent.setHipHapOrganizer(UserManager.getInstance().getCurrentUser());

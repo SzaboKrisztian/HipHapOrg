@@ -32,7 +32,7 @@ public class ManageComposition extends MenuScreen {
         return new Transition(Transition.Type.ERROR, "Invalid option; try again.");
       }
     } catch (NumberFormatException e) {
-      switch (input) {
+      switch (input.toLowerCase()) {
         case "n":
           arrangement.addSubEvent(new Event(clsAndReadString("Enter a name for the new event: ")));
           return new Transition(Transition.Type.BACK, "Event successfully added.");
