@@ -44,9 +44,11 @@ public class Main {
           screens.push(new LoginScreen("Logout successful."));
           break;
         case BACK:
-          do {
-            screens.pop();
-          } while (!screens.peek().isMenuNode());
+          if (screens.size() > 1) {
+            do {
+              screens.pop();
+            } while (!screens.peek().isMenuNode());
+          }
           break;
         case EXIT:
           promptToSaveChanges();
