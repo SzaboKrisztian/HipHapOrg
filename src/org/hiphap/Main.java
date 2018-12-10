@@ -46,7 +46,7 @@ public class Main {
         case BACK:
           do {
             screens.pop();
-          } while (!screens.peek().isMenuNode());
+          } while (screens.size() > 1 && !screens.peek().isMenuNode());
           break;
         case EXIT:
           promptToSaveChanges();

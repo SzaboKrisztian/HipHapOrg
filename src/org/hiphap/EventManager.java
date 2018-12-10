@@ -118,7 +118,7 @@ public class EventManager {
     } else {
       for (Event event : events) {
         if (event.getName().toLowerCase().contains(name.toLowerCase()) &&
-            event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
+            event.getHipHapOrganizer().getUsername().equals(UserManager.getInstance().getCurrentUser().getUsername())) {
           result.add(event);
         }
       }
@@ -148,7 +148,7 @@ public class EventManager {
     } else {
       for (Event event : events) {
         if (event.getLocation().toLowerCase().contains(location.toLowerCase()) &&
-            event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
+            event.getHipHapOrganizer().getUsername().equals(UserManager.getInstance().getCurrentUser().getUsername())) {
           result.add(event);
         }
       }
@@ -178,7 +178,7 @@ public class EventManager {
     } else {
       for (Event event : events) {
         if (isTimeInsideEvent(time, event) &&
-            event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
+            event.getHipHapOrganizer().getUsername().equals(UserManager.getInstance().getCurrentUser().getUsername())) {
           result.add(event);
         }
       }
@@ -211,7 +211,7 @@ public class EventManager {
       }
     } else {
       for (Event event : events) {
-        if (event.getHipHapOrganizer() == UserManager.getInstance().getCurrentUser()) {
+        if (event.getHipHapOrganizer().getUsername().equals(UserManager.getInstance().getCurrentUser().getUsername())) {
           for (Entity entity : event.getOrganizers()) {
             if (entity.containsInName(string.toLowerCase())) {
               result.add(event);
